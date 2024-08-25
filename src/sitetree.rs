@@ -1,10 +1,6 @@
 //! Site tree management for the Blog Builder.
 
-use std::{
-    path::{
-        PathBuf,
-    },
-};
+use std::path::PathBuf;
 
 use walkdir::{
     DirEntry,
@@ -60,6 +56,8 @@ impl SiteTree {
             .filter_map(|e| e.ok())
             .filter(is_source_file)
             .map(|f| f.path().to_owned())
+            .filter_map(|p| pathdiff::diff_paths(p, &source_directory))
+            .map(|f| f.with_extension(""))
             .collect::<Vec<PathBuf>>();
 
         Ok (Self {
