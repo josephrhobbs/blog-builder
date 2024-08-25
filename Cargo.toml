@@ -3,8 +3,12 @@ resolver = "2"
 members = [
     "blog_cfg",
     "blog_cli",
+    "blog_emt",
     "blog_env",
-    "blog_err", "blog_grt", "blog_str",
+    "blog_err",
+    "blog_grt",
+    "blog_prs",
+    "blog_str",
 ]
 
 [package]
@@ -33,6 +37,9 @@ path = "./blog_env"
 
 [dependencies.blog_err]
 path = "./blog_err"
+
+[dependencies.blog_prs]
+path = "./blog_prs"
 
 [dependencies.blog_str]
 path = "./blog_str"

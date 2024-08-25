@@ -7,6 +7,7 @@ use std::{
         Debug,
         Display
     },
+    process,
 };
 
 use anyhow::Result as AnyResult;
@@ -20,6 +21,34 @@ pub type BlogResult<T> = AnyResult<T>;
 pub enum BlogError {
     /// Could not find root
     CouldNotFindRoot,
+
+    /// Unrecognized control sequence
+    UnrecognizedControlSequence (String),
+
+    /// Could not open file
+    CannotOpenFile (String),
+
+    /// Unrecognized token
+    UnrecognizedToken (String),
+
+    /// Expected token of given class
+    ExpectedTokenOfClass (String),
+
+    /// Unexpected EOF
+    UnexpectedEof,
+
+    /// Too many hashes
+    TooManyHashes (String),
+}
+
+impl BlogError {
+    /// Throw this error and exit.
+    pub fn throw(&self) -> ! {
+        println!("Error: {}", self);
+
+        // Exit
+        process::exit(1);
+    }
 }
 
 impl Error for BlogError { }
@@ -35,6 +64,12 @@ impl Display for BlogError {
         use BlogError::*;
         let err = match self {
             CouldNotFindRoot => &format!("could not find file '{}' in any parent directory", CONFIG_FILE_NAME),
+            UnrecognizedControlSequence (ctrl) => &format!("unrecognized control sequence: {}", ctrl),
+            CannotOpenFile (file) => &format!("could not open file '{}'", file),
+            UnrecognizedToken (token) => &format!("unrecognized token: {}", token),
+            ExpectedTokenOfClass (class) => &format!("expected token of class: {}", class),
+            UnexpectedEof => "unexpected end of file",
+            TooManyHashes (hashes) => &format!("too many hashes: {}", hashes),
         };
 
         write!(f, "{}", err)
