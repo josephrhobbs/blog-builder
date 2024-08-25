@@ -12,15 +12,15 @@ use blog::{
 };
 
 fn main() -> BlogResult<()> {
+    // Parse CLI arguments
     let cli = Cli::new();
 
+    // Get the sitetree, if it exists
     let sitetree = SiteTree::get();
 
-    let config = Config::get();
-
-    dbg!(&cli.subcommand);
-    dbg!(&sitetree);
-    dbg!(&config);
+    // Get configuration information
+    // from TOML file
+    let _config = Config::get(&sitetree);
 
     use Subcommand::*;
     match cli.subcommand {

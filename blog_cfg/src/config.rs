@@ -7,11 +7,14 @@ use std::{
 
 use serde::Deserialize;
 
-use blog_err::BlogResult;
+use blog_err::{
+    BlogError,
+    BlogResult,
+};
 
 use blog_env::CONFIG_FILE_NAME;
 
-use blog_grt::getroot;
+use blog_str::SiteTree;
 
 #[derive(Deserialize, Debug)]
 /// A configuration file that dictates Blog Builder settings.
@@ -45,13 +48,18 @@ impl Config {
     /// Get information from the site configuration file.
     ///
     /// # Parameters
-    /// None.
+    /// - `sitetree` (`&BlogResult<SiteTree>`): a reference
+    /// to the sitetree, if it exists.
     /// 
     /// # Returns
     /// A `BlogResult<Config>` structure with all configuration information.
-    pub fn get() -> BlogResult<Config> {
+    pub fn get(sitetree: &BlogResult<SiteTree>) -> BlogResult<Config> {
         // Get site root
-        let root = getroot()?;
+        let root = if let Ok (st) = sitetree.as_ref() {
+            st.root.to_owned()
+        } else {
+            return Err (BlogError::CouldNotFindRoot.into());
+        };
 
         // Construct configuration file name
         let config_file: PathBuf = root.join(CONFIG_FILE_NAME);

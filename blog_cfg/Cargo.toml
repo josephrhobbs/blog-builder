@@ -20,5 +20,5 @@ path = "../blog_env"
 [dependencies.blog_err]
 path = "../blog_err"
 
-[dependencies.blog_grt]
-path = "../blog_grt"
+[dependencies.blog_str]
+path = "../blog_str"

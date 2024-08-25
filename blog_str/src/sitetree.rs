@@ -25,7 +25,7 @@ use blog_err::BlogResult;
 
 use blog_grt::getroot;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 /// A website tree.
 /// 
 /// This represents a list of all files in this website
@@ -36,6 +36,9 @@ use blog_grt::getroot;
 /// source directory of the site, and it is used to construct
 /// the HTML directory of the site.
 pub struct SiteTree {
+    /// Root directory of the site.
+    pub root: PathBuf,
+
     /// Source directory of the site.
     source_directory: PathBuf,
     
@@ -80,6 +83,7 @@ impl SiteTree {
             .collect::<Vec<PathBuf>>();
         
         Ok (Self {
+            root,
             source_directory,
             output_directory,
             files,
