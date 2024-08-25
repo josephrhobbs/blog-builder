@@ -26,7 +26,7 @@ impl Cli {
     }
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 /// Subcommands available to the user.
 pub enum Subcommand {
     /// Print help information to the user.
@@ -37,6 +37,9 @@ pub enum Subcommand {
 
     /// Build the site.
     Build,
+
+    /// Clean the site (delete the output directory).
+    Clean,
 }
 
 impl Subcommand {
@@ -67,6 +70,7 @@ impl Subcommand {
                 Subcommand::New (argument)
             },
             "build" => Subcommand::Build,
+            "clean" => Subcommand::Clean,
             _ => Subcommand::Help,
         }
     }

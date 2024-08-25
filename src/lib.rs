@@ -18,10 +18,19 @@ pub const CONFIG_FILE_NAME: &str = "blog.toml";
 /// Source directory name.
 pub const SOURCE_DIR_NAME: &str = "source";
 
+/// Output directory name.
+pub const OUTPUT_DIR_NAME: &str = "html";
+
 /// Source file extension.
 pub const SOURCE_FILE_EXT: &str = "txt";
 
-pub use cli::Cli;
+/// Output file extension.
+pub const OUTPUT_FILE_EXT: &str = "html";
+
+pub use cli::{
+    Cli,
+    Subcommand,
+};
 
 pub use config::Config;
 
