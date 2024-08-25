@@ -36,9 +36,6 @@ use blog_grt::getroot;
 /// source directory of the site, and it is used to construct
 /// the HTML directory of the site.
 pub struct SiteTree {
-    /// Root directory of the site.
-    root: PathBuf,
-
     /// Source directory of the site.
     source_directory: PathBuf,
     
@@ -83,7 +80,6 @@ impl SiteTree {
             .collect::<Vec<PathBuf>>();
         
         Ok (Self {
-            root,
             source_directory,
             output_directory,
             files,
@@ -129,13 +125,9 @@ impl SiteTree {
     /// A `BlogResult<()>` indicating whether or not the site
     /// was built correctly.
     pub fn build(&self, convert: impl Fn(String) -> String) -> BlogResult<()> {
-        println!("Root: {}", self.root.display());
-
         for file in &self.files {
             // Construct the source file
             let source_file = self.source_directory.join(file).with_extension(SOURCE_FILE_EXT);
-
-            println!("Source file: {}", source_file.display());
 
             // Read the source
             let source = fs::read_to_string(&source_file)?;
@@ -145,8 +137,6 @@ impl SiteTree {
 
             // Construct the output file
             let output_file = self.output_directory.join(file).with_extension(OUTPUT_FILE_EXT);
-
-            println!("Output file: {}", output_file.display());
 
             // Create the output directory
             fs::create_dir_all(&output_file.parent().unwrap())?;

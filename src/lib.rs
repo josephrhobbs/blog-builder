@@ -34,6 +34,10 @@ pub mod cfg {
     };
 }
 
+pub mod help {
+    pub use blog_env::HELP;
+}
+
 pub mod err {
     pub use blog_err::{
         BlogError,

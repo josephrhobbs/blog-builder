@@ -8,11 +8,10 @@ use blog::{
     },
     cfg::Config,
     site::SiteTree,
+    help::HELP,
 };
 
 fn main() -> BlogResult<()> {
-    println!("Blog Builder");
-
     let cli = Cli::new();
 
     let sitetree = SiteTree::get();
@@ -28,7 +27,7 @@ fn main() -> BlogResult<()> {
         New (name) => SiteTree::new(name)?,
         Build => sitetree?.build(|i| i)?,
         Clean => sitetree?.clean()?,
-        Help => todo!(),
+        Help => println!("{}", HELP),
     }
 
     Ok (())
