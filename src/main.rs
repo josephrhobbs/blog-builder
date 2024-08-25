@@ -7,7 +7,11 @@ use blog::{
         Subcommand,
     },
     cfg::Config,
-    site::SiteTree,
+    site::{
+        SiteTree,
+        Parser,
+        Emitter,
+    },
     help::HELP,
 };
 
@@ -20,12 +24,21 @@ fn main() -> BlogResult<()> {
 
     // Get configuration information
     // from TOML file
-    let _config = Config::get(&sitetree);
+    let config = Config::get(&sitetree);
+
+    // Construct a parser
+    let parser = Parser::new();
+
+    // Construct an emitter
+    let emitter = Emitter::new(config?);
+
+    // Construct a map from source to output
+    let convert = |source: String| emitter.emit(parser.parse(&source));
 
     use Subcommand::*;
     match cli.subcommand {
         New (name) => SiteTree::new(name)?,
-        Build => sitetree?.build(|i| i)?,
+        Build => sitetree?.build(convert)?,
         Clean => sitetree?.clean()?,
         Help => println!("{}", HELP),
     }

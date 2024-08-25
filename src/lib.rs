@@ -47,4 +47,6 @@ pub mod err {
 
 pub mod site {
     pub use blog_str::SiteTree;
+    pub use blog_emt::Emitter;
+    pub use blog_prs::Parser;
 }

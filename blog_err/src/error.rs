@@ -39,6 +39,15 @@ pub enum BlogError {
 
     /// Too many hashes
     TooManyHashes (String),
+
+    /// Cannot find file
+    CannotFindFile (String),
+
+    /// Cannot read file
+    CannotReadFile (String),
+
+    /// Cannot write to file
+    CannotWriteFile (String),
 }
 
 impl BlogError {
@@ -70,6 +79,9 @@ impl Display for BlogError {
             ExpectedTokenOfClass (class) => &format!("expected token of class: {}", class),
             UnexpectedEof => "unexpected end of file",
             TooManyHashes (hashes) => &format!("too many hashes: {}", hashes),
+            CannotFindFile (file) => &format!("cannot find file: {}", file),
+            CannotReadFile (file) => &format!("cannot read file: {}", file),
+            CannotWriteFile (file) => &format!("cannot write to file: {}", file),
         };
 
         write!(f, "{}", err)

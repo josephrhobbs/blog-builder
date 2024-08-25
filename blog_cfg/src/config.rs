@@ -25,16 +25,39 @@ use blog_str::SiteTree;
 pub struct Config {
     /// Site configuration information.
     pub site: SiteConfig,
+
+    /// Analytics information.
+    pub analytics: AnalyticsConfig,
+
+    /// Menu information.
+    pub menu: MenuConfig,
 }
 
 #[derive(Deserialize, Debug)]
 /// Configuration information for the site.
 pub struct SiteConfig {
     /// Site name (to appear in page title).
-    pub sitename: String,
+    pub name: String,
+
+    /// Site icon path (for favicon).
+    pub icon: Option<String>,
 
     /// Site style (for CSS source).
     pub style: Option<SiteStyle>,
+}
+
+#[derive(Deserialize, Debug)]
+/// Configuration information for analytics.
+pub struct AnalyticsConfig {
+    /// Analytics source file.
+    pub path: Option<String>,
+}
+
+#[derive(Deserialize, Debug)]
+/// Configuration information for site menu.
+pub struct MenuConfig {
+    /// Menu source file.
+    pub path: Option<String>,
 }
 
 #[derive(Deserialize, Debug)]

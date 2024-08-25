@@ -74,7 +74,7 @@ impl Metadata {
                         .open(filename)
                     {
                         Ok (f) => f,
-                        Err (_) => Error::CannotFindFile.throw_msg(filename),
+                        Err (_) => BlogError::CannotFindFile (filename).throw(),
                     };
                     let mut contents = String::new();
                     match file.read_to_string(&mut contents) {
