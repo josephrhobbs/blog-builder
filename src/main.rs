@@ -15,7 +15,7 @@ fn main() -> BlogResult<()> {
 
     let cli = Cli::new();
 
-    let sitetree = SiteTree::new().unwrap();
+    let sitetree = SiteTree::get();
 
     let config = Config::get();
 
@@ -23,10 +23,12 @@ fn main() -> BlogResult<()> {
     dbg!(&sitetree);
     dbg!(&config);
 
-    if cli.subcommand == Subcommand::Build {
-        sitetree.build(|i| i)?;
-    } else if cli.subcommand == Subcommand::Clean {
-        sitetree.clean()?;
+    use Subcommand::*;
+    match cli.subcommand {
+        New (name) => SiteTree::new(name)?,
+        Build => sitetree?.build(|i| i)?,
+        Clean => sitetree?.clean()?,
+        Help => todo!(),
     }
 
     Ok (())

@@ -15,6 +15,10 @@ use blog_env::{
     SOURCE_FILE_EXT,
     OUTPUT_DIR_NAME,
     OUTPUT_FILE_EXT,
+    INDEX_FILE_NAME,
+    CONFIG_FILE_NAME,
+    DEFAULT_INDEX,
+    DEFAULT_CONFIG,
 };
 
 use blog_err::BlogResult;
@@ -53,7 +57,7 @@ impl SiteTree {
     /// 
     /// # Returns
     /// A new website tree object.
-    pub fn new() -> BlogResult<Self> {
+    pub fn get() -> BlogResult<Self> {
         // Get the root directory of the website
         let root = getroot()?;
 
@@ -84,6 +88,35 @@ impl SiteTree {
             output_directory,
             files,
         })
+    }
+
+    /// Construct a new site.
+    /// 
+    /// # Parameters
+    /// - `name` (`String`): the name of the site directory
+    /// 
+    /// # Returns
+    /// A `BlogResult<()>` indicating whether or not the site
+    /// was constructed correctly.
+    pub fn new(name: String) -> BlogResult<()> {
+        let root: PathBuf = PathBuf::from(&name);
+
+        // Create the root
+        fs::create_dir_all(&name)?;
+
+        // Create the source directory
+        let source = root.join(SOURCE_DIR_NAME);
+        fs::create_dir_all(&source)?;
+
+        // Create config file
+        let toml = root.join(CONFIG_FILE_NAME);
+        fs::write(toml, DEFAULT_CONFIG)?;
+
+        // Create index file
+        let index = source.join(INDEX_FILE_NAME);
+        fs::write(index, DEFAULT_INDEX)?;
+
+        Ok (())
     }
 
     /// Build a site by applying a given closure to each file.

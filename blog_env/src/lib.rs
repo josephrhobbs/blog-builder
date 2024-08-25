@@ -20,3 +20,12 @@ pub const SOURCE_FILE_EXT: &str = "txt";
 
 /// Output file extension.
 pub const OUTPUT_FILE_EXT: &str = "html";
+
+/// Index file name.
+pub const INDEX_FILE_NAME: &str = "index.txt";
+
+/// Default index file.
+pub const DEFAULT_INDEX: &str = include_str!("../index.txt.example");
+
+/// Default configuation file.
+pub const DEFAULT_CONFIG: &str = include_str!("../blog.toml.example");

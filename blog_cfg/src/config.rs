@@ -31,7 +31,7 @@ pub struct SiteConfig {
     pub sitename: String,
 
     /// Site style (for CSS source).
-    pub style: SiteStyle,
+    pub style: Option<SiteStyle>,
 }
 
 #[derive(Deserialize, Debug)]
