@@ -1,0 +1,11 @@
+# Cargo build artifacts
+/target
+
+# Blog Builder source files
+/source
+
+# Blog Builder output
+/html
+
+# Blog Builder configuration file
+/blog.toml

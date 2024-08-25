@@ -1,0 +1,19 @@
+[package]
+name = "blog-builder"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+path = "src/lib.rs"
+name = "blog"
+
+[[bin]]
+path = "src/main.rs"
+name = "blog"
+
+[dependencies]
+anyhow = "1.0.86"
+relative-path = "1.9.3"
+serde = { version = "1.0.209", features = ["derive"] }
+toml = "0.8.19"
+walkdir = "2.5.0"
