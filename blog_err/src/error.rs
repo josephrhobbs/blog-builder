@@ -11,7 +11,7 @@ use std::{
 
 use anyhow::Result as AnyResult;
 
-use crate::CONFIG_FILE_NAME;
+use blog_env::CONFIG_FILE_NAME;
 
 /// Result type for Blog Builder.
 pub type BlogResult<T> = AnyResult<T>;

@@ -1,4 +1,4 @@
-//! Main library for the Blog Builder.
+//! Library for Blog Builder environment information.
 
 /// Enforce all warnings.
 #[deny(warnings)]
@@ -20,27 +20,3 @@ pub const SOURCE_FILE_EXT: &str = "txt";
 
 /// Output file extension.
 pub const OUTPUT_FILE_EXT: &str = "html";
-
-pub mod cli {
-    pub use blog_cli::{
-        Cli,
-        Subcommand,
-    };
-}
-
-pub mod cfg {
-    pub use blog_cfg::{
-        Config,
-    };
-}
-
-pub mod err {
-    pub use blog_err::{
-        BlogError,
-        BlogResult,
-    };
-}
-
-pub mod site {
-    pub use blog_str::SiteTree;
-}

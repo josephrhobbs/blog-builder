@@ -1,0 +1,10 @@
+[package]
+name = "blog_grt"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.blog_env]
+path = "../blog_env"
+
+[dependencies.blog_err]
+path = "../blog_err"

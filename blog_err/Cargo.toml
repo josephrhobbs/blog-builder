@@ -1,0 +1,14 @@
+[package]
+name = "blog_err"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "blog_err"
+path = "src/lib.rs"
+
+[dependencies]
+anyhow = "1.0.86"
+
+[dependencies.blog_env]
+path = "../blog_env"

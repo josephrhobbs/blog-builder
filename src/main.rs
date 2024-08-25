@@ -1,11 +1,13 @@
 //! Main executable for the Blog Builder.
 
 use blog::{
-    BlogResult,
-    Cli,
-    Config,
-    SiteTree,
-    Subcommand,
+    err::BlogResult,
+    cli::{
+        Cli,
+        Subcommand,
+    },
+    cfg::Config,
+    site::SiteTree,
 };
 
 fn main() -> BlogResult<()> {

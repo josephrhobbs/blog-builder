@@ -1,0 +1,24 @@
+[package]
+name = "blog_cfg"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "blog_cfg"
+path = "src/lib.rs"
+
+[dependencies]
+toml = "0.8.19"
+
+[dependencies.serde]
+version = "1.0.209"
+features = ["derive"]
+
+[dependencies.blog_env]
+path = "../blog_env"
+
+[dependencies.blog_err]
+path = "../blog_err"
+
+[dependencies.blog_grt]
+path = "../blog_grt"

@@ -1,3 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "blog_cfg",
+    "blog_cli",
+    "blog_env",
+    "blog_err", "blog_grt", "blog_str",
+]
+
 [package]
 name = "blog-builder"
 version = "0.1.0"
@@ -12,8 +21,18 @@ path = "src/main.rs"
 name = "blog"
 
 [dependencies]
-anyhow = "1.0.86"
-pathdiff = "0.2.1"
-serde = { version = "1.0.209", features = ["derive"] }
-toml = "0.8.19"
-walkdir = "2.5.0"
+
+[dependencies.blog_cfg]
+path = "./blog_cfg"
+
+[dependencies.blog_cli]
+path = "./blog_cli"
+
+[dependencies.blog_env]
+path = "./blog_env"
+
+[dependencies.blog_err]
+path = "./blog_err"
+
+[dependencies.blog_str]
+path = "./blog_str"

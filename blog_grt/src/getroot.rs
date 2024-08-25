@@ -1,4 +1,4 @@
-//! Utility to find the site root.
+//! Getroot utility for the Blog Builder.
 
 use std::{
     env,
@@ -8,10 +8,11 @@ use std::{
     },
 };
 
-use crate::{
+use blog_env::CONFIG_FILE_NAME;
+
+use blog_err::{
     BlogError,
     BlogResult,
-    CONFIG_FILE_NAME,
 };
 
 /// Get the root directory of the website.

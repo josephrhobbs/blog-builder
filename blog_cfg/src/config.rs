@@ -7,11 +7,11 @@ use std::{
 
 use serde::Deserialize;
 
-use crate::{
-    BlogResult,
-    CONFIG_FILE_NAME,
-    getroot,
-};
+use blog_err::BlogResult;
+
+use blog_env::CONFIG_FILE_NAME;
+
+use blog_grt::getroot;
 
 #[derive(Deserialize, Debug)]
 /// A configuration file that dictates Blog Builder settings.

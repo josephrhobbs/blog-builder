@@ -12,10 +12,56 @@ checksum = "b3d1d046238990b9cf5bcde22a3fb3584ee5cf65fb2765f454ed428c7a0063da"
 name = "blog-builder"
 version = "0.1.0"
 dependencies = [
- "anyhow",
- "pathdiff",
+ "blog_cfg",
+ "blog_cli",
+ "blog_env",
+ "blog_err",
+ "blog_str",
+]
+
+[[package]]
+name = "blog_cfg"
+version = "0.1.0"
+dependencies = [
+ "blog_env",
+ "blog_err",
+ "blog_grt",
  "serde",
  "toml",
+]
+
+[[package]]
+name = "blog_cli"
+version = "0.1.0"
+
+[[package]]
+name = "blog_env"
+version = "0.1.0"
+
+[[package]]
+name = "blog_err"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "blog_env",
+]
+
+[[package]]
+name = "blog_grt"
+version = "0.1.0"
+dependencies = [
+ "blog_env",
+ "blog_err",
+]
+
+[[package]]
+name = "blog_str"
+version = "0.1.0"
+dependencies = [
+ "blog_env",
+ "blog_err",
+ "blog_grt",
+ "pathdiff",
  "walkdir",
 ]
 
