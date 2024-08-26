@@ -86,6 +86,7 @@ impl Emitter {
                     // Concatenante menu to output
                     output.push_str(&menu);
                 } else {
+                    // No menu available in TOML, just skip for now
                     continue;
                 }
             } else {
