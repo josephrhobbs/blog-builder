@@ -45,5 +45,5 @@ pub fn convert(source: String, filename: &Path, config: &Config) -> String {
     let emitter = Emitter::new(config);
 
     // Emit HTML
-    emitter.emit(expressions)
+    emitter.emit(expressions, filename)
 }

@@ -6,6 +6,8 @@
 // Enforce all documentation.
 #![deny(missing_docs)]
 
+use std::path::Path;
+
 use blog_cfg::{
     Config,
     SiteStyle,
@@ -16,6 +18,11 @@ use blog_env::STYLESHEET_FILE_NAME;
 use blog_prs::Expression;
 
 use blog_sty::links;
+
+use convert_case::{
+    Case,
+    Casing,
+};
 
 /// An HTML emitter that takes in a list of expressions and returns
 /// HTML source code.
@@ -43,15 +50,17 @@ impl Emitter {
     ///
     /// # Parameters
     /// - `expressions` (`Vec<Expression>`): the list of expressions
+    /// - `filename` (`&Path`): the file stem of the output HTML
     /// 
     /// # Returns
     /// A `String` containing HTML.
-    pub fn emit(&self, expressions: Vec<Expression>) -> String {
+    pub fn emit(&self, expressions: Vec<Expression>, filename: &Path) -> String {
         // Open document and head
         let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<head>\n\n");
 
         // Add title
-        output.push_str(&format!("<title>{}</title>", self.config.site.name));
+        let page_title: &str = &filename.file_name().unwrap().to_str().unwrap().to_case(Case::Title);
+        output.push_str(&format!("<title>{} | {}</title>", page_title, self.config.site.name));
         
         // Add links to stylesheet and fonts
         if let Some (s) = &self.config.site.style {
