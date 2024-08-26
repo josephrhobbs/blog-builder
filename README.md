@@ -32,6 +32,18 @@ Create a new page by creating a text file anywhere in `source/`.
 
 Execute `blog build`.  This new page will be accessible at `html/something/new-page.html` on your machine and `/something/new-page.html` on your website.
 
+## Adding a Menu
+
+Create a menu by updating `blog.toml`.
+
+```toml
+[menu]
+names = []
+links = []
+```
+
+Each entry in `names` will correspond to an entry in `links`.  Entries in `names` are visible to the user, whereas entries in `links` represent URIs.
+
 ## Adding an Icon
 
 You may add a favicon for a website by updating `blog.toml`.
