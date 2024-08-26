@@ -1,0 +1,14 @@
+[package]
+name = "blog_chk"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "blog_chk"
+path = "src/lib.rs"
+
+[dependencies]
+colored = "2.1.0"
+
+[dependencies.blog_prs]
+path = "../blog_prs"

@@ -2,7 +2,10 @@
 
 use std::{
     fs,
-    path::PathBuf,
+    path::{
+        Path,
+        PathBuf,
+    },
 };
 
 use walkdir::{
@@ -131,14 +134,14 @@ impl SiteTree {
     /// Build a site by applying a given closure to each file.
     /// 
     /// # Parameters
-    /// - `convert` (`Fn(String, &Config) -> String>`): the closure to
-    /// apply to each source to construct each output, given a configuration
-    /// structure.
+    /// - `convert` (`Fn(String, &Path, &Config) -> String>`): the closure to
+    /// apply to each source to construct each output, given a filename and a 
+    /// configuration structure.
     /// 
     /// # Returns
     /// A `BlogResult<()>` indicating whether or not the site
     /// was built correctly.
-    pub fn build(&self, convert: impl Fn(String, &Config) -> String) -> BlogResult<()> {
+    pub fn build(&self, convert: impl Fn(String, &Path, &Config) -> String) -> BlogResult<()> {
         for file in &self.files {
             // Construct the source file
             let source_file = self.source_directory.join(file).with_extension(SOURCE_FILE_EXT);
@@ -147,7 +150,7 @@ impl SiteTree {
             let source = fs::read_to_string(&source_file)?;
 
             // Convert the source into output
-            let output = convert(source, &self.config);
+            let output = convert(source, &file, &self.config);
 
             // Construct the output file
             let output_file = self.output_directory.join(file).with_extension(OUTPUT_FILE_EXT);

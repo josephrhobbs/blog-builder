@@ -1,5 +1,10 @@
 //! Expressions for the Blog Builder.
 
+use std::fmt::{
+    Display,
+    self,
+};
+
 use crate::ParseError;
 
 #[derive(Clone, Debug)]
@@ -33,8 +38,29 @@ pub enum Expression {
     Error (ParseError),
 }
 
+// For error handling
+impl Display for Expression {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        use Expression::*;
+        let output = match self {
+            Title (s) => format!("# {}", s),
+            Header (s) => format!("## {}", s),
+            Subheader (s) => format!("### {}", s),
+            Paragraph (s) => format!("{}", s),
+            Href {
+                text,
+                href,
+            } => format!("[{}]({})", href, text),
+            Newline => "[newline]".to_string(),
+            Error (_) => unreachable!(),
+        };
+
+        write!(f, "{}", output)
+    }
+}
+
 impl Expression {
-    /// Convert the expression to a string.
+    /// Convert the expression to an HTML string.
     /// 
     /// # Parameters
     /// - `top` (`bool`): indicates whether this call is at the top level

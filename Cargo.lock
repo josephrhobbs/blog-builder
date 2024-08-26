@@ -13,6 +13,7 @@ name = "blog-builder"
 version = "0.1.0"
 dependencies = [
  "blog_cfg",
+ "blog_chk",
  "blog_cli",
  "blog_cvt",
  "blog_emt",
@@ -34,6 +35,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "blog_chk"
+version = "0.1.0"
+dependencies = [
+ "blog_prs",
+ "colored",
+]
+
+[[package]]
 name = "blog_cli"
 version = "0.1.0"
 
@@ -42,6 +51,7 @@ name = "blog_cvt"
 version = "0.1.0"
 dependencies = [
  "blog_cfg",
+ "blog_chk",
  "blog_emt",
  "blog_prs",
  "blog_tkn",

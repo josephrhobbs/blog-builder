@@ -2,8 +2,10 @@
 resolver = "2"
 members = [
     "blog_cfg",
+    "blog_chk",
     "blog_cli",
-    "blog_cvt", "blog_emt",
+    "blog_cvt",
+    "blog_emt",
     "blog_env",
     "blog_err",
     "blog_grt",
@@ -30,6 +32,9 @@ colored = "2.1.0"
 
 [dependencies.blog_cfg]
 path = "./blog_cfg"
+
+[dependencies.blog_chk]
+path = "./blog_chk"
 
 [dependencies.blog_cli]
 path = "./blog_cli"

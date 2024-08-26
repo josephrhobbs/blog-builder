@@ -9,6 +9,9 @@ path = "src/lib.rs"
 
 [dependencies]
 
+[dependencies.blog_chk]
+path = "../blog_chk"
+
 [dependencies.blog_cfg]
 path = "../blog_cfg"
 
