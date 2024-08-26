@@ -27,6 +27,9 @@ pub enum TokenClass {
     /// Asterisk or underscore (for emphasis).
     Emphasis,
 
+    /// Exclamation point.
+    Bang,
+
     /// Tilde (for menu).
     Menu,
 }
@@ -50,6 +53,7 @@ impl TokenClass {
             OpenParen => "OpenParen",
             CloseParen => "CloseParen",
             Emphasis => "Emphasis",
+            Bang => "Bang",
             Menu => "Menu",
         };
 
@@ -75,6 +79,7 @@ impl TokenClass {
             ')' => CloseParen,
             '~' => Menu,
             '*' | '_' => Emphasis,
+            '!' => Bang,
             _ => Paragraph,
         }
     }

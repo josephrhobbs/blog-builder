@@ -43,6 +43,15 @@ pub enum Expression {
         href: String,
     },
 
+    /// Image (img).
+    Image {
+        /// Alternate text.
+        alt: String,
+
+        /// URI of image.
+        href: String,
+    },
+
     /// Newline.
     Newline,
 
@@ -74,7 +83,11 @@ impl Display for Expression {
             Href {
                 text,
                 href,
-            } => format!("[{}]({})", href, text),
+            } => format!("[{}]({})", text, href),
+            Image {
+                alt,
+                href,
+            } => format!("![{}]({})", alt, href),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
             Bold (_) => "[bold]".to_string(),
@@ -139,6 +152,10 @@ impl Expression {
             } else {
                 format!("<a href=\"{}\">{}</a>", href, text)
             },
+            Image {
+                alt,
+                href,
+            } => format!("<img src=\"{}\" alt=\"{}\">", href, alt),
             Newline => "\n\n".to_string(),
             Menu => unreachable!(),
             Error (_) => unreachable!(),

@@ -26,6 +26,9 @@ pub struct Config {
 
     /// Menu information.
     pub menu: Option<MenuConfig>,
+
+    /// Media information.
+    pub media: Option<MediaConfig>,
 }
 
 #[derive(Clone, Deserialize, Debug)]
@@ -60,6 +63,14 @@ pub struct MenuConfig {
 
     /// Menu button links
     pub links: Vec<String>,
+}
+
+#[derive(Clone, Deserialize, Debug)]
+/// Configuration information for site media (images, etc.).
+pub struct MediaConfig {
+    /// File paths, relative to media subdir, of
+    /// media to include.
+    pub include: Vec<String>,
 }
 
 impl Config {

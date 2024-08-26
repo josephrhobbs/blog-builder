@@ -129,7 +129,7 @@ impl CharStream {
 
                 // Build the string character-by-character
                 while let Some (t) = self.peek() {
-                    if TokenClass::class(t) == Paragraph {
+                    if TokenClass::class(t) == Paragraph || TokenClass::class(t) == Bang {
                         value.push(t);
                         self.next();
                     } else {
@@ -161,6 +161,10 @@ impl CharStream {
             CloseSquare => Token {
                 class: CloseSquare,
                 value: "]".to_string(),
+            },
+            Bang => Token {
+                class: Bang,
+                value: "!".to_string(),
             },
             Menu => Token {
                 class: Menu,

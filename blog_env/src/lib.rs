@@ -12,6 +12,9 @@ pub const CONFIG_FILE_NAME: &str = "blog.toml";
 /// Source directory name.
 pub const SOURCE_DIR_NAME: &str = "source";
 
+/// Media subdirectory name.
+pub const MEDIA_DIR_NAME: &str = "media";
+
 /// Output directory name.
 pub const OUTPUT_DIR_NAME: &str = "html";
 

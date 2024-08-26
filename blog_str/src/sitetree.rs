@@ -20,6 +20,7 @@ use blog_env::{
     SOURCE_FILE_EXT,
     OUTPUT_DIR_NAME,
     OUTPUT_FILE_EXT,
+    MEDIA_DIR_NAME,
     INDEX_FILE_NAME,
     CONFIG_FILE_NAME,
     DEFAULT_INDEX,
@@ -193,6 +194,21 @@ impl SiteTree {
 
             // Copy the icon
             fs::copy(source_icon, output_icon)?;
+        }
+
+        // Copy over media
+        if let Some (media) = &self.config.media {
+            // Look in the media directory
+            for m in &media.include {
+                // Build source media
+                let source_media = self.source_directory.join(MEDIA_DIR_NAME).join(m);
+
+                // Build output media
+                let output_media = self.output_directory.join(MEDIA_DIR_NAME).join(m);
+
+                // Copy the icon
+                fs::copy(source_media, output_media)?;
+            }
         }
 
         Ok (())

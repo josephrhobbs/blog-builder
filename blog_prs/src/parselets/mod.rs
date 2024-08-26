@@ -3,6 +3,7 @@
 mod emphasis;
 mod header;
 mod href;
+mod image;
 mod paragraph;
 mod menu;
 mod newline;
@@ -10,6 +11,7 @@ mod newline;
 pub use emphasis::EmphasisParselet;
 pub use header::HeaderParselet;
 pub use href::HrefParselet;
+pub use image::ImageParselet;
 pub use paragraph::ParagraphParselet;
 pub use menu::MenuParselet;
 pub use newline::NewlineParselet;
