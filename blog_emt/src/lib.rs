@@ -64,6 +64,12 @@ impl Emitter {
             output.push_str(&format!("{}\n\n", links));
         }
 
+        // Add favicon
+        if let Some (f) = &self.config.site.icon {
+            // Link favicon
+            output.push_str(&format!("<link rel=\"icon\" type=\"image/x-icon\" href=\"/{}\">\n\n", f));
+        }
+
         // Close head and open body
         output.push_str("</head>\n\n<body>\n\n");
 

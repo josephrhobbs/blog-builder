@@ -183,6 +183,18 @@ impl SiteTree {
             fs::write(stylesheet, style)?;
         }
 
+        // Construct the favicon
+        if let Some (f) = &self.config.site.icon {
+            // Build source icon
+            let source_icon = self.source_directory.join(f);
+
+            // Build output icon
+            let output_icon = self.output_directory.join(f);
+
+            // Copy the icon
+            fs::copy(source_icon, output_icon)?;
+        }
+
         Ok (())
     }
 
