@@ -66,7 +66,7 @@ impl Emitter {
         let page_title = &filename_str.to_case(Case::Title);
 
         // Add title to header, unless it's the index file
-        if filename_str == INDEX_FILE_NAME {
+        if page_title == &INDEX_FILE_NAME.to_case(Case::Title) {
             output.push_str(&format!("<title>{}</title>\n\n", self.config.site.name));
         } else {
             output.push_str(&format!("<title>{} | {}</title>\n\n", page_title, self.config.site.name));
