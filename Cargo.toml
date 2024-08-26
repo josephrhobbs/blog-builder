@@ -8,6 +8,7 @@ members = [
     "blog_err",
     "blog_grt",
     "blog_str",
+    "blog_tkn",
 ]
 
 [package]
@@ -24,6 +25,7 @@ path = "src/main.rs"
 name = "blog"
 
 [dependencies]
+colored = "2.1.0"
 
 [dependencies.blog_cfg]
 path = "./blog_cfg"

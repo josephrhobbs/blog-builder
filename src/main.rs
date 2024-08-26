@@ -11,6 +11,8 @@ use blog::{
     help::HELP,
 };
 
+use colored::*;
+
 fn main() -> BlogResult<()> {
     // Parse CLI arguments
     let cli = Cli::new();
@@ -20,9 +22,21 @@ fn main() -> BlogResult<()> {
 
     use Subcommand::*;
     match cli.subcommand {
-        New (name) => SiteTree::new(name)?,
-        Build => sitetree?.build(convert)?,
-        Clean => sitetree?.clean()?,
+        New (name) => {
+            println!("{:>10} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
+
+            SiteTree::new(name)?
+        },
+        Build => {
+            println!("{:>10} site", "Building".bold().green());
+
+            sitetree?.build(convert)?
+        },
+        Clean => {
+            println!("{:>10} site output directory", "Cleaning".bold().green());
+
+            sitetree?.clean()?
+        },
         Help => println!("{}", HELP),
     }
 
