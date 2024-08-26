@@ -13,7 +13,10 @@ use std::{
 
 use colored::*;
 
-use blog_prs::Expression;
+use blog_prs::{
+    Expression,
+    ParseError,
+};
 
 /// A tolerant error handler that validates code before
 /// conversion to HTML.
@@ -39,38 +42,15 @@ impl Handler {
         // Iterate over all expressions
         for (i, expression) in expressions.iter().enumerate() {
             if let Expression::Error (p) = expression {
-                // Find location of error
-                let mut location = "at beginning of file".to_string();
-
-                // Iterate backwards
-                let mut j = i;
-                while j > 0 {
-                    let prev = &expressions[j - 1];
-                    if let Expression::Error (_) = prev {
-                        // Skip
-                    } else if let Expression::Newline = prev {
-                        // Skip
-                    } else {
-                        // Found the location!
-                        location = format!("after expression '{}'", prev.to_string().bold().bright_blue());
-                        break;
+                // Check individual expressions
+                messages.push(construct_error(p, filename, i, expressions));
+            } else if let Expression::Paragraph (l) = expression {
+                // Check nested expressions
+                for (j, expr) in l.iter().enumerate() {
+                    if let Expression::Error (p) = expr {
+                        messages.push(construct_error(p, filename, j, l));
                     }
-
-                    // Go back one more expresion
-                    j -= 1;
                 }
-
-                // Construct error message
-                let error_message = format!(
-                    "{:>10} in file '{}': {} ({})",
-                    "Error".bold().bright_red(),
-                    filename.display(),
-                    p,
-                    location,
-                );
-
-                // Add error message to list
-                messages.push(error_message);
             }
         }
 
@@ -91,4 +71,46 @@ impl Handler {
             exit(1);
         }
     }
+}
+
+/// Construct an error message.
+/// 
+/// # Parameters
+/// - `p` (`&ParseError`): the parse error
+/// - `filename` (`&Path`): the file path of the error
+/// - `i` (`usize`): the index of the erroneous expression in the list of expressions
+/// - `expressions` (`&Vec<Expression>`): a reference to the list of expressions
+/// 
+/// # Returns
+/// A `String` representing the error message
+fn construct_error(p: &ParseError, filename: &Path, i: usize, expressions: &Vec<Expression>) -> String {
+    // Find location of error
+    let mut location = "at beginning of file".to_string();
+
+    // Iterate backwards to find nearest valid expression
+    let mut j = i;
+    while j > 0 {
+        let prev = &expressions[j - 1];
+        if let Expression::Error (_) = prev {
+            // Skip
+        } else if let Expression::Newline = prev {
+            // Skip
+        } else {
+            // Found the location!
+            location = format!("after expression '{}'", prev.to_string().bold().bright_blue());
+            break;
+        }
+
+        // Go back one more expresion
+        j -= 1;
+    }
+
+    // Construct error message
+    format!(
+        "{:>10} in file '{}': {} ({})",
+        "Error".bold().bright_red(),
+        filename.display(),
+        p,
+        location,
+    )
 }

@@ -20,7 +20,19 @@ pub enum Expression {
     Subheader (String),
 
     /// Paragraph (p).
-    Paragraph (String),
+    Paragraph (Vec<Expression>),
+
+    /// Bold text (strong).
+    Bold (String),
+
+    /// Italicized text (em).
+    Italics (String),
+
+    /// Bold & italicized text (strong + em).
+    BoldItalics (String),
+
+    /// Raw text.
+    Text (String),
 
     /// Hyperreference (a).
     Href {
@@ -49,13 +61,25 @@ impl Display for Expression {
             Title (s) => format!("# {}", s),
             Header (s) => format!("## {}", s),
             Subheader (s) => format!("### {}", s),
-            Paragraph (s) => format!("{}", s),
+            Text (s) => format!("{}", s),
+            Paragraph (l) => {
+                let mut output = String::new();
+
+                for expr in l {
+                    output.push_str(&expr.to_string());
+                }
+
+                output
+            },
             Href {
                 text,
                 href,
             } => format!("[{}]({})", href, text),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
+            Bold (_) => "[bold]".to_string(),
+            Italics (_) => "[italics]".to_string(),
+            BoldItalics (_) => "[bold-italics]".to_string(),
             Error (_) => unreachable!(),
         };
 
@@ -77,10 +101,35 @@ impl Expression {
             Title (s) => format!("<h1>{}</h1>", s),
             Header (s) => format!("<h2>{}</h2>", s),
             Subheader (s) => format!("<h3>{}</h3>", s),
-            Paragraph (s) => if top {
-                format!("<p>{}</p>", s)
+            Text (s) => format!("{}", s),
+            Paragraph (l) => {
+                let mut output = String::new();
+
+                // Format each interior expression
+                for expr in l {
+                    output.push_str(&expr.display(false));
+                }
+
+                if top {
+                    format!("<p>{}</p>", output)
+                } else {
+                    format!("{}", output)
+                }
+            },
+            Bold (s) => if top {
+                format!("<p><strong>{}</strong></p>", s)
             } else {
-                format!("{}", s)
+                format!("<strong>{}</strong>", s)
+            },
+            Italics (s) => if top {
+                format!("<p><em>{}</em></p>", s)
+            } else {
+                format!("<em>{}</em>", s)
+            },
+            BoldItalics (s) => if top {
+                format!("<p><strong><em>{}</em></strong></p>", s)
+            } else {
+                format!("<strong><em>{}</em></strong>", s)
             },
             Href {
                 text,

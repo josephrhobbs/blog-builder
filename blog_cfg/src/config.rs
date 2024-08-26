@@ -42,6 +42,7 @@ pub struct SiteConfig {
 }
 
 #[derive(Clone, Deserialize, Debug)]
+#[serde(rename_all = "kebab-case")]
 /// Site style options.
 pub enum SiteStyle {
     /// Modern style.

@@ -16,8 +16,14 @@ pub enum ParseError {
     /// Expected token of given class.
     ExpectedToken (TokenClass),
 
+    /// Unrecognized emphasis sequence.
+    UnrecognizedEmphasis,
+
     /// Too many hashes
     TooManyHashes,
+
+    /// Mismatched delimiters
+    MismatchedDelimiters,
 
     /// No parselet available for token class.
     NoParselet (TokenClass),
@@ -30,6 +36,8 @@ impl Display for ParseError {
             UnexpectedEof => "unexpected EOF",
             ExpectedToken (c) => &format!("expected token of class '{}'", c.display()),
             TooManyHashes => "too many hashes provided",
+            UnrecognizedEmphasis => "unrecognized emphasis sequence",
+            MismatchedDelimiters => "mismatched delimiters",
             NoParselet (c) => &format!("could not handle token of class '{}'", c.display()),
         };
 

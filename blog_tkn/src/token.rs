@@ -21,10 +21,13 @@ pub enum TokenClass {
     /// Open parenthesis.
     OpenParen,
 
-    /// Close parenthesis
+    /// Close parenthesis.
     CloseParen,
 
-    /// Menu
+    /// Asterisk or underscore (for emphasis).
+    Emphasis,
+
+    /// Tilde (for menu).
     Menu,
 }
 
@@ -46,6 +49,7 @@ impl TokenClass {
             CloseSquare => "CloseSquare",
             OpenParen => "OpenParen",
             CloseParen => "CloseParen",
+            Emphasis => "Emphasis",
             Menu => "Menu",
         };
 
@@ -70,6 +74,7 @@ impl TokenClass {
             '(' => OpenParen,
             ')' => CloseParen,
             '~' => Menu,
+            '*' | '_' => Emphasis,
             _ => Paragraph,
         }
     }

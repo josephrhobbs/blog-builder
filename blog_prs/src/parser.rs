@@ -12,6 +12,7 @@ use crate::{
     Parselet,
     ParseError,
     parselets::{
+        EmphasisParselet,
         HeaderParselet,
         HrefParselet,
         ParagraphParselet,
@@ -39,11 +40,13 @@ impl Parser {
         let mut parselets: HashMap<TokenClass, Box<dyn Parselet>> = HashMap::new();
 
         // Declarative grammar begins here
-        parselets.insert(TokenClass::Hashes, Box::new(HeaderParselet { }));
-        parselets.insert(TokenClass::Paragraph, Box::new(ParagraphParselet { }));
-        parselets.insert(TokenClass::Newline, Box::new(NewlineParselet { }));
-        parselets.insert(TokenClass::Menu, Box::new(MenuParselet { }));
-        parselets.insert(TokenClass::OpenSquare, Box::new(HrefParselet { }));
+        use TokenClass::*;
+        parselets.insert(Hashes, Box::new(HeaderParselet { }));
+        parselets.insert(Paragraph, Box::new(ParagraphParselet { }));
+        parselets.insert(Newline, Box::new(NewlineParselet { }));
+        parselets.insert(Menu, Box::new(MenuParselet { }));
+        parselets.insert(OpenSquare, Box::new(HrefParselet { }));
+        parselets.insert(Emphasis, Box::new(EmphasisParselet { }));
 
         Self {
             parselets,
@@ -61,22 +64,41 @@ impl Parser {
         // Initialize output list of expressions
         let mut output = Vec::new();
 
-        while let Some (token) = tokenizer.next() {
-            // Get the necessary parselet
-            let parselet = if let Some (p) = self.parselets.get(&token.class) {
-                p
-            } else {
-                // No parselet available
-                output.push(Expression::Error (ParseError::NoParselet (token.class)));
-                continue;
-            };
-
-            // Parse as far as possible
-            let expression = parselet.parse(self, tokenizer, &token);
+        while let Some (_) = tokenizer.peek() {
+            // Get the next expression from the token stream
+            let expression = self.parse_next(tokenizer);
 
             output.push(expression);
         }
 
         output
+    }
+
+    /// Parse the next expression out of the tokenizer.
+    /// 
+    /// # Parameters
+    /// - `tokenizer` (`&mut Tokenizer`): a reference to the input token stream
+    /// 
+    /// # Returns
+    /// An `Expression` containing the next expression in the stream.
+    pub fn parse_next(&self, tokenizer: &mut Tokenizer) -> Expression {
+        // Get the next token in the stream
+        let token = if let Some (t) = tokenizer.next() {
+            t
+        } else {
+            // We checked to make sure there was another token
+            unreachable!()
+        };
+    
+        // Get the necessary parselet
+        let parselet = if let Some (p) = self.parselets.get(&token.class) {
+            p
+        } else {
+            // No parselet available
+            return Expression::Error (ParseError::NoParselet (token.class));
+        };
+
+        // Parse as far as possible and return
+        parselet.parse(self, tokenizer, &token)
     }
 }

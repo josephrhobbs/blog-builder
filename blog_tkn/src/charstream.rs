@@ -102,6 +102,26 @@ impl CharStream {
                     class: Hashes,
                 }
             },
+            Emphasis => {
+                let mut value = String::new();
+
+                value.push(first);
+
+                // Build the string character-by-character
+                while let Some (t) = self.peek() {
+                    if TokenClass::class(t) == Emphasis {
+                        value.push(t);
+                        self.next();
+                    } else {
+                        break;
+                    }
+                }
+
+                Token {
+                    value,
+                    class: Emphasis,
+                }
+            },
             Paragraph => {
                 let mut value = String::new();
 
