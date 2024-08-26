@@ -1,10 +1,10 @@
 //! Getroot utility for the Blog Builder.
 
-/// Enforce all warnings.
-#[deny(warnings)]
+// Enforce all warnings.
+#![deny(warnings)]
 
-/// Enforce all documentation.
-#[deny(missing_docs)]
+// Enforce all documentation.
+#![deny(missing_docs)]
 
 mod getroot;
 

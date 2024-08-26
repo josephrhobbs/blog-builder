@@ -6,12 +6,8 @@ use blog::{
         Cli,
         Subcommand,
     },
-    cfg::Config,
-    site::{
-        SiteTree,
-        Parser,
-        Emitter,
-    },
+    site::SiteTree,
+    cvt::convert,
     help::HELP,
 };
 
@@ -21,19 +17,6 @@ fn main() -> BlogResult<()> {
 
     // Get the sitetree, if it exists
     let sitetree = SiteTree::get();
-
-    // Get configuration information
-    // from TOML file
-    let config = Config::get(&sitetree);
-
-    // Construct a parser
-    let parser = Parser::new();
-
-    // Construct an emitter
-    let emitter = Emitter::new(config?);
-
-    // Construct a map from source to output
-    let convert = |source: String| emitter.emit(parser.parse(&source));
 
     use Subcommand::*;
     match cli.subcommand {

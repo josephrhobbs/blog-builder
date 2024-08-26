@@ -1,10 +1,10 @@
 //! Library for Blog Builder environment information.
 
-/// Enforce all warnings.
-#[deny(warnings)]
+// Enforce all warnings.
+#![deny(warnings)]
 
-/// Enforce all documentation.
-#[deny(missing_docs)]
+// Enforce all documentation.
+#![deny(missing_docs)]
 
 /// Configuration file name.
 pub const CONFIG_FILE_NAME: &str = "blog.toml";

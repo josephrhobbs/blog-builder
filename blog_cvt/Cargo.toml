@@ -1,0 +1,13 @@
+[package]
+name = "blog_cvt"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "blog_cvt"
+path = "src/lib.rs"
+
+[dependencies]
+
+[dependencies.blog_cfg]
+path = "../blog_cfg"

@@ -2,21 +2,19 @@
 
 use std::{
     fs,
-    path::PathBuf,
+    path::{
+        Path,
+        PathBuf,
+    },
 };
 
 use serde::Deserialize;
 
-use blog_err::{
-    BlogError,
-    BlogResult,
-};
+use blog_err::BlogResult;
 
 use blog_env::CONFIG_FILE_NAME;
 
-use blog_str::SiteTree;
-
-#[derive(Deserialize, Debug)]
+#[derive(Clone, Deserialize, Debug)]
 /// A configuration file that dictates Blog Builder settings.
 /// 
 /// This data is stored in the root directory of the site in
@@ -33,7 +31,7 @@ pub struct Config {
     pub menu: MenuConfig,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Clone, Deserialize, Debug)]
 /// Configuration information for the site.
 pub struct SiteConfig {
     /// Site name (to appear in page title).
@@ -46,21 +44,21 @@ pub struct SiteConfig {
     pub style: Option<SiteStyle>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Clone, Deserialize, Debug)]
 /// Configuration information for analytics.
 pub struct AnalyticsConfig {
     /// Analytics source file.
     pub path: Option<String>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Clone, Deserialize, Debug)]
 /// Configuration information for site menu.
 pub struct MenuConfig {
     /// Menu source file.
     pub path: Option<String>,
 }
 
-#[derive(Deserialize, Debug)]
+#[derive(Clone, Deserialize, Debug)]
 /// Site style options.
 pub enum SiteStyle {
     /// Modern style.
@@ -71,19 +69,11 @@ impl Config {
     /// Get information from the site configuration file.
     ///
     /// # Parameters
-    /// - `sitetree` (`&BlogResult<SiteTree>`): a reference
-    /// to the sitetree, if it exists.
+    /// - `root` (`&Path`): a reference to the site root
     /// 
     /// # Returns
     /// A `BlogResult<Config>` structure with all configuration information.
-    pub fn get(sitetree: &BlogResult<SiteTree>) -> BlogResult<Config> {
-        // Get site root
-        let root = if let Ok (st) = sitetree.as_ref() {
-            st.root.to_owned()
-        } else {
-            return Err (BlogError::CouldNotFindRoot.into());
-        };
-
+    pub fn get(root: &Path) -> BlogResult<Config> {
         // Construct configuration file name
         let config_file: PathBuf = root.join(CONFIG_FILE_NAME);
 

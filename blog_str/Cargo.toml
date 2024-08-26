@@ -7,6 +7,9 @@ edition = "2021"
 pathdiff = "0.2.1"
 walkdir = "2.5.0"
 
+[dependencies.blog_cfg]
+path = "../blog_cfg"
+
 [dependencies.blog_env]
 path = "../blog_env"
 
