@@ -67,8 +67,8 @@ pub enum Expression {
         image: String,
     },
 
-    /// Work in progress tag (div.wip).
-    WorkInProgress (String),
+    /// Notice banner (div.notice).
+    Notice (String),
 
     /// Newline.
     Newline,
@@ -112,7 +112,7 @@ impl Display for Expression {
                 href,
                 image,
             } => format!("::tile[{}][{}][{}][{}]", title, description, href, image),
-            WorkInProgress (message) => format!("::wip[{}]", message),
+            Notice (message) => format!("::notice[{}]", message),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
             Bold (s) => format!("**{}**", s),
@@ -187,7 +187,7 @@ impl Expression {
                 href,
                 image,
             } => format!("<div class=\"tile\" onclick=\"window.location='{}';\" style=\"background-image: url('{}'); cursor: pointer; background-position: center;\"><div>{}</div><br><div class=\"desc\">{}</div></div>", href, image, title, description),
-            WorkInProgress (message) => format!("<div class=\"wip\">{}</div>", message),
+            Notice (message) => format!("<div class=\"notice\">{}</div>", message),
             Newline => "\n\n".to_string(),
             Menu => unreachable!(),
             Error (_) => unreachable!(),

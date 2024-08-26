@@ -46,12 +46,12 @@ Images are supported using the following syntax.
 
 The `image` control sequence must be placed at the beginning of a line.
 
-## Work In Progress Banner
+## Notice Banner
 
-WIP banners are supported using the following syntax.
+Notice banners are supported using the following syntax.
 
 ```
-::wip[Information]  => <div class="wip">Information</div>
+::notice[Information]  => <div class="notice">Information</div>
 ```
 
 The `wip` control sequence must be placed at the beginning of a line.
