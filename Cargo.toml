@@ -17,6 +17,9 @@ members = [
 
 [package]
 name = "blog-builder"
+description = "A simple, intuitive static web framework."
+license = "MIT"
+repository = "https://github.com/josephrhobbs/blog-builder.git"
 version = "0.1.0"
 edition = "2021"
 
