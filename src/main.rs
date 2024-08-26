@@ -28,7 +28,7 @@ fn main() -> BlogResult<()> {
             SiteTree::new(name)?
         },
         Build => {
-            println!("{:>10} site", "Building".bold().green());
+            println!("{:>10} site output directory", "Building".bold().green());
 
             sitetree?.build(convert)?
         },
