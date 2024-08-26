@@ -60,7 +60,7 @@ impl Emitter {
 
         // Add title
         let page_title: &str = &filename.file_name().unwrap().to_str().unwrap().to_case(Case::Title);
-        output.push_str(&format!("<title>{} | {}</title>", page_title, self.config.site.name));
+        output.push_str(&format!("<title>{} | {}</title>\n\n", page_title, self.config.site.name));
         
         // Add links to stylesheet and fonts
         if let Some (s) = &self.config.site.style {
