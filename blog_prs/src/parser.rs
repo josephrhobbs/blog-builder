@@ -12,10 +12,10 @@ use crate::{
     Parselet,
     ParseError,
     parselets::{
+        ControlParselet,
         EmphasisParselet,
         HeaderParselet,
         HrefParselet,
-        ImageParselet,
         ParagraphParselet,
         MenuParselet,
         NewlineParselet,
@@ -33,7 +33,8 @@ impl Parser {
     /// Construct a new parser from a token stream.
     /// 
     /// # Parameters
-    /// None.
+    /// None.mod image;
+
     /// 
     /// # Returns
     /// A new `Parser`.
@@ -48,7 +49,7 @@ impl Parser {
         parselets.insert(Menu, Box::new(MenuParselet { }));
         parselets.insert(OpenSquare, Box::new(HrefParselet { }));
         parselets.insert(Emphasis, Box::new(EmphasisParselet { }));
-        parselets.insert(Bang, Box::new(ImageParselet { }));
+        parselets.insert(Control, Box::new(ControlParselet { }));
 
         Self {
             parselets,

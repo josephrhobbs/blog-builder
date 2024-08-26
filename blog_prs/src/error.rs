@@ -19,11 +19,14 @@ pub enum ParseError {
     /// Unrecognized emphasis sequence.
     UnrecognizedEmphasis,
 
-    /// Too many hashes
+    /// Too many hashes.
     TooManyHashes,
 
-    /// Mismatched delimiters
+    /// Mismatched delimiters.
     MismatchedDelimiters,
+
+    /// Unrecognized control sequence.
+    UnrecognizedControl (String),
 
     /// No parselet available for token class.
     NoParselet (TokenClass),
@@ -37,6 +40,7 @@ impl Display for ParseError {
             ExpectedToken (c) => &format!("expected token of class '{}'", c.display()),
             TooManyHashes => "too many hashes provided",
             UnrecognizedEmphasis => "unrecognized emphasis sequence",
+            UnrecognizedControl (c) => &format!("unrecognized control sequence '{}'", c),
             MismatchedDelimiters => "mismatched delimiters",
             NoParselet (c) => &format!("could not handle token of class '{}'", c.display()),
         };

@@ -1,2 +1,5 @@
 [site]
 name = "My New Website"
+
+[media]
+include = []

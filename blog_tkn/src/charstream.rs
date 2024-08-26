@@ -129,7 +129,7 @@ impl CharStream {
 
                 // Build the string character-by-character
                 while let Some (t) = self.peek() {
-                    if TokenClass::class(t) == Paragraph || TokenClass::class(t) == Bang {
+                    if TokenClass::class(t) == Paragraph || TokenClass::class(t) == Control {
                         value.push(t);
                         self.next();
                     } else {
@@ -162,9 +162,22 @@ impl CharStream {
                 class: CloseSquare,
                 value: "]".to_string(),
             },
-            Bang => Token {
-                class: Bang,
-                value: "!".to_string(),
+            Control => if let Some (t) = self.peek() {
+                // Check for a second colon
+                if TokenClass::class(t) == Control {
+                    // Consume the second colon
+                    let _ = self.next();
+                    Token {
+                        class: Control,
+                        value: "!".to_string(),
+                    }
+                } else {
+                    // We didn't get our second colon
+                    return None;
+                }
+            } else {
+                // Unexpected EOF
+                return None;
             },
             Menu => Token {
                 class: Menu,

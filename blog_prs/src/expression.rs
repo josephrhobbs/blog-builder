@@ -52,6 +52,9 @@ pub enum Expression {
         href: String,
     },
 
+    /// Work in progress tag (div.wip).
+    WorkInProgress (String),
+
     /// Newline.
     Newline,
 
@@ -87,12 +90,13 @@ impl Display for Expression {
             Image {
                 alt,
                 href,
-            } => format!("![{}]({})", alt, href),
+            } => format!("::image[{}]({})", alt, href),
+            WorkInProgress (message) => format!("::wip[{}]", message),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
-            Bold (_) => "[bold]".to_string(),
-            Italics (_) => "[italics]".to_string(),
-            BoldItalics (_) => "[bold-italics]".to_string(),
+            Bold (s) => format!("**{}**", s),
+            Italics (s) => format!("_{}_", s),
+            BoldItalics (s) => format!("**_{}_**", s),
             Error (_) => unreachable!(),
         };
 
@@ -156,6 +160,7 @@ impl Expression {
                 alt,
                 href,
             } => format!("<img src=\"{}\" alt=\"{}\">", href, alt),
+            WorkInProgress (message) => format!("<div class=\"wip\">{}</div>", message),
             Newline => "\n\n".to_string(),
             Menu => unreachable!(),
             Error (_) => unreachable!(),

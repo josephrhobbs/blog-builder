@@ -27,8 +27,8 @@ pub enum TokenClass {
     /// Asterisk or underscore (for emphasis).
     Emphasis,
 
-    /// Exclamation point.
-    Bang,
+    /// Control sequence.
+    Control,
 
     /// Tilde (for menu).
     Menu,
@@ -45,7 +45,7 @@ impl TokenClass {
     pub fn display(&self) -> String {
         use TokenClass::*;
         let string = match self {
-            Paragraph => "Paragraph",
+            Paragraph => "Text",
             Hashes => "Hashes",
             Newline => "Newline",
             OpenSquare => "OpenSquare",
@@ -53,7 +53,7 @@ impl TokenClass {
             OpenParen => "OpenParen",
             CloseParen => "CloseParen",
             Emphasis => "Emphasis",
-            Bang => "Bang",
+            Control => "Control",
             Menu => "Menu",
         };
 
@@ -79,7 +79,7 @@ impl TokenClass {
             ')' => CloseParen,
             '~' => Menu,
             '*' | '_' => Emphasis,
-            '!' => Bang,
+            ':' => Control,
             _ => Paragraph,
         }
     }

@@ -1,4 +1,4 @@
-//! Image parselet.
+//! Control sequence parselet.
 
 use blog_tkn::{
     Token,
@@ -13,11 +13,25 @@ use crate::{
     ParseError,
 };
 
-/// Parselet for images.
-pub struct ImageParselet { }
+/// Parselet for control sequences.
+pub struct ControlParselet { }
 
-impl Parselet for ImageParselet {
+impl Parselet for ControlParselet {
     fn parse(&self, _parser: &Parser, tokenizer: &mut Tokenizer, _token: &Token) -> Expression {
+        // Get control sequence type
+        let ctrl = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
+            if let Some (t) = opt_t {
+                // Make sure to trim the value
+                t.value.trim().to_owned()
+            } else {
+                // Expected text, found something else
+                return Expression::Error (ParseError::ExpectedToken (TokenClass::Paragraph));
+            }
+        } else {
+            // We ran out of tokens :(
+            return Expression::Error (ParseError::UnexpectedEof);
+        };
+
         // Consume opening square bracket
         if let Some (opt_t) = tokenizer.eat(TokenClass::OpenSquare) {
             if let Some (()) = opt_t {
@@ -31,8 +45,8 @@ impl Parselet for ImageParselet {
             return Expression::Error (ParseError::UnexpectedEof);
         };
 
-        // Get alt text
-        let alt = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
+        // Get value
+        let value = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
             if let Some (t) = opt_t {
                 // Make sure to trim the value
                 t.value.trim().to_owned()
@@ -58,6 +72,12 @@ impl Parselet for ImageParselet {
             return Expression::Error (ParseError::UnexpectedEof);
         };
 
+        // Stop here?
+        match ctrl.as_str() {
+            "wip" => return Expression::WorkInProgress (value),
+            _ => (),
+        }
+
         // Consume opening parenthesis
         if let Some (opt_t) = tokenizer.eat(TokenClass::OpenParen) {
             if let Some (()) = opt_t {
@@ -71,8 +91,8 @@ impl Parselet for ImageParselet {
             return Expression::Error (ParseError::UnexpectedEof);
         };
 
-        // Get hyperlink value
-        let href = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
+        // Get argument
+        let argument = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
             if let Some (t) = opt_t {
                 // Make sure to trim the value
                 t.value.trim().to_owned()
@@ -98,9 +118,12 @@ impl Parselet for ImageParselet {
             return Expression::Error (ParseError::UnexpectedEof);
         };
 
-        Expression::Image {
-            alt,
-            href,
+        match ctrl.as_str() {
+            "image" => Expression::Image {
+                alt: value,
+                href: argument,
+            },
+            _ => Expression::Error (ParseError::UnrecognizedControl (ctrl.to_owned())),
         }
     }
 }
