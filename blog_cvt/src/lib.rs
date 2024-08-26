@@ -8,6 +8,10 @@
 
 use blog_cfg::Config;
 
+use blog_emt::Emitter;
+
+use blog_prs::Parser;
+
 use blog_tkn::Tokenizer;
 
 /// Convert a source file into an output file.
@@ -19,11 +23,21 @@ use blog_tkn::Tokenizer;
 ///
 /// # Returns
 /// A `String` containing the HTML output code.
-pub fn convert(source: String, _config: &Config) -> String {
+pub fn convert(source: String, config: &Config) -> String {
     // Construct a new tokenizer
-    let tokenizer = Tokenizer::from(source);
+    let mut tokenizer = dbg!(Tokenizer::from(source));
 
-    dbg!(tokenizer);
+    // Construct a new parser
+    let parser = Parser::new();
 
-    String::new()
+    // Parse tokens
+    let expressions = dbg!(parser.parse(&mut tokenizer));
+
+    // Construct a new emitter
+    let emitter = Emitter::new(config);
+
+    // Emit HTML
+    let html = emitter.emit(expressions);
+
+    dbg!(html)
 }

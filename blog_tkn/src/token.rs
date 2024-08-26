@@ -1,6 +1,6 @@
 //! Token enumeration for the Blog Builder.
 
-#[derive(Clone, Copy, PartialEq, Debug)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash, Debug)]
 /// Types of tokens available to the Blog Builder.
 pub enum TokenClass {
     /// String token.

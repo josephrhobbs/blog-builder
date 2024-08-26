@@ -9,11 +9,6 @@
 mod charstream;
 mod token;
 
-use blog_err::{
-    BlogError,
-    BlogResult,
-};
-
 pub use charstream::CharStream;
 
 pub use token::{
@@ -99,10 +94,10 @@ impl Tokenizer {
     /// - `class` (`TokenClass`): the expected class of the token
     /// 
     /// # Returns
-    /// A `BlogResult<()>` indicating whether or not the next token
+    /// An `Option<Option<()>>` indicating whether or not the next token
     /// was of the expected class.
-    pub fn eat(&mut self, class: TokenClass) -> BlogResult<()> {
-        self.expect(class).map(|_| ())
+    pub fn eat(&mut self, class: TokenClass) -> Option<Option<()>> {
+        self.expect(class).map(|o| o.map(|_| ()))
     }
 
     /// Expects a token of a given class.
@@ -111,17 +106,17 @@ impl Tokenizer {
     /// - `class` (`TokenClass`): the expected class of the token
     /// 
     /// # Returns
-    /// A `BlogResult<Token>` wrapping the token, if it was of the expected
+    /// An `Option<Option<Token>>` wrapping the token, if it was of the expected
     /// class.
-    pub fn expect(&mut self, class: TokenClass) -> BlogResult<Token> {
+    pub fn expect(&mut self, class: TokenClass) -> Option<Option<Token>> {
         if let Some (token) = self.next() {
             if token.class == class {
-                Ok (token)
+                Some (Some (token))
             } else {
-                Err (BlogError::ExpectedToken (class.display(), token.class.display()).into())
+                Some (None)
             }
         } else {
-            Err (BlogError::UnexpectedEof.into())
+            None
         }
     }
 }

@@ -122,7 +122,7 @@ impl CharStream {
                 }
 
                 Token {
-                    value: value.trim().to_string(),
+                    value: value.to_string(),
                     class: Paragraph,
                 }
             },
