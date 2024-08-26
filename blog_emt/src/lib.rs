@@ -69,7 +69,29 @@ impl Emitter {
 
         // Emit each expression
         for expression in expressions {
-            output.push_str(&expression.display(true));
+            if expression == Expression::Menu {
+                // Generate a menu
+                if let Some (m) = &self.config.menu {
+                    // Open a new DIV
+                    let mut menu = String::from("<div class=\"menu\">\n\n");
+
+                    // Emit menu based on config info
+                    for (text, href) in m.names.iter().zip(&m.links) {
+                        menu.push_str(&format!("<a href=\"{}\">{}</a>\n\n", href, text));
+                    }
+
+                    // Close DIV
+                    menu.push_str("</div>\n\n");
+
+                    // Concatenante menu to output
+                    output.push_str(&menu);
+                } else {
+                    continue;
+                }
+            } else {
+                // Output expression as normal
+                output.push_str(&expression.display(true));
+            }
         }
 
         // Close body and document

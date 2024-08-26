@@ -7,7 +7,7 @@ use std::fmt::{
 
 use blog_tkn::TokenClass;
 
-#[derive(Clone, Debug)]
+#[derive(PartialEq, Clone, Debug)]
 /// Parse errors available to the Blog Builder.
 pub enum ParseError {
     /// Unexpected EOF.

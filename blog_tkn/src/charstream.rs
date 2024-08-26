@@ -142,6 +142,10 @@ impl CharStream {
                 class: CloseSquare,
                 value: "]".to_string(),
             },
+            Menu => Token {
+                class: Menu,
+                value: "~".to_string(),
+            },
         };
 
         Some (token)

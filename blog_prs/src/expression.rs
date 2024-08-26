@@ -7,7 +7,7 @@ use std::fmt::{
 
 use crate::ParseError;
 
-#[derive(Clone, Debug)]
+#[derive(PartialEq, Clone, Debug)]
 /// Expressions available to the Blog Builder.
 pub enum Expression {
     /// Title (h1).
@@ -34,6 +34,9 @@ pub enum Expression {
     /// Newline.
     Newline,
 
+    /// Menu.
+    Menu,
+
     /// Parsing error.
     Error (ParseError),
 }
@@ -52,6 +55,7 @@ impl Display for Expression {
                 href,
             } => format!("[{}]({})", href, text),
             Newline => "[newline]".to_string(),
+            Menu => "[menu]".to_string(),
             Error (_) => unreachable!(),
         };
 
@@ -87,6 +91,7 @@ impl Expression {
                 format!("<a href=\"{}\">{}</a>", href, text)
             },
             Newline => "\n\n".to_string(),
+            Menu => unreachable!(),
             Error (_) => unreachable!(),
         };
 

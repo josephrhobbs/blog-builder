@@ -23,6 +23,9 @@ pub enum TokenClass {
 
     /// Close parenthesis
     CloseParen,
+
+    /// Menu
+    Menu,
 }
 
 impl TokenClass {
@@ -43,6 +46,7 @@ impl TokenClass {
             CloseSquare => "CloseSquare",
             OpenParen => "OpenParen",
             CloseParen => "CloseParen",
+            Menu => "Menu",
         };
 
         string.to_string()
@@ -65,6 +69,7 @@ impl TokenClass {
             ']' => CloseSquare,
             '(' => OpenParen,
             ')' => CloseParen,
+            '~' => Menu,
             _ => Paragraph,
         }
     }

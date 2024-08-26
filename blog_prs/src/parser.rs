@@ -15,6 +15,7 @@ use crate::{
         HeaderParselet,
         HrefParselet,
         ParagraphParselet,
+        MenuParselet,
         NewlineParselet,
     },
 };
@@ -41,6 +42,7 @@ impl Parser {
         parselets.insert(TokenClass::Hashes, Box::new(HeaderParselet { }));
         parselets.insert(TokenClass::Paragraph, Box::new(ParagraphParselet { }));
         parselets.insert(TokenClass::Newline, Box::new(NewlineParselet { }));
+        parselets.insert(TokenClass::Menu, Box::new(MenuParselet { }));
         parselets.insert(TokenClass::OpenSquare, Box::new(HrefParselet { }));
 
         Self {

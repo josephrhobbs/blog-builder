@@ -24,9 +24,6 @@ pub struct Config {
     /// Site configuration information.
     pub site: SiteConfig,
 
-    /// Analytics information.
-    pub analytics: Option<AnalyticsConfig>,
-
     /// Menu information.
     pub menu: Option<MenuConfig>,
 }
@@ -45,20 +42,6 @@ pub struct SiteConfig {
 }
 
 #[derive(Clone, Deserialize, Debug)]
-/// Configuration information for analytics.
-pub struct AnalyticsConfig {
-    /// Analytics source file.
-    pub path: Option<String>,
-}
-
-#[derive(Clone, Deserialize, Debug)]
-/// Configuration information for site menu.
-pub struct MenuConfig {
-    /// Menu source file.
-    pub path: Option<String>,
-}
-
-#[derive(Clone, Deserialize, Debug)]
 /// Site style options.
 pub enum SiteStyle {
     /// Modern style.
@@ -66,6 +49,16 @@ pub enum SiteStyle {
 
     /// Technology style.
     Tech,
+}
+
+#[derive(Clone, Deserialize, Debug)]
+/// Configuration information for site menu.
+pub struct MenuConfig {
+    /// Menu button names
+    pub names: Vec<String>,
+
+    /// Menu button links
+    pub links: Vec<String>,
 }
 
 impl Config {
