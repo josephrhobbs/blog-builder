@@ -8,6 +8,8 @@
 
 use blog_cfg::Config;
 
+use blog_tkn::Tokenizer;
+
 /// Convert a source file into an output file.
 /// 
 /// # Parameters
@@ -18,5 +20,10 @@ use blog_cfg::Config;
 /// # Returns
 /// A `String` containing the HTML output code.
 pub fn convert(source: String, _config: &Config) -> String {
-    source
+    // Construct a new tokenizer
+    let tokenizer = Tokenizer::from(source);
+
+    dbg!(tokenizer);
+
+    String::new()
 }

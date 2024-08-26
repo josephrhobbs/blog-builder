@@ -40,6 +40,7 @@ name = "blog_cvt"
 version = "0.1.0"
 dependencies = [
  "blog_cfg",
+ "blog_tkn",
 ]
 
 [[package]]
@@ -77,6 +78,9 @@ dependencies = [
 [[package]]
 name = "blog_tkn"
 version = "0.1.0"
+dependencies = [
+ "blog_err",
+]
 
 [[package]]
 name = "colored"

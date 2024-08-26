@@ -11,3 +11,6 @@ path = "src/lib.rs"
 
 [dependencies.blog_cfg]
 path = "../blog_cfg"
+
+[dependencies.blog_tkn]
+path = "../blog_tkn"
