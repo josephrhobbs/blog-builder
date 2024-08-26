@@ -13,13 +13,10 @@ name = "blog-builder"
 version = "0.1.0"
 dependencies = [
  "blog_cfg",
- "blog_chk",
  "blog_cli",
  "blog_cvt",
- "blog_emt",
  "blog_env",
  "blog_err",
- "blog_prs",
  "blog_str",
  "colored",
 ]
