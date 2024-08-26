@@ -11,6 +11,7 @@ members = [
     "blog_grt",
     "blog_prs",
     "blog_str",
+    "blog_sty",
     "blog_tkn",
 ]
 

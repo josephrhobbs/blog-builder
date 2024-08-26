@@ -24,6 +24,9 @@ pub const OUTPUT_FILE_EXT: &str = "html";
 /// Index file name.
 pub const INDEX_FILE_NAME: &str = "index.txt";
 
+/// Stylesheet name.
+pub const STYLESHEET_FILE_NAME: &str = "style.css";
+
 /// Default index file.
 pub const DEFAULT_INDEX: &str = include_str!("../index.txt.example");
 

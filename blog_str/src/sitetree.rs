@@ -24,11 +24,16 @@ use blog_env::{
     CONFIG_FILE_NAME,
     DEFAULT_INDEX,
     DEFAULT_CONFIG,
+    STYLESHEET_FILE_NAME,
 };
+
+use blog_cfg::SiteStyle;
 
 use blog_err::BlogResult;
 
 use blog_grt::getroot;
+
+use blog_sty::style;
 
 #[derive(Clone, Debug)]
 /// A website tree.
@@ -142,6 +147,7 @@ impl SiteTree {
     /// A `BlogResult<()>` indicating whether or not the site
     /// was built correctly.
     pub fn build(&self, convert: impl Fn(String, &Path, &Config) -> String) -> BlogResult<()> {
+        // Build each file
         for file in &self.files {
             // Construct the source file
             let source_file = self.source_directory.join(file).with_extension(SOURCE_FILE_EXT);
@@ -159,6 +165,21 @@ impl SiteTree {
             fs::create_dir_all(&output_file.parent().unwrap())?;
 
             fs::write(output_file, output)?;
+        }
+
+        // Construct the stylesheet
+        if let Some (s) = &self.config.site.style {
+            // Build the output filename
+            let stylesheet = self.output_directory.join(STYLESHEET_FILE_NAME);
+
+            // Get the stylesheet
+            use SiteStyle::*;
+            let style = match s {
+                Modern => style::MODERN,
+            };
+
+            // Write the stylesheet
+            fs::write(stylesheet, style)?;
         }
 
         Ok (())

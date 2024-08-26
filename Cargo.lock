@@ -100,9 +100,14 @@ dependencies = [
  "blog_env",
  "blog_err",
  "blog_grt",
+ "blog_sty",
  "pathdiff",
  "walkdir",
 ]
+
+[[package]]
+name = "blog_sty"
+version = "0.1.0"
 
 [[package]]
 name = "blog_tkn"
