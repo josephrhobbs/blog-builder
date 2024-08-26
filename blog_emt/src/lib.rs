@@ -49,6 +49,9 @@ impl Emitter {
     pub fn emit(&self, expressions: Vec<Expression>) -> String {
         // Open document and head
         let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<head>\n\n");
+
+        // Add title
+        output.push_str(&format!("<title>{}</title>", self.config.site.name));
         
         // Add links to stylesheet and fonts
         if let Some (s) = &self.config.site.style {
