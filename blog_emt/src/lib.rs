@@ -58,7 +58,6 @@ impl Emitter {
             // Link fonts
             use SiteStyle::*;
             let links = match s {
-                Modern => links::MODERN,
                 Tech => links::TECH,
             };
             output.push_str(&format!("{}\n\n", links));

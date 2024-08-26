@@ -55,3 +55,27 @@ WIP banners are supported using the following syntax.
 ```
 
 The `wip` control sequence must be placed at the beginning of a line.
+
+## Tile Hyperlinks
+
+Tile hyperlinks are supported using the following syntax.
+
+```
+::tile[Title][Short Description][/path/to/link][/path/to/image]
+```
+
+This generates an HTML sequence similar to the one below (note the two URIs are omitted).
+
+```
+<div class="tile">
+    <div>
+        Title
+    </div>
+    <br>
+    <div class="desc">
+        Short Description
+    </div>
+</div>
+```
+
+The `tile` control sequence must be placed at the beginning of a line.

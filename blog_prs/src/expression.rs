@@ -52,6 +52,21 @@ pub enum Expression {
         href: String,
     },
 
+    /// Tile hyperlink (div.tile).
+    Tile {
+        /// Title text.
+        title: String,
+
+        /// Description.
+        description: String,
+
+        /// URI of link.
+        href: String,
+
+        /// URI of image.
+        image: String,
+    },
+
     /// Work in progress tag (div.wip).
     WorkInProgress (String),
 
@@ -90,7 +105,13 @@ impl Display for Expression {
             Image {
                 alt,
                 href,
-            } => format!("::image[{}]({})", alt, href),
+            } => format!("::image[{}][{}]", alt, href),
+            Tile {
+                title,
+                description,
+                href,
+                image,
+            } => format!("::tile[{}][{}][{}][{}]", title, description, href, image),
             WorkInProgress (message) => format!("::wip[{}]", message),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
@@ -160,6 +181,12 @@ impl Expression {
                 alt,
                 href,
             } => format!("<img src=\"{}\" alt=\"{}\">", href, alt),
+            Tile {
+                title,
+                description,
+                href,
+                image,
+            } => format!("<div class=\"tile\" onclick=\"window.location='{}';\" style=\"background-image: url('{}'); cursor: pointer; background-position: center;\"><div>{}</div><br><div class=\"desc\">{}</div></div>", href, image, title, description),
             WorkInProgress (message) => format!("<div class=\"wip\">{}</div>", message),
             Newline => "\n\n".to_string(),
             Menu => unreachable!(),

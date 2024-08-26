@@ -66,6 +66,7 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
     let len: usize = match ctrl {
         "image" => 2,
         "wip" => 1,
+        "tile" => 4,
         _ => return Expression::Error (ParseError::UnrecognizedControl (ctrl.to_owned())),
     };
 
@@ -84,6 +85,12 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
             href: values[1].to_owned(),
         },
         "wip" => Expression::WorkInProgress (values[0].to_owned()),
+        "tile" => Expression::Tile {
+            title: values[0].to_owned(),
+            description: values[1].to_owned(),
+            href: values[2].to_owned(),
+            image: values[3].to_owned(),
+        },
 
         // We already checked above that this is a valid control sequence
         _ => unreachable!(),

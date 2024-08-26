@@ -24,10 +24,6 @@
         font-family: "Outfit", sans-serif;
     }
 
-    h1 a {
-        text-decoration: none;
-    }
-
     h2 {
         color: darkblue;
         font-style: italic;
@@ -56,7 +52,7 @@
         font-family: "Outfit", sans-serif;
     }
 
-    h6 {
+    h4 {
         color: var(--spaceblue);
         display: flex;
         justify-content: center;
@@ -81,15 +77,6 @@
         line-height: 40px;
     }
 
-    div.tiles {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: left;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
     div.tile {
         display: inline-flex;
         flex-direction: column;
@@ -102,6 +89,7 @@
         border-radius: 20px;
         text-decoration: none;
         color: white;
+        background-color: white;
         font-size: 30px;
         text-shadow: 0px 0px 8px black, -2px -2px 8px black, -2px 2px 8px black, 2px -2px 8px black, 2px 2px 8px black;
         transition: 0.4s;
@@ -109,12 +97,20 @@
         font-weight: 600;
     }
 
+    .tile div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 0px;
+    }
+
     div.tile:hover {
         transition: 0.4s;
         filter: brightness(1.5);
     }
 
-    .desc {
+    div.tile.desc {
         font-family: "EB Garamond", serif;
         font-size: 24px;
     }
@@ -148,26 +144,6 @@
         transition: 0.4s;
     }
 
-    div.tile {
-        background-color: white;
-    }
-
-    .tile div {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 0px;
-    }
-
-    h6.footer {
-        background-color: white;
-    }
-
-    pre {
-        border-radius: 12px;
-    }
-
     img {
         border-radius: 12px;
         margin-top: 24px;
@@ -176,16 +152,6 @@
         margin-right: auto;
         width: auto;
         display: block;
-    }
-
-    img.floating {
-        border-radius: 12px;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        max-height: 40%;
-        width: auto;
-        float: left;
-        margin-right: 24px;
     }
 }
 
@@ -207,10 +173,6 @@
         margin-top: 80px;
         margin-bottom: 0px;
         font-family: "Outfit", sans-serif;
-    }
-
-    h1 a {
-        text-decoration: none;
     }
 
     h2 {
@@ -241,7 +203,7 @@
         font-family: "Outfit", sans-serif;
     }
 
-    h6 {
+    h4 {
         color: var(--spaceblue);
         display: flex;
         justify-content: center;
@@ -268,15 +230,6 @@
         margin-bottom: 42px;
     }
 
-    div.tiles {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: left;
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
     div.tile {
         display: inline-flex;
         flex-direction: column;
@@ -289,6 +242,7 @@
         border-radius: 20px;
         text-decoration: none;
         color: white;
+        background-color: white;
         font-size: 54px;
         text-shadow: 0px 0px 8px black, -2px -2px 8px black, -2px 2px 8px black, 2px -2px 8px black, 2px 2px 8px black;
         transition: 0.4s;
@@ -299,6 +253,14 @@
     div.tile:hover {
         transition: 0.4s;
         filter: brightness(1.5);
+    }
+
+    .tile div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 0px;
     }
 
     .desc {
@@ -339,26 +301,6 @@
         transition: 0.4s;
     }
 
-    div.tile {
-        background-color: white;
-    }
-
-    .tile div {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 0px;
-    }
-
-    h6.footer {
-        background-color: white;
-    }
-
-    pre {
-        border-radius: 12px;
-    }
-
     img {
         border-radius: 12px;
         margin-top: 24px;
@@ -367,16 +309,5 @@
         margin-right: auto;
         width: auto;
         display: block;
-    }
-
-    img.floating {
-        border-radius: 12px;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        max-width: 50%;
-        max-height: 40%;
-        width: auto;
-        float: left;
-        margin-right: 24px;
     }
 }
