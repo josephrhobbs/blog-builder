@@ -13,7 +13,10 @@ use blog_cfg::{
     SiteStyle,
 };
 
-use blog_env::STYLESHEET_FILE_NAME;
+use blog_env::{
+    STYLESHEET_FILE_NAME,
+    INDEX_FILE_NAME,
+};
 
 use blog_prs::Expression;
 
@@ -59,10 +62,11 @@ impl Emitter {
         let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<head>\n\n");
 
         // Construct title
-        let page_title: &str = &filename.file_name().unwrap().to_str().unwrap().to_case(Case::Title);
+        let filename_str: &str = filename.file_name().unwrap().to_str().unwrap();
+        let page_title = &filename_str.to_case(Case::Title);
 
-        // Add title to header, unless it's "index.html"
-        if page_title == "Index" {
+        // Add title to header, unless it's the index file
+        if filename_str == INDEX_FILE_NAME {
             output.push_str(&format!("<title>{}</title>\n\n", self.config.site.name));
         } else {
             output.push_str(&format!("<title>{} | {}</title>\n\n", page_title, self.config.site.name));
