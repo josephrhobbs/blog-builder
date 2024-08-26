@@ -17,6 +17,6 @@ use blog_cfg::Config;
 ///
 /// # Returns
 /// A `String` containing the HTML output code.
-pub fn convert(_source: String, _config: &Config) -> String {
-    todo!()
+pub fn convert(source: String, _config: &Config) -> String {
+    source
 }

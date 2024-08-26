@@ -25,10 +25,10 @@ pub struct Config {
     pub site: SiteConfig,
 
     /// Analytics information.
-    pub analytics: AnalyticsConfig,
+    pub analytics: Option<AnalyticsConfig>,
 
     /// Menu information.
-    pub menu: MenuConfig,
+    pub menu: Option<MenuConfig>,
 }
 
 #[derive(Clone, Deserialize, Debug)]
