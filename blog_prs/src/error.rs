@@ -28,6 +28,18 @@ pub enum ParseError {
     /// Unrecognized control sequence.
     UnrecognizedControl (String),
 
+    /// Incorrect number of arguments to control sequence.
+    IncorrectArgumentCount {
+        /// Number of arguments we expected.
+        expected: usize,
+
+        /// Number of arguments we actually got.
+        actual: usize,
+
+        /// Control sequence.
+        control: String,
+    },
+
     /// No parselet available for token class.
     NoParselet (TokenClass),
 }
@@ -42,6 +54,11 @@ impl Display for ParseError {
             UnrecognizedEmphasis => "unrecognized emphasis sequence",
             UnrecognizedControl (c) => &format!("unrecognized control sequence '{}'", c),
             MismatchedDelimiters => "mismatched delimiters",
+            IncorrectArgumentCount {
+                expected: e,
+                actual: a,
+                control: c,
+            } => &format!("expected {} argument(s) to control sequence '{}', got {} argument(s) instead", e, c, a),
             NoParselet (c) => &format!("could not handle token of class '{}'", c.display()),
         };
 

@@ -41,7 +41,7 @@ Hyperlinks are supported in the Markdown style.
 Images are supported using the following syntax.
 
 ```
-::image[alternate text](/path/to/image)
+::image[alternate text][/path/to/image]
 ```
 
 The `image` control sequence must be placed at the beginning of a line.

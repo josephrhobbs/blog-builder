@@ -32,98 +32,105 @@ impl Parselet for ControlParselet {
             return Expression::Error (ParseError::UnexpectedEof);
         };
 
-        // Consume opening square bracket
-        if let Some (opt_t) = tokenizer.eat(TokenClass::OpenSquare) {
-            if let Some (()) = opt_t {
-                // Good!
-            } else {
-                // Expected closing square, found something else
-                return Expression::Error (ParseError::ExpectedToken (TokenClass::OpenSquare));
-            }
-        } else {
-            // We ran out of tokens :(
-            return Expression::Error (ParseError::UnexpectedEof);
-        };
+        // Initialize list of values
+        let mut values = Vec::new();
 
-        // Get value
-        let value = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
-            if let Some (t) = opt_t {
-                // Make sure to trim the value
-                t.value.trim().to_owned()
-            } else {
-                // Expected text, found something else
-                return Expression::Error (ParseError::ExpectedToken (TokenClass::Paragraph));
-            }
-        } else {
-            // We ran out of tokens :(
-            return Expression::Error (ParseError::UnexpectedEof);
-        };
+        // Parse each value
+        while let Some (t) = tokenizer.peek() {
+            if t.class == TokenClass::OpenSquare {
+                // Parse the expression
+                let expr = parse_square_expr(tokenizer);
 
-        // Consume closing square bracket
-        if let Some (opt_t) = tokenizer.eat(TokenClass::CloseSquare) {
-            if let Some (()) = opt_t {
-                // Good!
-            } else {
-                // Expected closing square, found something else
-                return Expression::Error (ParseError::ExpectedToken (TokenClass::CloseSquare));
-            }
-        } else {
-            // We ran out of tokens :(
-            return Expression::Error (ParseError::UnexpectedEof);
-        };
+                // Check if any errors occurred
+                let string = if let Expression::Text (t) = expr {
+                    t
+                } else {
+                    // This is an error, return it
+                    return expr;
+                };
 
-        // Stop here?
-        match ctrl.as_str() {
-            "wip" => return Expression::WorkInProgress (value),
-            _ => (),
+                // Store the string
+                values.push(string);
+            } else {
+                break;
+            }
         }
 
-        // Consume opening parenthesis
-        if let Some (opt_t) = tokenizer.eat(TokenClass::OpenParen) {
-            if let Some (()) = opt_t {
-                // Good!
-            } else {
-                // Expected closing square, found something else
-                return Expression::Error (ParseError::ExpectedToken (TokenClass::OpenParen));
-            }
-        } else {
-            // We ran out of tokens :(
-            return Expression::Error (ParseError::UnexpectedEof);
-        };
-
-        // Get argument
-        let argument = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
-            if let Some (t) = opt_t {
-                // Make sure to trim the value
-                t.value.trim().to_owned()
-            } else {
-                // Expected text, found something else
-                return Expression::Error (ParseError::ExpectedToken (TokenClass::Paragraph));
-            }
-        } else {
-            // We ran out of tokens :(
-            return Expression::Error (ParseError::UnexpectedEof);
-        };
-
-        // Consume closing parenthesis
-        if let Some (opt_t) = tokenizer.eat(TokenClass::CloseParen) {
-            if let Some (()) = opt_t {
-                // Good!
-            } else {
-                // Expected closing square, found something else
-                return Expression::Error (ParseError::ExpectedToken (TokenClass::CloseParen));
-            }
-        } else {
-            // We ran out of tokens :(
-            return Expression::Error (ParseError::UnexpectedEof);
-        };
-
-        match ctrl.as_str() {
-            "image" => Expression::Image {
-                alt: value,
-                href: argument,
-            },
-            _ => Expression::Error (ParseError::UnrecognizedControl (ctrl.to_owned())),
-        }
+        build_expr(&ctrl, values)
     }
+}
+
+/// Build a control sequence expression from a list of values.
+fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
+    // How long should the list be?
+    let len: usize = match ctrl {
+        "image" => 2,
+        "wip" => 1,
+        _ => return Expression::Error (ParseError::UnrecognizedControl (ctrl.to_owned())),
+    };
+
+    // Enforce list length
+    if values.len() != len {
+        return Expression::Error (ParseError::IncorrectArgumentCount {
+            expected: len,
+            actual: values.len(),
+            control: ctrl.to_string(),
+        });
+    }
+
+    match ctrl {
+        "image" => Expression::Image {
+            alt: values[0].to_owned(),
+            href: values[1].to_owned(),
+        },
+        "wip" => Expression::WorkInProgress (values[0].to_owned()),
+
+        // We already checked above that this is a valid control sequence
+        _ => unreachable!(),
+    }
+}
+
+/// Parse a bracketed string into an expression.
+fn parse_square_expr(tokenizer: &mut Tokenizer) -> Expression {
+    // Consume opening square bracket
+    if let Some (opt_t) = tokenizer.eat(TokenClass::OpenSquare) {
+        if let Some (()) = opt_t {
+            // Good!
+        } else {
+            // Expected closing square, found something else
+            return Expression::Error (ParseError::ExpectedToken (TokenClass::OpenSquare));
+        }
+    } else {
+        // We ran out of tokens :(
+        return Expression::Error (ParseError::UnexpectedEof);
+    };
+
+    // Get value
+    let value = if let Some (opt_t) = tokenizer.expect(TokenClass::Paragraph) {
+        if let Some (t) = opt_t {
+            // Make sure to trim the value
+            t.value.trim().to_owned()
+        } else {
+            // Expected text, found something else
+            return Expression::Error (ParseError::ExpectedToken (TokenClass::Paragraph));
+        }
+    } else {
+        // We ran out of tokens :(
+        return Expression::Error (ParseError::UnexpectedEof);
+    };
+
+    // Consume closing square bracket
+    if let Some (opt_t) = tokenizer.eat(TokenClass::CloseSquare) {
+        if let Some (()) = opt_t {
+            // Good!
+        } else {
+            // Expected closing square, found something else
+            return Expression::Error (ParseError::ExpectedToken (TokenClass::CloseSquare));
+        }
+    } else {
+        // We ran out of tokens :(
+        return Expression::Error (ParseError::UnexpectedEof);
+    };
+
+    Expression::Text (value)
 }
