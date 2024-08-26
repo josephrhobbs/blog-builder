@@ -58,9 +58,15 @@ impl Emitter {
         // Open document and head
         let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<head>\n\n");
 
-        // Add title
+        // Construct title
         let page_title: &str = &filename.file_name().unwrap().to_str().unwrap().to_case(Case::Title);
-        output.push_str(&format!("<title>{} | {}</title>\n\n", page_title, self.config.site.name));
+
+        // Add title to header, unless it's "index.html"
+        if page_title == "Index" {
+            output.push_str(&format!("<title>{}</title>\n\n", self.config.site.name));
+        } else {
+            output.push_str(&format!("<title>{} | {}</title>\n\n", page_title, self.config.site.name));
+        }
         
         // Add links to stylesheet and fonts
         if let Some (s) = &self.config.site.style {
