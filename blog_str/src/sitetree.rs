@@ -147,6 +147,10 @@ impl SiteTree {
     /// # Returns
     /// A `BlogResult<()>` indicating whether or not the site
     /// was built correctly.
+    /// 
+    /// # Errors
+    /// This function returns an error if it was unable to perform any read/write
+    /// operations correctly.
     pub fn build(&self, convert: impl Fn(String, &Path, &Config) -> String) -> BlogResult<()> {
         // Build each file
         for file in &self.files {
@@ -165,6 +169,7 @@ impl SiteTree {
             // Create the output directory
             fs::create_dir_all(&output_file.parent().unwrap())?;
 
+            // Write the output file
             fs::write(output_file, output)?;
         }
 
@@ -205,7 +210,7 @@ impl SiteTree {
                 // Build output media
                 let output_media = self.output_directory.join(MEDIA_DIR_NAME).join(m);
 
-                // Copy the icon
+                // Copy the media
                 fs::copy(source_media, output_media)?;
             }
         }

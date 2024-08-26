@@ -80,7 +80,7 @@ pub enum Expression {
     Error (ParseError),
 }
 
-// For error handling
+// Used for error handling.
 impl Display for Expression {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         use Expression::*;
