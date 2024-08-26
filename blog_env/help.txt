@@ -1,3 +1,19 @@
 Blog Builder
 
-Help menu coming soon!
+A simple static web framework.
+
+USAGE
+
+    blog <SUBCOMMAND>
+
+SUBCOMMAND
+
+    new <NAME>  create a new site called <NAME>
+
+    build       build the current site directory
+
+    clean       clean the current directory
+
+    help        display this help menu
+
+Executing `blog` with no subcommands will display this help menu.
