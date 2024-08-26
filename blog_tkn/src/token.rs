@@ -11,6 +11,18 @@ pub enum TokenClass {
 
     /// Newline token.
     Newline,
+
+    /// Open square bracket.
+    OpenSquare,
+
+    /// Close square bracker.
+    CloseSquare,
+
+    /// Open parenthesis.
+    OpenParen,
+
+    /// Close parenthesis
+    CloseParen,
 }
 
 impl TokenClass {
@@ -27,6 +39,10 @@ impl TokenClass {
             Paragraph => "Paragraph",
             Hashes => "Hashes",
             Newline => "Newline",
+            OpenSquare => "OpenSquare",
+            CloseSquare => "CloseSquare",
+            OpenParen => "OpenParen",
+            CloseParen => "CloseParen",
         };
 
         string.to_string()
@@ -45,6 +61,10 @@ impl TokenClass {
         match c {
             '#' => Hashes,
             '\n' => Newline,
+            '[' => OpenSquare,
+            ']' => CloseSquare,
+            '(' => OpenParen,
+            ')' => CloseParen,
             _ => Paragraph,
         }
     }

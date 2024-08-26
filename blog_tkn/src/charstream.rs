@@ -102,10 +102,6 @@ impl CharStream {
                     class: Hashes,
                 }
             },
-            Newline => Token {
-                class: Newline,
-                value: "\n".to_string(),
-            },
             Paragraph => {
                 let mut value = String::new();
 
@@ -125,6 +121,26 @@ impl CharStream {
                     value: value.to_string(),
                     class: Paragraph,
                 }
+            },
+            Newline => Token {
+                class: Newline,
+                value: "\n".to_string(),
+            },
+            OpenParen => Token {
+                class: OpenParen,
+                value: "(".to_string(),
+            },
+            CloseParen => Token {
+                class: CloseParen,
+                value: ")".to_string(),
+            },
+            OpenSquare => Token {
+                class: OpenSquare,
+                value: "[".to_string(),
+            },
+            CloseSquare => Token {
+                class: CloseSquare,
+                value: "]".to_string(),
             },
         };
 

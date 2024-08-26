@@ -13,6 +13,7 @@ use crate::{
     ParseError,
     parselets::{
         HeaderParselet,
+        HrefParselet,
         ParagraphParselet,
         NewlineParselet,
     },
@@ -40,6 +41,7 @@ impl Parser {
         parselets.insert(TokenClass::Hashes, Box::new(HeaderParselet { }));
         parselets.insert(TokenClass::Paragraph, Box::new(ParagraphParselet { }));
         parselets.insert(TokenClass::Newline, Box::new(NewlineParselet { }));
+        parselets.insert(TokenClass::OpenSquare, Box::new(HrefParselet { }));
 
         Self {
             parselets,

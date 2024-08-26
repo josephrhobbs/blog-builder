@@ -40,11 +40,16 @@ impl Emitter {
     /// # Returns
     /// A `String` containing HTML.
     pub fn emit(&self, expressions: Vec<Expression>) -> String {
-        let mut output = String::new();
+        // Open document and body
+        let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<body>\n\n");
 
+        // Emit each expression
         for expression in expressions {
-            output.push_str(&expression.to_string());
+            output.push_str(&expression.display(true));
         }
+
+        // Close body and document
+        output.push_str("</body>\n\n</html>");
 
         output
     }
