@@ -176,6 +176,7 @@ impl SiteTree {
             use SiteStyle::*;
             let style = match s {
                 Modern => style::MODERN,
+                Tech => style::TECH,
             };
 
             // Write the stylesheet

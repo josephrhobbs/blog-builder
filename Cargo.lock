@@ -62,7 +62,9 @@ name = "blog_emt"
 version = "0.1.0"
 dependencies = [
  "blog_cfg",
+ "blog_env",
  "blog_prs",
+ "blog_sty",
 ]
 
 [[package]]

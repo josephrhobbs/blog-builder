@@ -63,6 +63,9 @@ pub struct MenuConfig {
 pub enum SiteStyle {
     /// Modern style.
     Modern,
+
+    /// Technology style.
+    Tech,
 }
 
 impl Config {

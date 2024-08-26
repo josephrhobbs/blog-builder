@@ -12,5 +12,11 @@ path = "src/lib.rs"
 [dependencies.blog_cfg]
 path = "../blog_cfg"
 
+[dependencies.blog_env]
+path = "../blog_env"
+
+[dependencies.blog_sty]
+path = "../blog_sty"
+
 [dependencies.blog_prs]
 path = "../blog_prs"

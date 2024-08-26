@@ -81,7 +81,11 @@ impl Expression {
             Href {
                 text,
                 href,
-            } => format!("<a href=\"{}\">{}</a>", href, text),
+            } => if top {
+                format!("<p><a href=\"{}\">{}</a></p>", href, text)
+            } else {
+                format!("<a href=\"{}\">{}</a>", href, text)
+            },
             Newline => "\n\n".to_string(),
             Error (_) => unreachable!(),
         };
