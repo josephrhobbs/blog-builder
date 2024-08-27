@@ -196,8 +196,11 @@ impl SiteTree {
             // Build output icon
             let output_icon = self.output_directory.join(f);
 
+            // Create the output directory
+            fs::create_dir_all(&output_icon.parent().unwrap())?;
+
             // Copy the icon
-            fs::copy(source_icon, output_icon)?;
+            fs::copy(source_icon, output_icon).unwrap();
         }
 
         // Copy over media
@@ -209,6 +212,9 @@ impl SiteTree {
 
                 // Build output media
                 let output_media = self.output_directory.join(MEDIA_DIR_NAME).join(m);
+
+                // Create the output directory
+                fs::create_dir_all(&self.output_directory.join(MEDIA_DIR_NAME))?;
 
                 // Copy the media
                 fs::copy(source_media, output_media)?;
