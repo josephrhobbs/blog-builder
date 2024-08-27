@@ -28,7 +28,7 @@ pub mod cvt {
 
 /// User help utility.
 pub mod help {
-    pub use blog_env::HELP;
+    pub use blog_env::help;
 }
 
 /// Error handling.
@@ -42,4 +42,9 @@ pub mod err {
 /// Website tree management.
 pub mod site {
     pub use blog_str::SiteTree;
+}
+
+/// Version information.
+pub mod version {
+    pub use blog_env::VERSION;
 }

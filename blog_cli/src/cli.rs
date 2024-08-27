@@ -7,6 +7,13 @@ use std::env;
 pub struct Cli {
     /// The user-provided subcommand.
     pub subcommand: Subcommand,
+
+    /// The verbosity of the output.
+    /// 
+    /// Silent (no output) is 0.
+    /// Default (some output) is 1.
+    /// Verbose (all output) is 2 or greater.
+    pub verbosity: usize,
 }
 
 impl Cli {
@@ -20,8 +27,23 @@ impl Cli {
     pub fn new() -> Self {
         let subcommand = Subcommand::from(env::args().nth(1));
 
+        // Default verbosity is 1
+        let mut verbosity = 1;
+
+        // Check for verbosity
+        for arg in env::args() {
+            match arg.as_str() {
+                "--verbose" => verbosity = 2,
+                "--quiet" => verbosity = 0,
+                a if a.contains("-v") => verbosity = 1 + a.chars().filter(|c| *c == 'v').count(),
+                "-q" => verbosity = 0,
+                _ => (),
+            }
+        }
+
         Self {
             subcommand,
+            verbosity,
         }
     }
 }
@@ -37,6 +59,9 @@ pub enum Subcommand {
 
     /// Build the site.
     Build,
+
+    /// Print version information.
+    Version,
 
     /// Clean the site (delete the output directory).
     Clean,
@@ -61,6 +86,7 @@ impl Subcommand {
 
         match string.as_str() {
             "new" => {
+                // Get the name of the new site
                 let argument = if let Some (a) = env::args().nth(2) {
                     a
                 } else {
@@ -71,6 +97,7 @@ impl Subcommand {
             },
             "build" => Subcommand::Build,
             "clean" => Subcommand::Clean,
+            "version" => Subcommand::Version,
             _ => Subcommand::Help,
         }
     }

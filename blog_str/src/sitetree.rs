@@ -6,7 +6,10 @@ use std::{
         Path,
         PathBuf,
     },
+    time::Instant,
 };
+
+use colored::*;
 
 use walkdir::{
     DirEntry,
@@ -142,7 +145,8 @@ impl SiteTree {
     /// # Parameters
     /// - `convert` (`Fn(String, &Path, &Config) -> String>`): the closure to
     /// apply to each source to construct each output, given a filename and a 
-    /// configuration structure.
+    /// configuration structure
+    /// - `verbosity` (`usize`): verbosity level of build
     /// 
     /// # Returns
     /// A `BlogResult<()>` indicating whether or not the site
@@ -151,9 +155,17 @@ impl SiteTree {
     /// # Errors
     /// This function returns an error if it was unable to perform any read/write
     /// operations correctly.
-    pub fn build(&self, convert: impl Fn(String, &Path, &Config) -> String) -> BlogResult<()> {
+    pub fn build(&self, convert: impl Fn(String, &Path, &Config) -> String, verbosity: usize) -> BlogResult<()> {
+        // Start a timer
+        let start = Instant::now();
+
         // Build each file
         for file in &self.files {
+            // Print filename, if verbose
+            if verbosity > 1 {
+                println!("{:>10} page '/{}'", "Building".bright_green(), file.display());
+            }
+
             // Construct the source file
             let source_file = self.source_directory.join(file).with_extension(SOURCE_FILE_EXT);
 
@@ -175,6 +187,11 @@ impl SiteTree {
 
         // Construct the stylesheet
         if let Some (s) = &self.config.site.style {
+            // Print stylesheet name, if verbose
+            if verbosity > 1 {
+                println!("{:>10} stylesheet '/{}' from style '{}'", "Writing".bright_green(), STYLESHEET_FILE_NAME, s);
+            }
+
             // Build the output filename
             let stylesheet = self.output_directory.join(STYLESHEET_FILE_NAME);
 
@@ -190,6 +207,11 @@ impl SiteTree {
 
         // Construct the favicon
         if let Some (f) = &self.config.site.icon {
+            // Print favicon location, if verbose
+            if verbosity > 1 {
+                println!("{:>10} favicon '/{}'", "Writing".bright_green(), f);
+            }
+
             // Build source icon
             let source_icon = self.source_directory.join(f);
 
@@ -200,13 +222,18 @@ impl SiteTree {
             fs::create_dir_all(&output_icon.parent().unwrap())?;
 
             // Copy the icon
-            fs::copy(source_icon, output_icon).unwrap();
+            fs::copy(source_icon, output_icon)?;
         }
 
         // Copy over media
         if let Some (media) = &self.config.media {
             // Look in the media directory
             for m in &media.include {
+                // Print media location, if verbose
+                if verbosity > 1 {
+                    println!("{:>10} media file '/{}/{}'", "Writing".bright_green(), MEDIA_DIR_NAME, m);
+                }
+
                 // Build source media
                 let source_media = self.source_directory.join(MEDIA_DIR_NAME).join(m);
 
@@ -219,6 +246,15 @@ impl SiteTree {
                 // Copy the media
                 fs::copy(source_media, output_media)?;
             }
+        }
+
+        // We're done here!  Print time elapsed and return
+        if verbosity > 0 {
+            println!(
+                "{:>10} building output directory in {:.2} ms",
+                "Finished".bold().bright_green(),
+                start.elapsed().as_micros() as f64 / 1000.0,
+            );
         }
 
         Ok (())

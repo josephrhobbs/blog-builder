@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+colored = "2.1.0"
 pathdiff = "0.2.1"
 walkdir = "2.5.0"
 

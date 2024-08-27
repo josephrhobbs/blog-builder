@@ -68,6 +68,9 @@ dependencies = [
 [[package]]
 name = "blog_env"
 version = "0.1.0"
+dependencies = [
+ "colored",
+]
 
 [[package]]
 name = "blog_err"
@@ -101,6 +104,7 @@ dependencies = [
  "blog_err",
  "blog_grt",
  "blog_sty",
+ "colored",
  "pathdiff",
  "walkdir",
 ]

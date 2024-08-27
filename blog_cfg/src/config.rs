@@ -1,6 +1,7 @@
 //! Configuration file management for the Blog Builder.
 
 use std::{
+    fmt,
     fs,
     path::{
         Path,
@@ -50,6 +51,18 @@ pub struct SiteConfig {
 pub enum SiteStyle {
     /// Technology style.
     Tech,
+}
+
+// Used for debugging.
+impl fmt::Display for SiteStyle {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        use SiteStyle::*;
+        let output = match self {
+            Tech => "tech",
+        };
+
+        write!(f, "{}", output)
+    }
 }
 
 #[derive(Clone, Deserialize, Debug)]

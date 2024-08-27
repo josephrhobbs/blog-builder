@@ -2,6 +2,19 @@
 
 A simple static web framework, powered by the Rust programming language.
 
+## Installation
+
+The Blog Builder may be installed with an up-to-date installation of stable Rust.
+
+Minimum Supported Rust Version (MSRV): **Rust 1.80**.
+
+Clone this repository to your computer and, using `cargo install`, build and install the package.
+
+```bash
+$ git clone https://github.com/josephrhobbs/blog-builder.git
+$ cargo install --path .
+```
+
 ## Usage
 
 Create a new website by typing `blog new <name>`.  This will create a directory with the following structure.

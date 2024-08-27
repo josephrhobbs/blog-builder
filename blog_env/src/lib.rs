@@ -6,6 +6,13 @@
 // Enforce all documentation.
 #![deny(missing_docs)]
 
+mod help;
+
+pub use help::help;
+
+/// Software version number.
+pub const VERSION: &str = "0.1.0";
+
 /// Configuration file name.
 pub const CONFIG_FILE_NAME: &str = "blog.toml";
 
@@ -35,6 +42,3 @@ pub const DEFAULT_INDEX: &str = include_str!("../index.txt.example");
 
 /// Default configuation file.
 pub const DEFAULT_CONFIG: &str = include_str!("../blog.toml.example");
-
-/// Help menu.
-pub const HELP: &str = include_str!("../help.txt");

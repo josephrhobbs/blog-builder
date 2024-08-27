@@ -10,7 +10,8 @@ use blog::{
     },
     site::SiteTree,
     cvt::convert,
-    help::HELP,
+    help::help,
+    version::VERSION,
 };
 
 use colored::*;
@@ -23,10 +24,7 @@ fn main() {
         // Print the error
         println!("\n{:>10} {}", "Error".bold().bright_red(), e);
 
-        // Print a help message
-        println!("\n{:>10} you may be trying to access a file that does not exist", "Hint".bold().bright_yellow());
-
-        // Print the error
+        // Exit
         println!("\n{:>10} due to previous error message", "Exiting".bold().bright_red());
 
         // Exit
@@ -46,21 +44,33 @@ fn run() -> BlogResult<()> {
     use Subcommand::*;
     match cli.subcommand {
         New (name) => {
-            println!("{:>10} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
+            if cli.verbosity > 0 {
+                println!("{:>10} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
+            }
 
             SiteTree::new(name)?
         },
         Build => {
-            println!("{:>10} site output directory", "Building".bold().green());
+            if cli.verbosity > 0 {
+                println!("{:>10} site output directory", "Building".bold().bright_green());
+            }
 
-            sitetree?.build(convert)?
+            sitetree?.build(convert, cli.verbosity)?
         },
         Clean => {
-            println!("{:>10} site output directory", "Cleaning".bold().green());
+            if cli.verbosity > 0 {
+                println!("{:>10} site output directory", "Cleaning".bold().bright_green());
+            }
 
             sitetree?.clean()?
         },
-        Help => println!("{}", HELP),
+        Version => println!(
+            "{}\n{:>10} {}",
+            "The Blog Builder".bold().bright_white(),
+            "Version".bold().bright_yellow(),
+            VERSION,
+        ),
+        Help => help(),
     }
 
     Ok (())
