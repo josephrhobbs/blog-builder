@@ -50,9 +50,23 @@ You may add a favicon for a website by updating `blog.toml`.
 
 ```toml
 [site]
-...
-icon = "/media/icon.ico"
+name = "My Website"
+icon = "media/icon.ico"
 ```
+
+The path associated with `site.icon` is interpreted to be relative to `source/`.
+
+## Adding a Style
+
+You may add a built-in style by setting `site.style` in `blog.toml`.
+
+```toml
+[site]
+name = "My Website"
+style = "tech"
+```
+
+*Note*: this built-in style will be overridden if `site.stylesheet` is set.
 
 ## Adding Media
 

@@ -55,10 +55,10 @@ pub enum SiteStyle {
 #[derive(Clone, Deserialize, Debug)]
 /// Configuration information for site menu.
 pub struct MenuConfig {
-    /// Menu button names
+    /// Menu button names.
     pub names: Vec<String>,
 
-    /// Menu button links
+    /// Menu button links.
     pub links: Vec<String>,
 }
 
