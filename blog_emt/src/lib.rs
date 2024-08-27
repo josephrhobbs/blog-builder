@@ -15,7 +15,7 @@ use blog_cfg::{
 
 use blog_env::{
     STYLESHEET_FILE_NAME,
-    INDEX_FILE_NAME,
+    INDEX_PAGE_NAME,
 };
 
 use blog_prs::Expression;
@@ -65,8 +65,7 @@ impl Emitter {
         let filename_str: &str = filename.file_name().unwrap().to_str().unwrap();
         let page_title = &filename_str.to_case(Case::Title);
 
-        // Add title to header, unless it's the index file
-        if page_title == &INDEX_FILE_NAME.to_case(Case::Title) {
+        if page_title == INDEX_PAGE_NAME {
             output.push_str(&format!("<title>{}</title>\n\n", self.config.site.name));
         } else {
             output.push_str(&format!("<title>{} | {}</title>\n\n", page_title, self.config.site.name));
