@@ -110,7 +110,7 @@
         filter: brightness(1.5);
     }
 
-    div.tile.desc {
+    div.tile .desc {
         font-family: "EB Garamond", serif;
         font-size: 24px;
     }
@@ -288,7 +288,7 @@
         height: 0px;
     }
 
-    .desc {
+    div.tile .desc {
         font-family: "EB Garamond", serif;
         font-size: 48px;
     }
