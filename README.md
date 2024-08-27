@@ -66,8 +66,6 @@ name = "My Website"
 style = "tech"
 ```
 
-*Note*: this built-in style will be overridden if `site.stylesheet` is set.
-
 ## Adding Media
 
 Create the `media/` subdirectory inside of `source/`.
