@@ -22,13 +22,14 @@ use blog_tkn::Tokenizer;
 /// 
 /// # Parameters
 /// - `source` (`String`): the source code
+/// - `root` (`&Path`): the root directory of the site
 /// - `filename` (`&Path`): the filename
 /// - `config` (`&Config`): a reference to the configuration
 /// information
 ///
 /// # Returns
 /// A `String` containing the HTML output code.
-pub fn convert(source: String, filename: &Path, config: &Config) -> String {
+pub fn convert(source: String, root: &Path, filename: &Path, config: &Config) -> String {
     // Construct a new tokenizer
     let mut tokenizer = Tokenizer::from(source);
 
@@ -45,5 +46,5 @@ pub fn convert(source: String, filename: &Path, config: &Config) -> String {
     let emitter = Emitter::new(config);
 
     // Emit HTML
-    emitter.emit(expressions, filename)
+    emitter.emit(expressions, root, filename)
 }

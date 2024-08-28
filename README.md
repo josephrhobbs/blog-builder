@@ -57,6 +57,21 @@ links = []
 
 Each entry in `names` will correspond to an entry in `links`.  Entries in `names` are visible to the user, whereas entries in `links` represent URIs.
 
+## Adding an Analytics Tag
+
+Create an analytics tag in the source directory.
+
+**Note**: do not add a `txt` extension or it will be converted into an HTML file.
+
+Update `blog.toml`.
+
+```toml
+[analytics]
+tag = "analytics-tag"
+```
+
+The file path is interpreted to be relative to `source/` and it will be linked immediately after `<head>` in all HTML output files.
+
 ## Adding an Icon
 
 You may add a favicon for a website by updating `blog.toml`.

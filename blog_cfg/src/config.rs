@@ -28,6 +28,9 @@ pub struct Config {
     /// Menu information.
     pub menu: Option<MenuConfig>,
 
+    /// Analytics information.
+    pub analytics: Option<AnalyticsConfig>,
+
     /// Media information.
     pub media: Option<MediaConfig>,
 }
@@ -73,6 +76,13 @@ pub struct MenuConfig {
 
     /// Menu button links.
     pub links: Vec<String>,
+}
+
+#[derive(Clone, Deserialize, Debug)]
+/// Configuration information for analytics data.
+pub struct AnalyticsConfig {
+    /// Location of analytics tag relative to source directory.
+    pub tag: String,
 }
 
 #[derive(Clone, Deserialize, Debug)]

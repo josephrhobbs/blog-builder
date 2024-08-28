@@ -6,7 +6,10 @@
 // Enforce all documentation.
 #![deny(missing_docs)]
 
-use std::path::Path;
+use std::{
+    fs,
+    path::Path,
+};
 
 use blog_cfg::{
     Config,
@@ -14,6 +17,7 @@ use blog_cfg::{
 };
 
 use blog_env::{
+    SOURCE_DIR_NAME,
     STYLESHEET_FILE_NAME,
     INDEX_PAGE_NAME,
 };
@@ -53,18 +57,30 @@ impl Emitter {
     ///
     /// # Parameters
     /// - `expressions` (`Vec<Expression>`): the list of expressions
+    /// - `root` (`&Path`): the location of the site root
     /// - `filename` (`&Path`): the file stem of the output HTML
     /// 
     /// # Returns
     /// A `String` containing HTML.
-    pub fn emit(&self, expressions: Vec<Expression>, filename: &Path) -> String {
+    pub fn emit(&self, expressions: Vec<Expression>, root: &Path, filename: &Path) -> String {
         // Open document and head
         let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<head>\n\n");
+
+        // Add analytics tag
+        if let Some (a) = &self.config.analytics {
+            // Get tag path
+            let analytics_tag_path = root.join(SOURCE_DIR_NAME).join(&a.tag);
+
+            let analytics = fs::read_to_string(analytics_tag_path).unwrap_or(String::new());
+
+            output.push_str(&format!("{}\n\n", analytics));
+        }
 
         // Construct title
         let filename_str: &str = filename.file_name().unwrap().to_str().unwrap();
         let page_title = &filename_str.to_case(Case::Title);
 
+        // Remove "Index" from `index.html`
         if page_title == INDEX_PAGE_NAME {
             output.push_str(&format!("<title>{}</title>\n\n", self.config.site.name));
         } else {
