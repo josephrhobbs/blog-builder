@@ -20,7 +20,6 @@ use blog_env::{
     SOURCE_DIR_NAME,
     STYLESHEET_FILE_NAME,
     INDEX_PAGE_NAME,
-    JAVASCRIPT_FILE_NAME,
 };
 
 use blog_prs::Expression;
@@ -136,12 +135,6 @@ impl Emitter {
                 // Output expression as normal
                 output.push_str(&expression.display(true));
             }
-        }
-
-        // Add links to JavaScript
-        if let Some (_) = &self.config.site.style {
-            // Link stylesheet
-            output.push_str(&format!("\n\n<script type=\"text/javascript\" src=\"/{}\"></script>\n\n", JAVASCRIPT_FILE_NAME));
         }
 
         // Close body and document
