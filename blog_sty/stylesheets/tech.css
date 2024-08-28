@@ -115,6 +115,22 @@
         font-size: 24px;
     }
 
+    div.tile .tooltip {
+        display: none;
+        position: absolute;
+        height: 28px;
+        width: auto;
+        background-color: black;
+        color: white;
+        text-shadow: none;
+        font-size: 24px;
+        font-family: "Outfit", sans-serif;
+    }
+
+    div.tile:hover .tooltip {
+        display: block;
+    }
+
     div.menu {
         position: sticky;
         display: flex;
