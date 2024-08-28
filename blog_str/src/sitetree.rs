@@ -172,6 +172,13 @@ impl SiteTree {
             // Read the source
             let source = fs::read_to_string(&source_file)?;
 
+            // Report analytics tag, if it exists
+            if let Some (a) = &self.config.analytics {
+                if verbosity > 1 {
+                    println!("{:>10} analytics tag '{}'", "Adding".bright_green(), a.tag);
+                }
+            }
+
             // Convert the source into output
             let output = convert(source, &self.root, &file, &self.config);
 
