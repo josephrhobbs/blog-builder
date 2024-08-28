@@ -29,6 +29,7 @@ use blog_env::{
     DEFAULT_INDEX,
     DEFAULT_CONFIG,
     STYLESHEET_FILE_NAME,
+    JAVASCRIPT_FILE_NAME,
 };
 
 use blog_cfg::SiteStyle;
@@ -37,7 +38,10 @@ use blog_err::BlogResult;
 
 use blog_grt::getroot;
 
-use blog_sty::style;
+use blog_sty::{
+    styles,
+    scripts,
+};
 
 #[derive(Clone, Debug)]
 /// A website tree.
@@ -192,7 +196,7 @@ impl SiteTree {
             fs::write(output_file, output)?;
         }
 
-        // Construct the stylesheet
+        // Construct the stylesheet & JavaScript
         if let Some (s) = &self.config.site.style {
             // Print stylesheet name, if verbose
             if verbosity > 1 {
@@ -205,11 +209,27 @@ impl SiteTree {
             // Get the stylesheet
             use SiteStyle::*;
             let style = match s {
-                Tech => style::TECH,
+                Tech => styles::TECH,
             };
 
             // Write the stylesheet
             fs::write(stylesheet, style)?;
+
+            // Print script name, if verbose
+            if verbosity > 1 {
+                println!("{:>10} script '/{}' from style '{}'", "Writing".bright_green(), JAVASCRIPT_FILE_NAME, s);
+            }
+
+            // Build the output filename
+            let script_file = self.output_directory.join(JAVASCRIPT_FILE_NAME);
+
+            // Get the script
+            let script = match s {
+                Tech => scripts::TECH,
+            };
+
+            // Write the script
+            fs::write(script_file, script)?;
         }
 
         // Construct the favicon
