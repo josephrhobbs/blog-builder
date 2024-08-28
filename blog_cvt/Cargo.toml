@@ -15,6 +15,9 @@ path = "../blog_chk"
 [dependencies.blog_cfg]
 path = "../blog_cfg"
 
+[dependencies.blog_err]
+path = "../blog_err"
+
 [dependencies.blog_emt]
 path = "../blog_emt"
 

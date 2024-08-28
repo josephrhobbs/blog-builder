@@ -15,7 +15,7 @@ use blog_err::BlogResult;
 
 use blog_env::CONFIG_FILE_NAME;
 
-#[derive(Clone, Deserialize, Debug)]
+#[derive(Clone, Default, Deserialize, Debug)]
 /// A configuration file that dictates Blog Builder settings.
 /// 
 /// This data is stored in the root directory of the site in
@@ -35,7 +35,7 @@ pub struct Config {
     pub media: Option<MediaConfig>,
 }
 
-#[derive(Clone, Deserialize, Debug)]
+#[derive(Clone, Default, Deserialize, Debug)]
 /// Configuration information for the site.
 pub struct SiteConfig {
     /// Site name (to appear in page title).
@@ -105,9 +105,21 @@ impl Config {
         // Construct configuration file name
         let config_file: PathBuf = root.join(CONFIG_FILE_NAME);
 
-        // Read config file to string
-        let config: String = fs::read_to_string(&config_file)?;
+        // Construct new result
+        let result = BlogResult::default();
 
-        Ok (toml::from_str(&config)?)
+        // Read config file to string
+        let toml: String = match fs::read_to_string(&config_file) {
+            Ok (t) => t,
+            Err (e) => return result.err(e),
+        };
+
+        // Parse the TOML into a configuration structure
+        let config = match toml::from_str(&toml) {
+            Ok (cfg) => cfg,
+            Err (e) => return result.err(e),
+        };
+
+        result.ok(config)
     }
 }

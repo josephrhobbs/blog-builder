@@ -14,6 +14,8 @@ use blog_chk::Handler;
 
 use blog_emt::Emitter;
 
+use blog_err::BlogResult;
+
 use blog_prs::Parser;
 
 use blog_tkn::Tokenizer;
@@ -28,8 +30,8 @@ use blog_tkn::Tokenizer;
 /// information
 ///
 /// # Returns
-/// A `String` containing the HTML output code.
-pub fn convert(source: String, root: &Path, filename: &Path, config: &Config) -> String {
+/// A `BlogResult<String>` containing the HTML output code or any errors.
+pub fn convert(source: String, root: &Path, filename: &Path, config: &Config) -> BlogResult<String> {
     // Construct a new tokenizer
     let mut tokenizer = Tokenizer::from(source);
 

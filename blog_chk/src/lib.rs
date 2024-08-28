@@ -63,9 +63,9 @@ impl Handler {
 
             // Provide summary
             if messages.len() == 1 {
-                println!("\n{:>10} due to 1 error message", "Exited".bold().bright_red());
+                println!("\n{:>10} due to error message", "Exiting".bold().bright_red());
             } else {
-                println!("\n{:>10} due to {} error messages", "Exited".bold().bright_red(), messages.len());
+                println!("\n{:>10} due to {} error messages", "Exiting".bold().bright_red(), messages.len());
             }
             
             exit(1);

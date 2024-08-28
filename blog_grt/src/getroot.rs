@@ -24,10 +24,16 @@ use blog_err::{
 /// An `BlogResult<PathBuf>` containing the root
 /// directory of the site, if it exists.
 pub fn getroot() -> BlogResult<PathBuf> {
-    // Get working directory
-    let working_directory: &Path = &env::current_dir()?;
+    // Construct new result
+    let result = BlogResult::default();
 
-    // Get root directory
+    // Get working directory
+    let working_directory: PathBuf = match env::current_dir() {
+        Ok (dir) => dir,
+        Err (e) => return result.err(e),
+    };
+
+    // Get root directory by recursing upwards
     let mut root: Option<PathBuf> = None;
 
     // Recurse upwards from the working directory
@@ -44,8 +50,8 @@ pub fn getroot() -> BlogResult<PathBuf> {
     }
 
     if let Some (r) = root {
-        Ok (r)
+        result.ok(r)
     } else {
-        Err (BlogError::CouldNotFindRoot.into())
+        result.err(BlogError::CouldNotFindRoot)
     }
 }

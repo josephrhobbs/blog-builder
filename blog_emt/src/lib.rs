@@ -16,6 +16,8 @@ use blog_cfg::{
     SiteStyle,
 };
 
+use blog_err::BlogResult;
+
 use blog_env::{
     SOURCE_DIR_NAME,
     STYLESHEET_FILE_NAME,
@@ -62,16 +64,27 @@ impl Emitter {
     /// 
     /// # Returns
     /// A `String` containing HTML.
-    pub fn emit(&self, expressions: Vec<Expression>, root: &Path, filename: &Path) -> String {
+    pub fn emit(&self, expressions: Vec<Expression>, root: &Path, filename: &Path) -> BlogResult<String> {
         // Open document and head
         let mut output = String::from("<!DOCTYPE html>\n<html>\n\n<head>\n\n");
+
+        // Initialize result
+        let mut result = BlogResult::default();
 
         // Add analytics tag
         if let Some (a) = &self.config.analytics {
             // Get tag path
             let analytics_tag_path = root.join(SOURCE_DIR_NAME).join(&a.tag);
 
-            let analytics = fs::read_to_string(analytics_tag_path).unwrap_or(String::new());
+            let analytics = match fs::read_to_string(analytics_tag_path) {
+                Ok (a) => a,
+                Err (e) => {
+                    // Store error
+                    result = result.err(e);
+
+                    String::new()
+                },
+            };
 
             output.push_str(&format!("{}\n\n", analytics));
         }
@@ -140,6 +153,6 @@ impl Emitter {
         // Close body and document
         output.push_str("</body>\n\n</html>");
 
-        output
+        result.ok(output)
     }
 }
