@@ -39,7 +39,7 @@ pub const INDEX_FILE_NAME: &str = "index.txt";
 /// The Blog Builder will omit this from the title
 /// of any page with this name.  This forces `index.html`
 /// to have a title that is only the website name (for
-/// example, "My Website" rather than "Index | My Website").
+/// example, "My Website").
 pub const INDEX_PAGE_NAME: &str = "Index";
 
 /// Stylesheet name.
