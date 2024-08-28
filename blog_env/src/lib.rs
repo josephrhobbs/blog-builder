@@ -45,9 +45,6 @@ pub const INDEX_PAGE_NAME: &str = "Index";
 /// Stylesheet name.
 pub const STYLESHEET_FILE_NAME: &str = "style.css";
 
-/// JavaScript file name.
-pub const JAVASCRIPT_FILE_NAME: &str = "script.js";
-
 /// Default index file.
 pub const DEFAULT_INDEX: &str = include_str!("../index.txt.example");
 

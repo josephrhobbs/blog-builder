@@ -7,7 +7,7 @@
 #![deny(missing_docs)]
 
 /// Stylesheets.
-pub mod styles {
+pub mod style {
     /// Technology stylesheet.
     pub const TECH: &str = include_str!("../stylesheets/tech.css");
 }
@@ -16,10 +16,4 @@ pub mod styles {
 pub mod links {
     /// Technology links.
     pub const TECH: &str = include_str!("../links/tech.html");
-}
-
-/// JavaScript files.
-pub mod scripts {
-    /// Technology JavaScript.
-    pub const TECH: &str = include_str!("../scripts/tech.js");
 }
