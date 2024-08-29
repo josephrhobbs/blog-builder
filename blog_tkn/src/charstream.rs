@@ -50,6 +50,7 @@ impl CharStream {
         }
     }
 
+    #[allow(clippy::should_implement_trait)]
     /// Get the next character in the character stream.
     /// 
     /// # Parameters

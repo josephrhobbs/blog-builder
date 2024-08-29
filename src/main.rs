@@ -56,7 +56,7 @@ fn run() -> BlogResult<()> {
                 println!("{:>10} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
             }
 
-            unwrap_or_return!(SiteTree::new(name))
+            unwrap_or_return!(SiteTree::create(name))
         },
         Build => {
             if cli.verbosity > 0 {

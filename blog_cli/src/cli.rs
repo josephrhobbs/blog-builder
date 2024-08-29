@@ -17,6 +17,7 @@ pub struct Cli {
 }
 
 impl Cli {
+    #[allow(clippy::new_without_default)]
     /// Construct the command line interface.
     /// 
     /// # Parameters
@@ -72,7 +73,7 @@ impl Subcommand {
     /// 
     /// # Parameters
     /// - `string` (`Option<String>`): the provided subcommand,
-    /// if one was provided
+    ///     if one was provided
     /// 
     /// # Returns
     /// A `Subcommand` containing the subcommand.

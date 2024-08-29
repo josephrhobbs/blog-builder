@@ -88,7 +88,7 @@ impl Display for Expression {
             Title (s) => format!("# {}", s),
             Header (s) => format!("## {}", s),
             Subheader (s) => format!("### {}", s),
-            Text (s) => format!("{}", s),
+            Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
 
@@ -135,11 +135,11 @@ impl Expression {
     /// A `String` with the formatted expression.
     pub fn display(&self, top: bool) -> String {
         use Expression::*;
-        let output = match self {
+        match self {
             Title (s) => format!("<h1>{}</h1>", s),
             Header (s) => format!("<h2>{}</h2>", s),
             Subheader (s) => format!("<h3>{}</h3>", s),
-            Text (s) => format!("{}", s),
+            Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
 
@@ -151,7 +151,7 @@ impl Expression {
                 if top {
                     format!("<p>{}</p>", output)
                 } else {
-                    format!("{}", output)
+                    output.to_string()
                 }
             },
             Bold (s) => if top {
@@ -191,8 +191,6 @@ impl Expression {
             Newline => "\n\n".to_string(),
             Menu => unreachable!(),
             Error (_) => unreachable!(),
-        };
-
-        output
+        }
     }
 }

@@ -53,6 +53,7 @@ impl Tokenizer {
         }
     }
 
+    #[allow(clippy::should_implement_trait)]
     /// Get the next token in the stream.
     /// 
     /// # Parameters

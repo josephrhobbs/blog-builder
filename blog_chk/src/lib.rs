@@ -27,7 +27,7 @@ impl Handler {
     /// 
     /// # Parameters
     /// - `expressions` (`Vec<Expression>`): a reference to the list
-    /// of expressions to validate
+    ///     of expressions to validate
     /// - `filename` (`&str`): the filename of the file being checked
     /// 
     /// # Returns
@@ -35,7 +35,7 @@ impl Handler {
     ///
     /// **Note**: if unrecoverable errors were found in parsing, then
     /// this function exits.
-    pub fn validate(expressions: &Vec<Expression>, filename: &Path) {
+    pub fn validate(expressions: &[Expression], filename: &Path) {
         // Construct user-friendly output
         let mut messages = Vec::new();
 
@@ -83,7 +83,7 @@ impl Handler {
 /// 
 /// # Returns
 /// A `String` representing the error message
-fn construct_error(p: &ParseError, filename: &Path, i: usize, expressions: &Vec<Expression>) -> String {
+fn construct_error(p: &ParseError, filename: &Path, i: usize, expressions: &[Expression]) -> String {
     // Find location of error
     let mut location = "at beginning of file".to_string();
 

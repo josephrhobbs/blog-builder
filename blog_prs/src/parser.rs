@@ -30,6 +30,7 @@ pub struct Parser {
 }
 
 impl Parser {
+    #[allow(clippy::new_without_default)]
     /// Construct a new parser from a token stream.
     /// 
     /// # Parameters
@@ -67,7 +68,7 @@ impl Parser {
         // Initialize output list of expressions
         let mut output = Vec::new();
 
-        while let Some (_) = tokenizer.peek() {
+        while tokenizer.peek().is_some() {
             // Get the next expression from the token stream
             let expression = self.parse_next(tokenizer);
 

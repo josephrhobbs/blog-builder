@@ -27,7 +27,7 @@ use blog_tkn::Tokenizer;
 /// - `root` (`&Path`): the root directory of the site
 /// - `filename` (`&Path`): the filename
 /// - `config` (`&Config`): a reference to the configuration
-/// information
+///     information
 ///
 /// # Returns
 /// A `BlogResult<String>` containing the HTML output code or any errors.

@@ -133,8 +133,8 @@ impl SiteTree {
     /// 
     /// # Returns
     /// A `BlogResult<()>` indicating whether or not the site
-    /// was constructed correctly.
-    pub fn new(name: String) -> BlogResult<()> {
+    ///     was constructed correctly.
+    pub fn create(name: String) -> BlogResult<()> {
         let root: PathBuf = PathBuf::from(&name);
 
         // Create the root
@@ -159,17 +159,17 @@ impl SiteTree {
     /// 
     /// # Parameters
     /// - `convert` (`Fn(String, &Path, &Path, &Config) -> BlogResult<String>`): the closure to
-    /// apply to each source to construct each output, given a site root, a filename,
-    /// and a configuration structure
+    ///     apply to each source to construct each output, given a site root, a filename,
+    ///     and a configuration structure
     /// - `verbosity` (`usize`): verbosity level of build
     /// 
     /// # Returns
     /// A `BlogResult<Duration>` indicating whether or not the site
-    /// was built correctly, and if the build succeeded, how long it took.
+    ///     was built correctly, and if the build succeeded, how long it took.
     /// 
     /// # Errors
     /// This function returns an error if it was unable to perform any read/write
-    /// operations correctly.
+    ///     operations correctly.
     pub fn build(&self, convert: impl Fn(String, &Path, &Path, &Config) -> BlogResult<String>, verbosity: usize) -> BlogResult<Duration> {
         // Start a timer
         let start = Instant::now();
@@ -202,7 +202,7 @@ impl SiteTree {
 
             // Convert the source into output
             let output: String = unwrap_or_continue!(
-                convert(source, &self.root, &file, &self.config),
+                convert(source, &self.root, file, &self.config),
                 result
             );
 
@@ -211,7 +211,7 @@ impl SiteTree {
 
             // Create the output directory
             unwrap_result!(
-                fs::create_dir_all(&output_file.parent().unwrap()),
+                fs::create_dir_all(output_file.parent().unwrap()),
                 result
             );
 
@@ -262,7 +262,7 @@ impl SiteTree {
 
             // Create the output directory
             unwrap_result!(
-                fs::create_dir_all(&output_icon.parent().unwrap()),
+                fs::create_dir_all(output_icon.parent().unwrap()),
                 result
             );
 
@@ -291,7 +291,7 @@ impl SiteTree {
 
                 // Create the output directory
                 unwrap_result!(
-                    fs::create_dir_all(&self.output_directory.join(MEDIA_DIR_NAME)),
+                    fs::create_dir_all(self.output_directory.join(MEDIA_DIR_NAME)),
                     result
                 );
 
