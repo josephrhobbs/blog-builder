@@ -13,10 +13,15 @@ pub struct CharStream {
     /// The current index in the list.
     index: usize,
 
-    /// Nesting depth.
+    /// Square bracket nesting depth.
     /// 
     /// Text inside bracketed expressions ignore emphasis, etc.
     brackets: usize,
+
+    /// Parenthesis nesting depth.
+    /// 
+    /// Text inside bracketed expressions ignore emphasis, etc.
+    parens: usize,
 }
 
 impl CharStream {
@@ -34,6 +39,7 @@ impl CharStream {
             chars,
             index: 0,
             brackets: 0,
+            parens: 0,
         }
     }
 
@@ -159,6 +165,7 @@ impl CharStream {
                     if class == Paragraph
                         || class == Control
                         || (self.brackets != 0 && class != CloseSquare)
+                        || (self.parens != 0 && class != CloseParen)
                     {
                         value.push(t);
                         self.next();
@@ -176,13 +183,26 @@ impl CharStream {
                 class: Newline,
                 value: "\n".to_string(),
             },
-            OpenParen => Token {
-                class: OpenParen,
-                value: "(".to_string(),
+            OpenParen => {
+                // Increment nesting depth
+                self.parens += 1;
+
+                Token {
+                    class: OpenParen,
+                    value: "(".to_string(),
+                }
             },
-            CloseParen => Token {
-                class: CloseParen,
-                value: ")".to_string(),
+            CloseParen => {
+                // Decrement nesting depth and
+                //  avoid silent underflow
+                if self.parens > 0 {
+                    self.parens -= 1;
+                }
+
+                Token {
+                    class: CloseParen,
+                    value: ")".to_string(),
+                }
             },
             OpenSquare => {
                 // Increment nesting depth
@@ -227,6 +247,8 @@ impl CharStream {
                 value: "~".to_string(),
             },
         };
+
+        dbg!(&token);
 
         Some (token)
     }
