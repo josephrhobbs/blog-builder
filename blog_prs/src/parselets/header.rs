@@ -34,9 +34,12 @@ impl Parselet for HeaderParselet {
 
         // Check the number of hashes
         match token.value.len() {
-            1 => Expression::Title (value),
-            2 => Expression::Header (value),
-            3 => Expression::Subheader (value),
+            1 => Expression::H1 (value),
+            2 => Expression::H2 (value),
+            3 => Expression::H3 (value),
+            4 => Expression::H4 (value),
+            5 => Expression::H5 (value),
+            6 => Expression::H6 (value),
             _ => Expression::Error (ParseError::TooManyHashes),
         }
     }

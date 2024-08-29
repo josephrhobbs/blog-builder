@@ -147,7 +147,7 @@ impl Emitter {
                 }
             } else {
                 // Output expression as normal
-                output.push_str(&expression.display(true));
+                output.push_str(&expression.html(true));
             }
         }
 

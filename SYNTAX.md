@@ -4,7 +4,7 @@ The Blog Builder uses a modified form of Markdown to format webpages.  Use this 
 
 ## Headers
 
-HTML headers `h1` through `h3` are currently supported.
+HTML headers `h1` through `h6` are supported.
 
 ```
 # Lorem Ipsum       => <h1>Lorem Ipsum</h1>
@@ -12,6 +12,12 @@ HTML headers `h1` through `h3` are currently supported.
 ## Dolor Sit Amet   => <h2>Dolor Sit Amet</h2>
 
 ### Consectetur     => <h3>Consectetur</h3>
+
+#### Lorem Ipssum   => <h4>Lorem Ipsum</h4>
+
+##### Dolor         => <h5>Dolor</h5>
+
+###### Sit Amet     => <h6>Sit Amet</h6>
 ```
 
 ## Text Emphasis
@@ -54,7 +60,7 @@ Notice banners are supported using the following syntax.
 ::notice[Information]  => <div class="notice">Information</div>
 ```
 
-The `wip` control sequence must be placed at the beginning of a line.
+The `notice` control sequence must be placed at the beginning of a line.
 
 ## Tile Hyperlinks
 

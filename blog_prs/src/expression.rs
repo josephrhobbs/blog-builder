@@ -10,14 +10,23 @@ use crate::ParseError;
 #[derive(PartialEq, Clone, Debug)]
 /// Expressions available to the Blog Builder.
 pub enum Expression {
-    /// Title (h1).
-    Title (String),
+    /// H1.
+    H1 (String),
 
-    /// Header (h2).
-    Header (String),
+    /// H2.
+    H2 (String),
 
-    /// Subheader (h3).
-    Subheader (String),
+    /// H3.
+    H3 (String),
+
+    /// H4.
+    H4 (String),
+
+    /// H5.
+    H5 (String),
+    
+    /// H6.
+    H6 (String),
 
     /// Paragraph (p).
     Paragraph (Vec<Expression>),
@@ -85,9 +94,12 @@ impl Display for Expression {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         use Expression::*;
         let output = match self {
-            Title (s) => format!("# {}", s),
-            Header (s) => format!("## {}", s),
-            Subheader (s) => format!("### {}", s),
+            H1 (s) => format!("# {}", s),
+            H2 (s) => format!("## {}", s),
+            H3 (s) => format!("### {}", s),
+            H4 (s) => format!("#### {}", s),
+            H5 (s) => format!("##### {}", s),
+            H6 (s) => format!("###### {}", s),
             Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
@@ -133,19 +145,22 @@ impl Expression {
     /// 
     /// # Returns
     /// A `String` with the formatted expression.
-    pub fn display(&self, top: bool) -> String {
+    pub fn html(&self, top: bool) -> String {
         use Expression::*;
         match self {
-            Title (s) => format!("<h1>{}</h1>", s),
-            Header (s) => format!("<h2>{}</h2>", s),
-            Subheader (s) => format!("<h3>{}</h3>", s),
+            H1 (s) => format!("<h1>{}</h1>", s),
+            H2 (s) => format!("<h2>{}</h2>", s),
+            H3 (s) => format!("<h3>{}</h3>", s),
+            H4 (s) => format!("<h4>{}</h4>", s),
+            H5 (s) => format!("<h5>{}</h5>", s),
+            H6 (s) => format!("<h6>{}</h6>", s),
             Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
 
                 // Format each interior expression
                 for expr in l {
-                    output.push_str(&expr.display(false));
+                    output.push_str(&expr.html(false));
                 }
 
                 if top {
