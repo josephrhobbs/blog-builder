@@ -8,6 +8,8 @@
 
 use std::path::Path;
 
+use colored::*;
+
 use blog_cfg::Config;
 
 use blog_chk::Handler;
@@ -19,7 +21,10 @@ use blog_err::{
     unwrap_or_return,
 };
 
-use blog_prs::Parser;
+use blog_prs::{
+    Parser,
+    Expression,
+};
 
 use blog_tkn::Tokenizer;
 
@@ -31,10 +36,11 @@ use blog_tkn::Tokenizer;
 /// - `filename` (`&Path`): the filename
 /// - `config` (`&Config`): a reference to the configuration
 ///     information
+/// - `verbosity` (`usize`): the verbosity level
 ///
 /// # Returns
 /// A `BlogResult<String>` containing the HTML output code or any errors.
-pub fn convert(source: String, root: &Path, filename: &Path, config: &Config) -> BlogResult<String> {
+pub fn convert(source: String, root: &Path, filename: &Path, config: &Config, verbosity: usize) -> BlogResult<String> {
     // Construct a new tokenizer
     let mut tokenizer = Tokenizer::from(source);
 
@@ -43,6 +49,18 @@ pub fn convert(source: String, root: &Path, filename: &Path, config: &Config) ->
 
     // Parse tokens
     let expressions = parser.parse(&mut tokenizer);
+
+    // Print each expression, if very verbose
+    if verbosity > 2 {
+        for expr in &expressions {
+            // All errors occur at the top level, so we can just check
+            //  for errors here without the need to recurse
+            match expr {
+                Expression::Error (e) => println!("{:>10} {}", "Error".bright_red(), e),
+                _ => println!("{:>10} '{}'", "Parsed".bright_yellow(), expr),
+            }
+        }
+    }
 
     // Validate parser output or return errors
     unwrap_or_return!(Handler::validate(&expressions, filename));

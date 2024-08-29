@@ -42,16 +42,13 @@ impl Handler {
 
         // Iterate over all expressions
         for (i, expression) in expressions.iter().enumerate() {
+            // If this expression is an error, construct an error message
+            // 
+            // All errors must occur at the top level, so we don't need to
+            // recurse through nested expressions
             if let Expression::Error (p) = expression {
                 // Check individual expressions
                 result = result.err(construct_error(p, filename, i, expressions));
-            } else if let Expression::Paragraph (l) = expression {
-                // Check nested expressions in paragraphs
-                for (j, expr) in l.iter().enumerate() {
-                    if let Expression::Error (p) = expr {
-                        result = result.err(construct_error(p, filename, j, l));
-                    }
-                }
             }
         }
 

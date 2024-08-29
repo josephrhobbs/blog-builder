@@ -35,6 +35,7 @@ impl Cli {
         for arg in env::args() {
             match arg.as_str() {
                 "--verbose" => verbosity = 2,
+                "--very-verbose" => verbosity = 3,
                 "--quiet" => verbosity = 0,
                 a if a.contains("-v") => verbosity = 1 + a.chars().filter(|c| *c == 'v').count(),
                 "-q" => verbosity = 0,

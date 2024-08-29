@@ -94,12 +94,12 @@ impl Display for Expression {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         use Expression::*;
         let output = match self {
-            H1 (s) => format!("# {}", s),
-            H2 (s) => format!("## {}", s),
-            H3 (s) => format!("### {}", s),
-            H4 (s) => format!("#### {}", s),
-            H5 (s) => format!("##### {}", s),
-            H6 (s) => format!("###### {}", s),
+            H1 (s) => format!("[h1] {}", s),
+            H2 (s) => format!("[h2] {}", s),
+            H3 (s) => format!("[h3] {}", s),
+            H4 (s) => format!("[h4] {}", s),
+            H5 (s) => format!("[h5] {}", s),
+            H6 (s) => format!("[h6] {}", s),
             Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
@@ -117,20 +117,20 @@ impl Display for Expression {
             Image {
                 alt,
                 href,
-            } => format!("::image[{}][{}]", alt, href),
+            } => format!("[image] [{}][{}]", alt, href),
             Tile {
                 title,
                 description,
                 href,
                 image,
-            } => format!("::tile[{}][{}][{}][{}]", title, description, href, image),
-            Notice (message) => format!("::notice[{}]", message),
+            } => format!("[tile] [{}][{}][{}][{}]", title, description, href, image),
+            Notice (message) => format!("[notice] [{}]", message),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
             Bold (s) => format!("**{}**", s),
             Italics (s) => format!("_{}_", s),
             BoldItalics (s) => format!("**_{}_**", s),
-            Error (_) => unreachable!(),
+            Error (e) => e.to_string(),
         };
 
         write!(f, "{}", output)
@@ -145,6 +145,11 @@ impl Expression {
     /// 
     /// # Returns
     /// A `String` with the formatted expression.
+    /// 
+    /// # Panics
+    /// This function panics when it tries to emit a `Menu` or `Error` variant
+    ///     because these should be handled by the emitter directly _before_
+    ///     direct conversion to HTML.
     pub fn html(&self, top: bool) -> String {
         use Expression::*;
         match self {

@@ -34,6 +34,8 @@ A simple static web framework.
     
     {}, {}\tdisplay more output
 
+    {}, {}\tdisplay even more output
+
     {}, {}\t\tdisplay less output
 
 Executing `blog` with no subcommands will display this help menu.",
@@ -52,6 +54,8 @@ Executing `blog` with no subcommands will display this help menu.",
     "Flags".bold().bright_green(),
     "--verbose".bold().bright_cyan(),
     "-v".bold().bright_cyan(),
+    "--very-verbose".bold().bright_cyan(),
+    "-vv".bold().bright_cyan(),
     "--quiet".bold().bright_cyan(),
     "-q".bold().bright_cyan(),
     );

@@ -53,6 +53,7 @@ dependencies = [
  "blog_err",
  "blog_prs",
  "blog_tkn",
+ "colored",
 ]
 
 [[package]]

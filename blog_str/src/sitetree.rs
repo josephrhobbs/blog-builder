@@ -158,9 +158,9 @@ impl SiteTree {
     /// Build a site by applying a given closure to each file.
     /// 
     /// # Parameters
-    /// - `convert` (`Fn(String, &Path, &Path, &Config) -> BlogResult<String>`): the closure to
+    /// - `convert` (`Fn(String, &Path, &Path, &Config, usize) -> BlogResult<String>`): the closure to
     ///     apply to each source to construct each output, given a site root, a filename,
-    ///     and a configuration structure
+    ///     a configuration structure, and a verbosity level
     /// - `verbosity` (`usize`): verbosity level of build
     /// 
     /// # Returns
@@ -170,7 +170,7 @@ impl SiteTree {
     /// # Errors
     /// This function returns an error if it was unable to perform any read/write
     ///     operations correctly.
-    pub fn build(&self, convert: impl Fn(String, &Path, &Path, &Config) -> BlogResult<String>, verbosity: usize) -> BlogResult<Duration> {
+    pub fn build(&self, convert: impl Fn(String, &Path, &Path, &Config, usize) -> BlogResult<String>, verbosity: usize) -> BlogResult<Duration> {
         // Start a timer
         let start = Instant::now();
 
@@ -202,7 +202,7 @@ impl SiteTree {
 
             // Convert the source into output
             let output: String = unwrap_or_continue!(
-                convert(source, &self.root, file, &self.config),
+                convert(source, &self.root, file, &self.config, verbosity),
                 result
             );
 

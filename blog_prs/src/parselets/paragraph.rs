@@ -35,7 +35,11 @@ impl Parselet for ParagraphParselet {
             }
 
             // Parse raw text or another expression
-            if t.class == TokenClass::Paragraph {
+            // Include parentheses
+            if t.class == TokenClass::Paragraph
+                || t.class == TokenClass::OpenParen
+                || t.class == TokenClass::CloseParen
+            {
                 // Consume the text
                 let _ = tokenizer.next();
 
@@ -44,6 +48,13 @@ impl Parselet for ParagraphParselet {
             } else {
                 // Get the next expression out of the token stream
                 let expr = parser.parse_next(tokenizer);
+
+                // Return any errors, if found
+                // 
+                // All errors must occur at the top level
+                if let Expression::Error (_) = expr {
+                    return expr;
+                }
 
                 output.push(expr);
             }
