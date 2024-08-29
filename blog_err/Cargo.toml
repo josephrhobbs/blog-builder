@@ -9,6 +9,7 @@ path = "src/lib.rs"
 
 [dependencies]
 anyhow = "1.0.86"
+colored = "2.1.0"
 
 [dependencies.blog_env]
 path = "../blog_env"

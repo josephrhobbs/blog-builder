@@ -7,8 +7,11 @@
 #![deny(missing_docs)]
 
 mod error;
+mod location;
+mod result;
 
-pub use error::{
-    BlogError,
-    BlogResult,
-};
+pub use error::BlogError;
+
+pub use location::BlogErrorLocation;
+
+pub use result::BlogResult;

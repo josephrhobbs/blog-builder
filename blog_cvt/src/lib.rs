@@ -14,7 +14,10 @@ use blog_chk::Handler;
 
 use blog_emt::Emitter;
 
-use blog_err::BlogResult;
+use blog_err::{
+    BlogResult,
+    unwrap_or_return,
+};
 
 use blog_prs::Parser;
 
@@ -41,12 +44,12 @@ pub fn convert(source: String, root: &Path, filename: &Path, config: &Config) ->
     // Parse tokens
     let expressions = parser.parse(&mut tokenizer);
 
-    // Validate parser output or exit
-    Handler::validate(&expressions, filename);
+    // Validate parser output or return errors
+    unwrap_or_return!(Handler::validate(&expressions, filename));
 
     // Construct a new emitter
     let emitter = Emitter::new(config);
 
-    // Emit HTML
+    // Emit HTML or return errors
     emitter.emit(expressions, root, filename)
 }

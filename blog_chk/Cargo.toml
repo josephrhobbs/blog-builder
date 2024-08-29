@@ -8,7 +8,9 @@ name = "blog_chk"
 path = "src/lib.rs"
 
 [dependencies]
-colored = "2.1.0"
+
+[dependencies.blog_err]
+path = "../blog_err"
 
 [dependencies.blog_prs]
 path = "../blog_prs"

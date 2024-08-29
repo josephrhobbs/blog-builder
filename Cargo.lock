@@ -35,8 +35,8 @@ dependencies = [
 name = "blog_chk"
 version = "0.1.0"
 dependencies = [
+ "blog_err",
  "blog_prs",
- "colored",
 ]
 
 [[package]]
@@ -80,6 +80,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "blog_env",
+ "colored",
 ]
 
 [[package]]
