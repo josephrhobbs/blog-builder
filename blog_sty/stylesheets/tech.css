@@ -69,6 +69,10 @@
         text-decoration: none;
     }
 
+    a:hover {
+        border-bottom: 2px solid var(--flamered);
+    }
+
     a:visited {
         color: var(--flamered);
     }
