@@ -1,5 +1,7 @@
 # Blog Builder
 
+![Rust](https://github.com/josephrhobbs/blog-builder/actions/workflows/rust.yml/badge.svg)
+
 A simple static web framework, powered by the Rust programming language.
 
 ## Installation
