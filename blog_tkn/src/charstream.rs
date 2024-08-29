@@ -12,6 +12,11 @@ pub struct CharStream {
 
     /// The current index in the list.
     index: usize,
+
+    /// Nesting depth.
+    /// 
+    /// Text inside bracketed expressions ignore emphasis, etc.
+    brackets: usize,
 }
 
 impl CharStream {
@@ -28,6 +33,7 @@ impl CharStream {
         Self {
             chars,
             index: 0,
+            brackets: 0,
         }
     }
 
@@ -144,24 +150,18 @@ impl CharStream {
 
                 value.push(first);
 
-                // Store the last character
-                // 
-                // Paragraphs can only be broken on spaces
-                //  or newlines
-                let mut last: char = first;
-
                 // Build the string character-by-character
+                // 
+                // When inside brackets, ignore everything except
+                //  close brackets
                 while let Some (t) = self.peek() {
-                    if TokenClass::class(t) == Paragraph
-                        || TokenClass::class(t) == Control
-                        || last != ' '
-                        || last != '\n'
+                    let class = TokenClass::class(t);
+                    if class == Paragraph
+                        || class == Control
+                        || (self.brackets != 0 && class != CloseSquare)
                     {
                         value.push(t);
                         self.next();
-
-                        // Store this character
-                        last = t;
                     } else {
                         break;
                     }
@@ -184,13 +184,26 @@ impl CharStream {
                 class: CloseParen,
                 value: ")".to_string(),
             },
-            OpenSquare => Token {
-                class: OpenSquare,
-                value: "[".to_string(),
+            OpenSquare => {
+                // Increment nesting depth
+                self.brackets += 1;
+
+                Token {
+                    class: OpenSquare,
+                    value: "[".to_string(),
+                }
             },
-            CloseSquare => Token {
-                class: CloseSquare,
-                value: "]".to_string(),
+            CloseSquare => {
+                // Decrement nesting depth and
+                //  avoid silent underflow
+                if self.brackets > 0 {
+                    self.brackets -= 1;
+                }
+                
+                Token {
+                    class: CloseSquare,
+                    value: "]".to_string(),
+                }
             },
             Control => if let Some (t) = self.peek() {
                 // Check for a second colon
