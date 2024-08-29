@@ -26,13 +26,13 @@ pub const MEDIA_DIR_NAME: &str = "media";
 pub const OUTPUT_DIR_NAME: &str = "html";
 
 /// Source file extension.
-pub const SOURCE_FILE_EXT: &str = "txt";
+pub const SOURCE_FILE_EXT: &str = "md";
 
 /// Output file extension.
 pub const OUTPUT_FILE_EXT: &str = "html";
 
 /// Index file name.
-pub const INDEX_FILE_NAME: &str = "index.txt";
+pub const INDEX_FILE_NAME: &str = "index.md";
 
 /// Index page name.
 /// 
@@ -46,7 +46,7 @@ pub const INDEX_PAGE_NAME: &str = "Index";
 pub const STYLESHEET_FILE_NAME: &str = "style.css";
 
 /// Default index file.
-pub const DEFAULT_INDEX: &str = include_str!("../index.txt.example");
+pub const DEFAULT_INDEX: &str = include_str!("../index.md.example");
 
 /// Default configuation file.
 pub const DEFAULT_CONFIG: &str = include_str!("../blog.toml.example");

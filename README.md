@@ -25,7 +25,7 @@ Create a new website by typing `blog new <name>`.  This will create a directory 
 <name>
 |   blog.toml
 |   source
-    |   index.txt
+    |   index.md
 ```
 
 The directory `source/` is referred to as the "source directory", and it is used to construct the directory
@@ -40,9 +40,9 @@ Create a new page by creating a text file anywhere in `source/`.
 <name>
 |   blog.toml
 |   source
-    |   index.txt
+    |   index.md
     |   something
-        | new-page.txt
+        | new-page.md
 ```
 
 Execute `blog build`.  This new page will be accessible at `html/something/new-page.html` on your machine and `/something/new-page.html` on your website.
@@ -63,13 +63,13 @@ Each entry in `names` will correspond to an entry in `links`.  Entries in `names
 
 Create an analytics tag in the source directory.
 
-**Note**: do not add a `txt` extension or it will be converted into an HTML file.
+**Note**: you may use any extension except `md` for this file.  `txt` extension is recommended.
 
 Update `blog.toml`.
 
 ```toml
 [analytics]
-tag = "analytics-tag"
+tag = "analytics-tag.txt"
 ```
 
 The file path is interpreted to be relative to `source/` and it will be linked immediately after `<head>` in all HTML output files.
@@ -104,7 +104,7 @@ Create the `media/` subdirectory inside of `source/`.
 <name>
 |   blog.toml
 |   source
-    |   index.txt
+    |   index.md
     |   media
         | example.png
 ```
@@ -125,7 +125,7 @@ Execute `blog build`.  You will see that `html/media/` will include all media in
 <name>
 |   blog.toml
 |   source
-    |   index.txt
+    |   index.md
     |   media
         | example.png
 |   html
