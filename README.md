@@ -63,15 +63,15 @@ Each entry in `names` will correspond to an entry in `links`.  Entries in `names
 
 ## Adding an Analytics Tag
 
-Create an analytics tag in the source directory.
+Create an analytics tag in the `source/` directory (for example, `source/analytics-tag.html`).
 
-**Note**: you may use any extension except `md` for this file.  `txt` extension is recommended.
+**Note**: you may use any extension except `md` for this file, but the `html` extension is recommended.
 
 Update `blog.toml`.
 
 ```toml
 [analytics]
-tag = "analytics-tag.txt"
+tag = "analytics-tag.html"
 ```
 
 The file path is interpreted to be relative to `source/` and it will be linked immediately after `<head>` in all HTML output files.
