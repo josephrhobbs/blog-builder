@@ -34,7 +34,9 @@ the root for the published website.  That is, `<name>/html/` will map to `/` on 
 
 ## Adding Pages
 
-Create a new page by creating a text file anywhere in `source/`.
+Create a new page by creating a Markdown file anywhere in `source/`.
+
+**Note**: all source files must have `md` extension or the Blog Builder will not recognize them.
 
 ```
 <name>
