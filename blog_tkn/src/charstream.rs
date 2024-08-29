@@ -43,8 +43,24 @@ impl CharStream {
     /// **Note**: this method does not advance the character
     /// stream.
     pub fn peek(&self) -> Option<char> {
-        if self.index < self.chars.len() {
-            Some (self.chars[self.index])
+        self.look_ahead(0)
+    }
+
+    /// Look ahead `chars` characters in the character stream.
+    /// 
+    /// # Parameters
+    /// - `chars` (`usize`): the number of characters to look ahead
+    ///     (zero is the next character).
+    /// 
+    /// # Returns
+    /// An `Option<char>` containing the character, if it is
+    ///     available.
+    /// 
+    /// **Note**: this method does not advance the character
+    /// stream.
+    pub fn look_ahead(&self, chars: usize) -> Option<char> {
+        if self.index + chars < self.chars.len() {
+            Some (self.chars[self.index + chars])
         } else {
             None
         }
@@ -128,11 +144,24 @@ impl CharStream {
 
                 value.push(first);
 
+                // Store the last character
+                // 
+                // Paragraphs can only be broken on spaces
+                //  or newlines
+                let mut last: char = first;
+
                 // Build the string character-by-character
                 while let Some (t) = self.peek() {
-                    if TokenClass::class(t) == Paragraph || TokenClass::class(t) == Control {
+                    if TokenClass::class(t) == Paragraph
+                        || TokenClass::class(t) == Control
+                        || last != ' '
+                        || last != '\n'
+                    {
                         value.push(t);
                         self.next();
+
+                        // Store this character
+                        last = t;
                     } else {
                         break;
                     }
@@ -170,7 +199,7 @@ impl CharStream {
                     let _ = self.next();
                     Token {
                         class: Control,
-                        value: "!".to_string(),
+                        value: "::".to_string(),
                     }
                 } else {
                     // We didn't get our second colon

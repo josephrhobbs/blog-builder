@@ -34,6 +34,8 @@ _Adipiscing_        => <em>Adipiscing</em>
 __Elit__            => <strong>Elit</strong>
 ```
 
+Note that, unlike some Markdown programs, you must break out emphasized text with spaces as paragraphs are delimited by spaces.  That is, you may not emphasize the middle of a word.
+
 ## Hyperlinks
 
 Hyperlinks are supported in the Markdown style.
