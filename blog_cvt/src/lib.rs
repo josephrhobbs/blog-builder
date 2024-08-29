@@ -56,8 +56,8 @@ pub fn convert(source: String, root: &Path, filename: &Path, config: &Config, ve
             // All errors occur at the top level, so we can just check
             //  for errors here without the need to recurse
             match expr {
-                Expression::Error (e) => println!("{:>10} {}", "Error".bright_red(), e),
-                _ => println!("{:>10} '{}'", "Parsed".bright_yellow(), expr),
+                Expression::Error (e) => println!("{:>12} {}", "Error".bright_red(), e),
+                _ => println!("{:>12} '{}'", "Parsed".bright_yellow(), expr),
             }
         }
     }

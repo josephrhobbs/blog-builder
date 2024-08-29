@@ -181,7 +181,7 @@ impl SiteTree {
         for file in &self.files {
             // Print filename, if verbose
             if verbosity > 1 {
-                println!("{:>10} page '/{}'", "Building".bright_green(), file.display());
+                println!("{:>12} page '/{}'", "Building".bright_green(), file.display());
             }
 
             // Construct the source file
@@ -196,7 +196,7 @@ impl SiteTree {
             // Report analytics tag, if it exists
             if let Some (a) = &self.config.analytics {
                 if verbosity > 1 {
-                    println!("{:>10} analytics tag '{}'", "Adding".bright_green(), a.tag);
+                    println!("{:>12} analytics tag '{}'", "Adding".bright_green(), a.tag);
                 }
             }
 
@@ -227,7 +227,7 @@ impl SiteTree {
         if let Some (s) = &self.config.site.style {
             // Print stylesheet name, if verbose
             if verbosity > 1 {
-                println!("{:>10} stylesheet '/{}' from style '{}'", "Writing".bright_green(), STYLESHEET_FILE_NAME, s);
+                println!("{:>12} stylesheet '/{}' from style '{}'", "Writing".bright_green(), STYLESHEET_FILE_NAME, s);
             }
 
             // Build the output filename
@@ -251,7 +251,7 @@ impl SiteTree {
         if let Some (f) = &self.config.site.icon {
             // Print favicon location, if verbose
             if verbosity > 1 {
-                println!("{:>10} favicon '/{}'", "Writing".bright_green(), f);
+                println!("{:>12} favicon '/{}'", "Writing".bright_green(), f);
             }
 
             // Build source icon
@@ -280,7 +280,7 @@ impl SiteTree {
             for m in &media.include {
                 // Print media location, if verbose
                 if verbosity > 1 {
-                    println!("{:>10} media file '/{}/{}'", "Writing".bright_green(), MEDIA_DIR_NAME, m);
+                    println!("{:>12} media file '/{}/{}'", "Writing".bright_green(), MEDIA_DIR_NAME, m);
                 }
 
                 // Build source media

@@ -26,14 +26,14 @@ fn main() {
         BlogResult::Err (e) => {
             // Print the errors
             for err in &e {
-                println!("\n{:>10} {}", "Error".bold().bright_red(), err);
+                println!("\n{:>12} {}", "Error".bold().bright_red(), err);
             }
 
             // Exit
             match e.len() {
                 0 => unreachable!(),
-                1 => println!("\n{:>10} due to error message", "Exiting".bold().bright_red()),
-                _ => println!("\n{:>10} due to {} error messages", "Exiting".bold().bright_red(), e.len()),
+                1 => println!("\n{:>12} due to error message", "Exiting".bold().bright_red()),
+                _ => println!("\n{:>12} due to {} error messages", "Exiting".bold().bright_red(), e.len()),
             }
 
             // Exit
@@ -53,14 +53,14 @@ fn run() -> BlogResult<()> {
     match cli.subcommand {
         New (name) => {
             if cli.verbosity > 0 {
-                println!("{:>10} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
+                println!("{:>12} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
             }
 
             unwrap_or_return!(SiteTree::create(name))
         },
         Build => {
             if cli.verbosity > 0 {
-                println!("{:>10} site output directory", "Building".bold().bright_green());
+                println!("{:>12} site output directory", "Building".bold().bright_green());
             }
 
             // Unwrap site tree
@@ -75,7 +75,7 @@ fn run() -> BlogResult<()> {
             // We're done here!  Print time elapsed and return
             if cli.verbosity > 0 {
                 println!(
-                    "{:>10} building output directory in {:.2} ms",
+                    "{:>12} building output directory in {:.2} ms",
                     "Finished".bold().bright_green(),
                     duration.as_micros() as f64 / 1000.0,
                 );
@@ -83,7 +83,7 @@ fn run() -> BlogResult<()> {
         },
         Clean => {
             if cli.verbosity > 0 {
-                println!("{:>10} site output directory", "Cleaning".bold().bright_green());
+                println!("{:>12} site output directory", "Cleaning".bold().bright_green());
             }
 
             // Unwrap site tree
@@ -93,7 +93,7 @@ fn run() -> BlogResult<()> {
             sitetree.clean();
         },
         Version => println!(
-            "{}\n{:>10} {}",
+            "{}\n{:>12} {}",
             "The Blog Builder".bold().bright_white(),
             "Version".bold().bright_yellow(),
             VERSION,
