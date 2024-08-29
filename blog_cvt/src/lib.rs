@@ -12,7 +12,7 @@ use colored::*;
 
 use blog_cfg::Config;
 
-use blog_chk::Handler;
+use blog_chk::validate;
 
 use blog_emt::Emitter;
 
@@ -63,7 +63,7 @@ pub fn convert(source: String, root: &Path, filename: &Path, config: &Config, ve
     }
 
     // Validate parser output or return errors
-    unwrap_or_return!(Handler::validate(&expressions, filename));
+    unwrap_or_return!(validate(&expressions, filename));
 
     // Construct a new emitter
     let emitter = Emitter::new(config);

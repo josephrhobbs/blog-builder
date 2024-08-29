@@ -13,6 +13,7 @@ use blog_env::CONFIG_FILE_NAME;
 use blog_err::{
     BlogError,
     BlogResult,
+    unwrap_result_or_return,
 };
 
 /// Get the root directory of the website.
@@ -28,10 +29,10 @@ pub fn getroot() -> BlogResult<PathBuf> {
     let result = BlogResult::default();
 
     // Get working directory
-    let working_directory: PathBuf = match env::current_dir() {
-        Ok (dir) => dir,
-        Err (e) => return result.err(e),
-    };
+    let working_directory: PathBuf = unwrap_result_or_return!(
+        env::current_dir(),
+        "could not get current directory"
+    );
 
     // Get root directory by recursing upwards
     let mut root: Option<PathBuf> = None;

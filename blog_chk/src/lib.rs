@@ -19,41 +19,35 @@ use blog_prs::{
     ParseError,
 };
 
-/// A tolerant error handler that validates code before
-/// conversion to HTML.
-pub struct Handler { }
+/// Validate a list of expressions.
+/// 
+/// # Parameters
+/// - `expressions` (`Vec<Expression>`): a reference to the list
+///     of expressions to validate
+/// - `filename` (`&str`): the filename of the file being checked
+/// 
+/// # Returns
+/// A `BlogResult<()>` indicating if parsing was successful.
+///
+/// **Note**: if unrecoverable errors were found in parsing, then
+/// this function exits.
+pub fn validate(expressions: &[Expression], filename: &Path) -> BlogResult<()> {
+    // Construct user-friendly output
+    let mut result = BlogResult::default();
 
-impl Handler {
-    /// Validate a list of expressions.
-    /// 
-    /// # Parameters
-    /// - `expressions` (`Vec<Expression>`): a reference to the list
-    ///     of expressions to validate
-    /// - `filename` (`&str`): the filename of the file being checked
-    /// 
-    /// # Returns
-    /// A `BlogResult<()>` indicating if parsing was successful.
-    ///
-    /// **Note**: if unrecoverable errors were found in parsing, then
-    /// this function exits.
-    pub fn validate(expressions: &[Expression], filename: &Path) -> BlogResult<()> {
-        // Construct user-friendly output
-        let mut result = BlogResult::default();
-
-        // Iterate over all expressions
-        for (i, expression) in expressions.iter().enumerate() {
-            // If this expression is an error, construct an error message
-            // 
-            // All errors must occur at the top level, so we don't need to
-            // recurse through nested expressions
-            if let Expression::Error (p) = expression {
-                // Check individual expressions
-                result = result.err(construct_error(p, filename, i, expressions));
-            }
+    // Iterate over all expressions
+    for (i, expression) in expressions.iter().enumerate() {
+        // If this expression is an error, construct an error message
+        // 
+        // All errors must occur at the top level, so we don't need to
+        // recurse through nested expressions
+        if let Expression::Error (p) = expression {
+            // Check individual expressions
+            result = result.err(construct_error(p, filename, i, expressions));
         }
-
-        result
     }
+
+    result
 }
 
 /// Construct an error message.

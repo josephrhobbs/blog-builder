@@ -61,7 +61,7 @@ impl Tokenizer {
     /// 
     /// # Returns
     /// An `Option<Token>` containing the next token
-    /// in the stream, if it is available.
+    ///     in the stream, if it is available.
     pub fn next(&mut self) -> Option<Token> {
         let next = self.peek();
 
