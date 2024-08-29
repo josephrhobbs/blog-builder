@@ -18,7 +18,6 @@ use blog_cfg::{
 
 use blog_err::{
     BlogResult,
-    unwrap_or_return,
     unwrap_result,
 };
 
@@ -154,6 +153,9 @@ impl Emitter {
         // Close body and document
         output.push_str("</body>\n\n</html>");
 
-        unwrap_or_return!(result)
+        match result {
+            BlogResult::Ok (_) => result.ok(output),
+            BlogResult::Err (_) => result,
+        }
     }
 }
