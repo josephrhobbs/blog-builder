@@ -248,8 +248,6 @@ impl CharStream {
             },
         };
 
-        dbg!(&token);
-
         Some (token)
     }
 }
