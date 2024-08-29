@@ -36,7 +36,13 @@ use blog_env::{
 
 use blog_cfg::SiteStyle;
 
-use blog_err::BlogResult;
+use blog_err::{
+    BlogResult,
+    unwrap_result_or_return,
+    unwrap_result,
+    unwrap_or_return,
+    unwrap_or_continue,
+};
 
 use blog_grt::getroot;
 
@@ -109,10 +115,7 @@ impl SiteTree {
             .collect::<Vec<PathBuf>>();
 
         // Get configuration information
-        let config = match Config::get(&root) {
-            BlogResult::Ok (cfg) => cfg,
-            BlogResult::Err (e) => return result.errs(e),
-        };
+        let config = unwrap_or_return!(Config::get(&root));
         
         BlogResult::Ok (Self {
             root,
@@ -134,33 +137,22 @@ impl SiteTree {
     pub fn new(name: String) -> BlogResult<()> {
         let root: PathBuf = PathBuf::from(&name);
 
-        // Initialize result
-        let result = BlogResult::default();
-
         // Create the root
-        if let Err (e) = fs::create_dir_all(&root) {
-            return result.err(e);
-        }
+        unwrap_result_or_return!(fs::create_dir_all(&root));
 
         // Create the source directory
         let source = root.join(SOURCE_DIR_NAME);
-        if let Err (e) = fs::create_dir_all(&source) {
-            return result.err(e);
-        }
+        unwrap_result_or_return!(fs::create_dir_all(&source));
 
         // Create config file
         let toml = root.join(CONFIG_FILE_NAME);
-        if let Err (e) = fs::write(toml, DEFAULT_CONFIG) {
-            return result.err(e);
-        }
+        unwrap_result_or_return!(fs::write(toml, DEFAULT_CONFIG));
 
         // Create index file
         let index = source.join(INDEX_FILE_NAME);
-        if let Err (e) = fs::write(index, DEFAULT_INDEX) {
-            return result.err(e);
-        }
+        unwrap_result_or_return!(fs::write(index, DEFAULT_INDEX));
 
-        BlogResult::Ok (())
+        BlogResult::default()
     }
 
     /// Build a site by applying a given closure to each file.
@@ -196,10 +188,10 @@ impl SiteTree {
             let source_file = self.source_directory.join(file).with_extension(SOURCE_FILE_EXT);
 
             // Read the source
-            let source = match fs::read_to_string(&source_file) {
-                Ok (src) => src,
-                Err (e) => return result.err_context(e, &format!("could not read source file '{}'", source_file.display())),
-            };
+            let source = unwrap_result_or_return!(
+                fs::read_to_string(&source_file),
+                &format!("could not read source file '{}'", source_file.display())
+            );
 
             // Report analytics tag, if it exists
             if let Some (a) = &self.config.analytics {
@@ -209,29 +201,26 @@ impl SiteTree {
             }
 
             // Convert the source into output
-            let output: String = match convert(source, &self.root, &file, &self.config) {
-                BlogResult::Ok (ok) => ok,
-                BlogResult::Err (e) => {
-                    // Add errors to list
-                    result = result.errs(e);
-
-                    // Continue parsing
-                    continue;
-                },
-            };
+            let output: String = unwrap_or_continue!(
+                convert(source, &self.root, &file, &self.config),
+                result
+            );
 
             // Construct the output file
             let output_file = self.output_directory.join(file).with_extension(OUTPUT_FILE_EXT);
 
             // Create the output directory
-            if let Err (e) = fs::create_dir_all(&output_file.parent().unwrap()) {
-                result = result.err(e);
-            }
+            unwrap_result!(
+                fs::create_dir_all(&output_file.parent().unwrap()),
+                result
+            );
 
             // Write the output file
-            if let Err (e) = fs::write(&output_file, output) {
-                result = result.err_context(e, &format!("could not write output file '{}'", output_file.display()));
-            }
+            unwrap_result!(
+                fs::write(&output_file, output),
+                result,
+                &format!("could not write output file '{}'", output_file.display())
+            );
         }
 
         // Construct the stylesheet
@@ -251,9 +240,11 @@ impl SiteTree {
             };
 
             // Write the stylesheet
-            if let Err (e) = fs::write(&stylesheet, style) {
-                result = result.err_context(e, &format!("could not write stylesheet '{}'", stylesheet.display()));
-            }
+            unwrap_result!(
+                fs::write(&stylesheet, style),
+                result,
+                &format!("could not write stylesheet '{}'", stylesheet.display())
+            );
         }
 
         // Construct the favicon
@@ -270,14 +261,17 @@ impl SiteTree {
             let output_icon = self.output_directory.join(f);
 
             // Create the output directory
-            if let Err (e) = fs::create_dir_all(&output_icon.parent().unwrap()) {
-                result = result.err(e);
-            };
+            unwrap_result!(
+                fs::create_dir_all(&output_icon.parent().unwrap()),
+                result
+            );
 
             // Copy the icon
-            if let Err (e) = fs::copy(&source_icon, output_icon) {
-                result = result.err_context(e, &format!("could not find icon '{}'", source_icon.display()));
-            }
+            unwrap_result!(
+                fs::copy(&source_icon, output_icon),
+                result,
+                &format!("could not find icon '{}'", source_icon.display())
+            );
         }
 
         // Copy over media
@@ -296,14 +290,17 @@ impl SiteTree {
                 let output_media = self.output_directory.join(MEDIA_DIR_NAME).join(m);
 
                 // Create the output directory
-                if let Err (e) = fs::create_dir_all(&self.output_directory.join(MEDIA_DIR_NAME)) {
-                    result = result.err(e);
-                }
+                unwrap_result!(
+                    fs::create_dir_all(&self.output_directory.join(MEDIA_DIR_NAME)),
+                    result
+                );
 
                 // Copy the media
-                if let Err (e) = fs::copy(&source_media, output_media) {
-                    result = result.err_context(e, &format!("could not find media file '{}'", source_media.display()));
-                }
+                unwrap_result!(
+                    fs::copy(&source_media, output_media),
+                    result,
+                    &format!("could not find media file '{}'", source_media.display())
+                );
             }
         }
 
@@ -322,6 +319,9 @@ impl SiteTree {
     /// # Returns
     /// None.
     pub fn clean(&self) {
-        fs::remove_dir_all(&self.output_directory).unwrap();
+        // If we can't clean the directory, it doesn't exist
+        // and our job is already done for us... so we want
+        // to ignore the result of this function
+        let _ = fs::remove_dir_all(&self.output_directory);
     }
 }

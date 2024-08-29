@@ -16,7 +16,11 @@ use blog_cfg::{
     SiteStyle,
 };
 
-use blog_err::BlogResult;
+use blog_err::{
+    BlogResult,
+    unwrap_or_return,
+    unwrap_result,
+};
 
 use blog_env::{
     SOURCE_DIR_NAME,
@@ -76,15 +80,12 @@ impl Emitter {
             // Get tag path
             let analytics_tag_path = root.join(SOURCE_DIR_NAME).join(&a.tag);
 
-            let analytics = match fs::read_to_string(analytics_tag_path) {
-                Ok (a) => a,
-                Err (e) => {
-                    // Store error
-                    result = result.err(e);
-
-                    String::new()
-                },
-            };
+            // Read analytics file
+            let analytics = unwrap_result!(
+                fs::read_to_string(&analytics_tag_path),
+                result,
+                &format!("could not read analytics tag '{}'", analytics_tag_path.display())
+            );
 
             output.push_str(&format!("{}\n\n", analytics));
         }
@@ -153,6 +154,6 @@ impl Emitter {
         // Close body and document
         output.push_str("</body>\n\n</html>");
 
-        result.ok(output)
+        unwrap_or_return!(result)
     }
 }

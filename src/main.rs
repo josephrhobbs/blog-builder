@@ -3,7 +3,10 @@
 use std::process::exit;
 
 use blog::{
-    err::BlogResult,
+    err::{
+        BlogResult,
+        unwrap_or_return,
+    },
     cli::{
         Cli,
         Subcommand,
@@ -46,9 +49,6 @@ fn run() -> BlogResult<()> {
     // Get the sitetree, if it exists
     let sitetree = SiteTree::get();
 
-    // Initialize result
-    let result = BlogResult::default();
-
     use Subcommand::*;
     match cli.subcommand {
         New (name) => {
@@ -56,11 +56,7 @@ fn run() -> BlogResult<()> {
                 println!("{:>10} new site with name '{}'", "Creating".bold().green(), name.bold().bright_blue());
             }
 
-            // Handle errors
-            match SiteTree::new(name) {
-                BlogResult::Ok (ok) => result.ok(ok),
-                BlogResult::Err (e) => result.errs(e),
-            }
+            unwrap_or_return!(SiteTree::new(name))
         },
         Build => {
             if cli.verbosity > 0 {
@@ -68,22 +64,13 @@ fn run() -> BlogResult<()> {
             }
 
             // Unwrap site tree
-            let sitetree = match sitetree {
-                BlogResult::Ok (st) => st,
-                BlogResult::Err (e) => return result.errs(e),
-            };
+            let sitetree = unwrap_or_return!(sitetree);
             
-            // Handle errors
-            let duration = match sitetree.build(convert, cli.verbosity) {
-                BlogResult::Ok (duration) => duration,
-                BlogResult::Err (e) => {
-                    // Clean up erroneous output
-                    sitetree.clean();
-
-                    // Return errors
-                    return result.errs(e);
-                },
-            };
+            // Handle errors or clean
+            let duration = unwrap_or_return!(
+                sitetree.build(convert, cli.verbosity),
+                sitetree.clean()
+            );
 
             // We're done here!  Print time elapsed and return
             if cli.verbosity > 0 {
@@ -93,8 +80,6 @@ fn run() -> BlogResult<()> {
                     duration.as_micros() as f64 / 1000.0,
                 );
             }
-
-            result
         },
         Clean => {
             if cli.verbosity > 0 {
@@ -102,32 +87,19 @@ fn run() -> BlogResult<()> {
             }
 
             // Unwrap site tree
-            let sitetree = match sitetree {
-                BlogResult::Ok (st) => st,
-                BlogResult::Err (e) => return result.errs(e),
-            };
+            let sitetree = unwrap_or_return!(sitetree);
 
             // Clean up
             sitetree.clean();
-
-            result
         },
-        Version => {
-            // Print version info
-            println!(
-                "{}\n{:>10} {}",
-                "The Blog Builder".bold().bright_white(),
-                "Version".bold().bright_yellow(),
-                VERSION,
-            );
-
-            result
-        },
-        Help => {
-            // Print help info
-            help();
-
-            result
-        },
+        Version => println!(
+            "{}\n{:>10} {}",
+            "The Blog Builder".bold().bright_white(),
+            "Version".bold().bright_yellow(),
+            VERSION,
+        ),
+        Help => help(),
     }
+
+    BlogResult::default()
 }

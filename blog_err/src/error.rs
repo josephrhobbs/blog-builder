@@ -114,6 +114,83 @@ impl<T: Default> Default for BlogResult<T> {
     }
 }
 
+#[macro_export]
+/// Unwrap a `BlogError` or return its errors.
+macro_rules! unwrap_or_return {
+    ($expr:expr) => {
+        match $expr {
+            BlogResult::Ok (ok) => ok,
+            BlogResult::Err (e) => return BlogResult::Err (e),
+        }
+    };
+    ($expr:expr, $before_return:expr) => {
+        match $expr {
+            BlogResult::Ok (ok) => ok,
+            BlogResult::Err (e) => {
+                $before_return;
+                return BlogResult::Err (e)
+            },
+        }
+    };
+}
+
+#[macro_export]
+/// Unwrap a `BlogError` or continue a loop.
+macro_rules! unwrap_or_continue {
+    ($expr:expr, $result:ident) => {
+        match $expr {
+            BlogResult::Ok (ok) => ok,
+            BlogResult::Err (e) => {
+                $result = $result.errs(e);
+
+                continue;
+            },
+        }
+    };
+}
+
+#[macro_export]
+/// Unwrap a `Result` or return its error.
+macro_rules! unwrap_result_or_return {
+    ($expr:expr) => {
+        match $expr {
+            Ok (ok) => ok,
+            Err (e) => return BlogResult::default().err(e),
+        }
+    };
+    ($expr:expr, $cxt:expr) => {
+        match $expr {
+            Ok (ok) => ok,
+            Err (e) => return BlogResult::default().err_context(e, $cxt),
+        }
+    };
+}
+
+#[macro_export]
+/// Unwrap a `Result` or handle its error.
+macro_rules! unwrap_result {
+    ($expr:expr, $result:ident) => {
+        match $expr {
+            Ok (ok) => ok,
+            Err (e) => {
+                $result = $result.err(e);
+
+                Default::default()
+            },
+        }
+    };
+    ($expr:expr, $result:ident, $cxt:expr) => {
+        match $expr {
+            Ok (ok) => ok,
+            Err (e) => {
+                $result = $result.err_context(e, $cxt);
+
+                Default::default()
+            },
+        }
+    };
+}
+
 /// Error types thrown by the Blog Builder.
 pub enum BlogError {
     /// Could not find root.

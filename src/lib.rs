@@ -36,6 +36,7 @@ pub mod err {
     pub use blog_err::{
         BlogError,
         BlogResult,
+        unwrap_or_return,
     };
 }
 
