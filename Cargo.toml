@@ -36,24 +36,18 @@ colored = "2.1.0"
 
 [dependencies.blog_cfg]
 path = "./blog_cfg"
-version = "0.1.0"
 
 [dependencies.blog_cli]
 path = "./blog_cli"
-version = "0.1.0"
 
 [dependencies.blog_cvt]
 path = "./blog_cvt"
-version = "0.1.0"
 
 [dependencies.blog_env]
 path = "./blog_env"
-version = "0.1.0"
 
 [dependencies.blog_err]
 path = "./blog_err"
-version = "0.1.0"
 
 [dependencies.blog_str]
 path = "./blog_str"
-version = "0.1.0"
