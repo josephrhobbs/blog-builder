@@ -46,13 +46,25 @@ Hyperlinks are supported in the Markdown style.
 
 ## Images
 
-Images are supported using the following syntax.
+### Full-Width Images
+
+Images are supported using the following syntax.  The images will be rendered at full width.
 
 ```
 ::image[alternate text][/path/to/image]
 ```
 
 The `image` control sequence must be placed at the beginning of a line.
+
+### Floating Images
+
+Floating images are supported using the following syntax.  The images will be rendered at 25% width on the left half of the screen.
+
+```
+::float[alternate text][/path/to/image]
+```
+
+The `float` control sequence must be placed at the beginning of a line.
 
 ## Notice Banner
 

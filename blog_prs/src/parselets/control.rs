@@ -65,6 +65,7 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
     // How long should the list be?
     let len: usize = match ctrl {
         "image" => 2,
+        "float" => 2,
         "notice" => 1,
         "tile" => 4,
         _ => return Expression::Error (ParseError::UnrecognizedControl (ctrl.to_owned())),
@@ -80,7 +81,11 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
     }
 
     match ctrl {
-        "image" => Expression::Image {
+        "image" => Expression::FullImage {
+            alt: values[0].to_owned(),
+            href: values[1].to_owned(),
+        },
+        "float" => Expression::FloatImage {
             alt: values[0].to_owned(),
             href: values[1].to_owned(),
         },

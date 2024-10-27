@@ -52,8 +52,17 @@ pub enum Expression {
         href: String,
     },
 
-    /// Image (img).
-    Image {
+    /// Floating image (img.float).
+    FloatImage {
+        /// Alternate text.
+        alt: String,
+
+        /// URI of image.
+        href: String,
+    },
+
+    /// Full-width image (img.full).
+    FullImage {
         /// Alternate text.
         alt: String,
 
@@ -114,10 +123,14 @@ impl Display for Expression {
                 text,
                 href,
             } => format!("[{}]({})", text, href),
-            Image {
+            FullImage {
                 alt,
                 href,
-            } => format!("[image] [{}][{}]", alt, href),
+            } => format!("[full-image] [{}][{}]", alt, href),
+            FloatImage {
+                alt,
+                href,
+            } => format!("[float-image] [{}][{}]", alt, href),
             Tile {
                 title,
                 description,
@@ -197,10 +210,14 @@ impl Expression {
             } else {
                 format!("<a href=\"{}\">{}</a>", href, text)
             },
-            Image {
+            FullImage {
                 alt,
                 href,
-            } => format!("<img src=\"{}\" alt=\"{}\">", href, alt),
+            } => format!("<img class=\"full\" src=\"{}\" alt=\"{}\">", href, alt),
+            FloatImage {
+                alt,
+                href,
+            } => format!("<img class=\"float\" src=\"{}\" alt=\"{}\">", href, alt),
             Tile {
                 title,
                 description,
