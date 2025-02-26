@@ -33,6 +33,7 @@
     body {
         font-family: "Computer Modern", serif;
         margin: 96px 192px 96px 192px;
+        background-color: #f7f4ee;
     }
 
     h1 {
@@ -88,6 +89,7 @@
     body {
         font-family: "Computer Modern", serif;
         margin: 96px 48px 96px 48px;
+        background-color: #f7f4ee;
     }
 
     h1 {
