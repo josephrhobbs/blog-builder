@@ -22,6 +22,9 @@ pub struct CharStream {
     /// 
     /// Text inside bracketed expressions ignore emphasis, etc.
     parens: usize,
+
+    /// Are we in an equation?
+    equation: bool,
 }
 
 impl CharStream {
@@ -40,6 +43,7 @@ impl CharStream {
             index: 0,
             brackets: 0,
             parens: 0,
+            equation: false,
         }
     }
 
@@ -131,7 +135,7 @@ impl CharStream {
                     class: Hashes,
                 }
             },
-            Emphasis => {
+            Emphasis => if !self.equation {
                 let mut value = String::new();
 
                 value.push(first);
@@ -149,6 +153,11 @@ impl CharStream {
                 Token {
                     value,
                     class: Emphasis,
+                }
+            } else {
+                Token {
+                    class: Paragraph,
+                    value: first.to_string(),
                 }
             },
             Paragraph => {
@@ -243,10 +252,13 @@ impl CharStream {
                 return None;
             },
             Backslash => if let Some (t) = self.peek() {
-                // Check for a bracket (this indicates an equation)
+                // Check for a bracket or parenthesis (this indicates an equation)
                 if TokenClass::class(t) == OpenSquare {
                     // Consume the bracket
                     let _ = self.next();
+
+                    // We're now in an equation
+                    self.equation = true;
 
                     Token {
                         class: Paragraph,
@@ -256,9 +268,34 @@ impl CharStream {
                     // Consume the bracket
                     let _ = self.next();
 
+                    // We're no longer in an equation
+                    self.equation = false;
+
                     Token {
                         class: Paragraph,
                         value: "\\]".to_string(),
+                    }
+                } else if TokenClass::class(t) == OpenParen {
+                    // Consume the parenthesis
+                    let _ = self.next();
+
+                    // We're now in an equation
+                    self.equation = true;
+
+                    Token {
+                        class: Paragraph,
+                        value: "\\(".to_string(),
+                    }
+                } else if TokenClass::class(t) == CloseParen {
+                    // Consume the parenthesis
+                    let _ = self.next();
+
+                    // We're no longer in an equation
+                    self.equation = false;
+
+                    Token {
+                        class: Paragraph,
+                        value: "\\)".to_string(),
                     }
                 } else {
                     // We didn't get our bracket

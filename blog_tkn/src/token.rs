@@ -15,7 +15,7 @@ pub enum TokenClass {
     /// Open square bracket.
     OpenSquare,
 
-    /// Close square bracker.
+    /// Close square bracket.
     CloseSquare,
 
     /// Open parenthesis.
