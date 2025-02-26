@@ -242,6 +242,35 @@ impl CharStream {
                 // Unexpected EOF
                 return None;
             },
+            Backslash => if let Some (t) = self.peek() {
+                // Check for a bracket (this indicates an equation)
+                if TokenClass::class(t) == OpenSquare {
+                    // Consume the bracket
+                    let _ = self.next();
+
+                    Token {
+                        class: Paragraph,
+                        value: "\\[".to_string(),
+                    }
+                } else if TokenClass::class(t) == CloseSquare {
+                    // Consume the bracket
+                    let _ = self.next();
+
+                    Token {
+                        class: Paragraph,
+                        value: "\\]".to_string(),
+                    }
+                } else {
+                    // We didn't get our bracket
+                    Token {
+                        class: Paragraph,
+                        value: "\\".to_string(),
+                    }
+                }
+            } else {
+                // Unexpected EOF
+                return None;
+            },
             Menu => Token {
                 class: Menu,
                 value: "~".to_string(),

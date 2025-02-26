@@ -30,6 +30,9 @@ pub enum TokenClass {
     /// Control sequence.
     Control,
 
+    /// Backslash.
+    Backslash,
+
     /// Tilde (for menu).
     Menu,
 }
@@ -54,6 +57,7 @@ impl TokenClass {
             CloseParen => "CloseParen",
             Emphasis => "Emphasis",
             Control => "Control",
+            Backslash => "Backslash",
             Menu => "Menu",
         };
 
@@ -80,6 +84,7 @@ impl TokenClass {
             '~' => Menu,
             '*' | '_' => Emphasis,
             ':' => Control,
+            '\\' => Backslash,
             _ => Paragraph,
         }
     }
