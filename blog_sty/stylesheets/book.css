@@ -87,7 +87,7 @@
     
     body {
         font-family: "Computer Modern", serif;
-        margin: 96px;
+        margin: 96px 48px 96px 48px;
     }
 
     h1 {
