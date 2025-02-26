@@ -109,6 +109,7 @@ impl Emitter {
             use SiteStyle::*;
             let links = match s {
                 Tech => links::TECH,
+                Book => links::BOOK,
             };
             output.push_str(&format!("{}\n\n", links));
         }

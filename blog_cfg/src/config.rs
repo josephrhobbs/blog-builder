@@ -54,6 +54,9 @@ pub struct SiteConfig {
 pub enum SiteStyle {
     /// Technology style.
     Tech,
+
+    /// Book style.
+    Book,
 }
 
 // Used for debugging.
@@ -62,6 +65,7 @@ impl fmt::Display for SiteStyle {
         use SiteStyle::*;
         let output = match self {
             Tech => "tech",
+            Book => "book",
         };
 
         write!(f, "{}", output)

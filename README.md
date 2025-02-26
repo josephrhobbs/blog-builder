@@ -44,7 +44,7 @@ Create a new page by creating a Markdown file anywhere in `source/`.
 |   source
     |   index.md
     |   something
-        | new-page.md
+        |   new-page.md
 ```
 
 Execute `blog build`.  This new page will be accessible at `html/something/new-page.html` on your machine and `/something/new-page.html` on your website.
@@ -108,10 +108,10 @@ Create the `media/` subdirectory inside of `source/`.
 |   source
     |   index.md
     |   media
-        | example.png
+        |   example.png
 ```
 
-You may create any number of media files (for example: images, video, audio, etc.) in this directory.
+You may create any number of media files (for example: images, video, audio, fonts, etc.) in this directory.
 
 Ensure to update your `blog.toml` file to reflect the new media.  Note that you do not include the `media/`
 directory in the file path because all media is assumed to be stored in the `media/` directory.
@@ -129,9 +129,9 @@ Execute `blog build`.  You will see that `html/media/` will include all media in
 |   source
     |   index.md
     |   media
-        | example.png
+        |   example.png
 |   html
     |   index.html
     |   media
-        | example.png
+        |   example.png
 ```

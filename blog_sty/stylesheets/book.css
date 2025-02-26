@@ -1,0 +1,170 @@
+:root {
+    --spaceblue: #212999;
+    --flamered: #ad2626;
+}
+
+@font-face {
+    font-family: "Computer Modern";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunbi.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Computer Modern";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunbx.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Computer Modern";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunti.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Computer Modern";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunrm.ttf");
+}
+
+@media screen and (min-device-width: 768px) {
+    /* For desktop */
+        
+    body {
+        font-family: "Computer Modern", serif;
+        margin: 96px 192px 96px 192px;
+    }
+
+    h1 {
+        font-size: 48px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 32px;
+    }
+
+    h3 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 24px;
+        text-indent: 48px;
+        line-height: 48px;
+        text-align: justify;
+    }
+
+    p a {
+        text-decoration: none;
+        color: var(--flamered);
+    }
+
+    div.menu {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    div.menu a {
+        margin: 8px 20px;
+        padding: 8px;
+        text-decoration: none;
+        color: var(--flamered);
+    }
+
+    div.menu a:hover {
+        margin: 8px 20px 6px 20px;
+        color: black;
+        border-bottom: 2px solid black;
+    }
+}
+
+@media screen and (max-device-width: 768px) {
+    /* For mobile */
+    
+    body {
+        font-family: "Computer Modern", serif;
+        margin: 96px;
+    }
+
+    h1 {
+        font-size: 72px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 48px;
+    }
+
+    h3 {
+        font-size: 36px;
+    }
+
+    p {
+        font-size: 30px;
+        text-indent: 48px;
+        line-height: 72px;
+        text-align: justify;
+    }
+
+    p a {
+        text-decoration: none;
+        color: var(--flamered);
+    }
+
+    div.menu {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+        font-size: 42px;
+    }
+
+    div.menu a {
+        margin: 8px 20px;
+        padding: 8px;
+        text-decoration: none;
+        color: var(--flamered);
+    }
+}
+
+@media print {
+    /* For print */
+    
+    body {
+        font-family: "Computer Modern", serif;
+        margin: 48px;
+    }
+
+    h1 {
+        font-size: 32px;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 18px;
+    }
+
+    p {
+        font-size: 18px;
+        text-indent: 36px;
+        line-height: 36px;
+        text-align: justify;
+    }
+
+    p a {
+        text-decoration: none;
+        color: var(--flamered);
+    }
+
+    div.menu {
+        display: none;
+    }
+}
