@@ -11,7 +11,7 @@ mod help;
 pub use help::help;
 
 /// Software version number.
-pub const VERSION: &str = "0.3.0";
+pub const VERSION: &str = "0.4.0";
 
 /// Configuration file name.
 pub const CONFIG_FILE_NAME: &str = "blog.toml";
