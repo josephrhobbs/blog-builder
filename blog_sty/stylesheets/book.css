@@ -4,34 +4,58 @@
 }
 
 @font-face {
-    font-family: "Computer Modern";
+    font-family: "Computer Modern Serif";
     src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunbi.ttf");
     font-weight: bold;
     font-style: italic;
 }
 
 @font-face {
-    font-family: "Computer Modern";
+    font-family: "Computer Modern Serif";
     src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunbx.ttf");
     font-weight: bold;
 }
 
 @font-face {
-    font-family: "Computer Modern";
+    font-family: "Computer Modern Serif";
     src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunti.ttf");
     font-style: italic;
 }
 
 @font-face {
-    font-family: "Computer Modern";
+    font-family: "Computer Modern Serif";
     src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunrm.ttf");
+}
+
+@font-face {
+    font-family: "Computer Modern Sans";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunso.ttf");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Computer Modern Sans";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunsx.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Computer Modern Sans";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunsi.ttf");
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Computer Modern Sans";
+    src: url("https://raw.githubusercontent.com/josephrhobbs/computer-modern/master/cmunss.ttf");
 }
 
 @media screen and (min-device-width: 768px) {
     /* For desktop */
         
     body {
-        font-family: "Computer Modern", serif;
+        font-family: "Computer Modern Serif", serif;
         margin: 96px 192px 96px 192px;
         background-color: #f7f4ee;
     }
@@ -62,6 +86,7 @@
     }
 
     div.menu {
+        font-family: "Computer Modern Sans", sans-serif;
         display: flex;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -87,7 +112,7 @@
     /* For mobile */
     
     body {
-        font-family: "Computer Modern", serif;
+        font-family: "Computer Modern Serif", serif;
         margin: 96px 48px 96px 48px;
         background-color: #f7f4ee;
     }
@@ -118,6 +143,7 @@
     }
 
     div.menu {
+        font-family: "Computer Modern Sans", sans-serif;
         display: flex;
         margin-top: 20px;
         margin-bottom: 20px;
@@ -137,7 +163,7 @@
     /* For print */
     
     body {
-        font-family: "Computer Modern", serif;
+        font-family: "Computer Modern Serif", serif;
         margin: 48px;
     }
 
