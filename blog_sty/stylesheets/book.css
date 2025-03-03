@@ -1,6 +1,7 @@
 :root {
     --spaceblue: #212999;
     --flamered: #ad2626;
+    --steelgray: #404040;
 }
 
 @font-face {
@@ -56,24 +57,35 @@
         
     body {
         font-family: "Computer Modern Serif", serif;
-        margin: 96px 192px 96px 192px;
+        margin: 0px;
         background-color: #f7f4ee;
     }
 
     h1 {
+        font-family: "Lexend", sans-serif;
         font-size: 48px;
         text-align: center;
+        background-color: var(--flamered);
+        color: white;
+        margin: 0px;
+        padding: 48px 0px 0px 0px;
     }
 
     h2 {
+        margin: 24px 192px 24px 192px;
+        font-family: "Lexend", sans-serif;
         font-size: 32px;
     }
 
     h3 {
+        margin: 24px 192px 24px 192px;
+        font-family: "Lexend", sans-serif;
         font-size: 24px;
     }
 
     p {
+        margin-left: 192px;
+        margin-right: 192px;
         font-size: 24px;
         text-indent: 48px;
         line-height: 48px;
@@ -88,23 +100,30 @@
     div.menu {
         font-family: "Computer Modern Sans", sans-serif;
         display: flex;
-        margin-top: 20px;
-        margin-bottom: 20px;
         justify-content: center;
         font-size: 30px;
+        background-color: var(--flamered);
+        margin-bottom: 48px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        position: sticky;
+        top: 0px;
+        z-index: 9999;
     }
 
     div.menu a {
-        margin: 8px 30px;
-        padding: 8px;
+        margin: 16px;
+        padding: 8px 20px;
         text-decoration: none;
         color: var(--flamered);
+        background-color: white;
+        border-radius: 16px;
+        transition: 0.8s;
     }
 
     div.menu a:hover {
-        margin: 8px 30px 6px 30px;
-        color: black;
-        border-bottom: 2px solid black;
+        color: var(--steelgray);
+        transition: 0.8s;
     }
 }
 
@@ -113,24 +132,35 @@
     
     body {
         font-family: "Computer Modern Serif", serif;
-        margin: 96px 48px 96px 48px;
+        margin: 0px;
         background-color: #f7f4ee;
     }
 
     h1 {
+        font-family: "Lexend", sans-serif;
         font-size: 72px;
         text-align: center;
+        background-color: var(--flamered);
+        color: white;
+        margin: 0px;
+        padding: 48px 0px 0px 0px;
     }
 
     h2 {
+        margin: 12px 48px 12px 48px;
+        font-family: "Lexend", sans-serif;
         font-size: 60px;
     }
 
     h3 {
+        margin: 12px 48px 12px 48px;
+        font-family: "Lexend", sans-serif;
         font-size: 48px;
     }
 
     p {
+        margin-left: 48px;
+        margin-right: 48px;
         font-size: 48px;
         text-indent: 48px;
         line-height: 72px;
@@ -145,17 +175,24 @@
     div.menu {
         font-family: "Computer Modern Sans", sans-serif;
         display: flex;
-        margin-top: 20px;
-        margin-bottom: 20px;
+        padding-top: 24px;
+        padding-bottom: 24px;
+        margin-bottom: 48px;
         justify-content: center;
         font-size: 42px;
+        background-color: var(--flamered);
+        position: sticky;
+        top: 0px;
+        z-index: 9999;
     }
 
     div.menu a {
         margin: 8px 30px;
-        padding: 8px;
+        padding: 12px 24px;
+        border-radius: 24px;
         text-decoration: none;
         color: var(--flamered);
+        background-color: white;
     }
 }
 
@@ -168,15 +205,18 @@
     }
 
     h1 {
+        font-family: "Lexend", sans-serif;
         font-size: 32px;
         text-align: center;
     }
 
     h2 {
+        font-family: "Lexend", sans-serif;
         font-size: 24px;
     }
 
     h3 {
+        font-family: "Lexend", sans-serif;
         font-size: 18px;
     }
 
