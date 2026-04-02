@@ -28,6 +28,15 @@ pub enum Expression {
     /// H6.
     H6 (String),
 
+    /// Byline.
+    Byline {
+        /// Article author.
+        author: String,
+
+        /// Date of last update.
+        date: String,
+    },
+
     /// Paragraph (p).
     Paragraph (Vec<Expression>),
 
@@ -109,6 +118,10 @@ impl Display for Expression {
             H4 (s) => format!("[h4] {}", s),
             H5 (s) => format!("[h5] {}", s),
             H6 (s) => format!("[h6] {}", s),
+            Byline {
+                author,
+                date,
+            } => format!("[byline] [{}][{}]", author, date),
             Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
@@ -172,6 +185,10 @@ impl Expression {
             H4 (s) => format!("<h4>{}</h4>", s),
             H5 (s) => format!("<h5>{}</h5>", s),
             H6 (s) => format!("<h6>{}</h6>", s),
+            Byline {
+                author,
+                date,
+            } => format!("<div class=\"byline\"><div>{}</div><div>{}</div></div>", author, date),
             Text (s) => s.to_string(),
             Paragraph (l) => {
                 let mut output = String::new();
