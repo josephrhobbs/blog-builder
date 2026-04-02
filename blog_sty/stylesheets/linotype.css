@@ -24,8 +24,10 @@
     h2 {
         font-family: "Inter Tight", sans-serif;
         font-size: 28px;
-        color: #222222;
+        color: var(--spaceblue);
         margin: 24px 25% 24px 25%;
+        border-top: 1px solid rgba(17, 17, 17, 0.15);
+        padding-top: 24px;
     }
 
     h3 {
@@ -81,20 +83,20 @@
         top: 0px;
         padding-top: 24px;
         padding-bottom: 24px;
+        width: 25%;
     }
 
     div.menu a {
         margin: 24px 36px;
         text-decoration: none;
         color: var(--spaceblue);
-        transition: 0.8s;
         display: block;
+        border-bottom: 2px solid #ffffff;
     }
 
     div.menu a:hover {
         color: var(--steelgray);
         border-bottom: 2px solid var(--steelgray);
-        transition: 0.8s;
     }
 
     div.byline {
@@ -102,15 +104,16 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        width: 100%;
-        min-height: 100px;
-        height: auto;
+        width: 50%;
         border-radius: 20px;
         text-decoration: none;
-        color: #666666;
-        font-size: 24px;
+        color: var(--spaceblue);
+        font-size: 18px;
         font-family: "Inter Sans", sans-serif;
         font-weight: 600;
+        margin: 24px 25% 24px 25%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 }
 
