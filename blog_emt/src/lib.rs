@@ -110,6 +110,7 @@ impl Emitter {
             let links = match s {
                 Tech => links::TECH,
                 Book => links::BOOK,
+                Linotype => links::LINOTYPE,
             };
             output.push_str(&format!("{}\n\n", links));
         }

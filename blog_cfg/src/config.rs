@@ -57,6 +57,9 @@ pub enum SiteStyle {
 
     /// Book style.
     Book,
+
+    /// Linotype style.
+    Linotype,
 }
 
 // Used for debugging.
@@ -66,6 +69,7 @@ impl fmt::Display for SiteStyle {
         let output = match self {
             Tech => "tech",
             Book => "book",
+            Linotype => "linotype",
         };
 
         write!(f, "{}", output)

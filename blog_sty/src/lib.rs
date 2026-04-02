@@ -13,6 +13,9 @@ pub mod style {
 
     /// Book stylesheet.
     pub const BOOK: &str = include_str!("../stylesheets/book.css");
+
+    /// Linotype stylesheet.
+    pub const LINOTYPE: &str = include_str!("../stylesheets/linotype.css");
 }
 
 /// Links to fonts, etc.
@@ -22,4 +25,7 @@ pub mod links {
 
     /// Book links.
     pub const BOOK: &str = include_str!("../links/book.html");
+
+    /// Linotype links.
+    pub const LINOTYPE: &str = include_str!("../links/linotype.html");
 }

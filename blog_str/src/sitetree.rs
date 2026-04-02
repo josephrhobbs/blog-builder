@@ -238,6 +238,7 @@ impl SiteTree {
             let style = match s {
                 Tech => style::TECH,
                 Book => style::BOOK,
+                Linotype => style::LINOTYPE,
             };
 
             // Write the stylesheet
