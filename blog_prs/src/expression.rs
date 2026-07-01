@@ -94,6 +94,21 @@ pub enum Expression {
         image: String,
     },
 
+    /// Math block.
+    MathBlock {
+        /// Type of block (definition, theorem, lemma, ...).
+        blocktype: String,
+
+        /// Title of block.
+        title: String,
+    },
+
+    /// Black square (QED).
+    Qed,
+
+    /// End math block.
+    EndMath,
+
     /// Notice banner (div.notice).
     Notice (String),
 
@@ -150,6 +165,12 @@ impl Display for Expression {
                 href,
                 image,
             } => format!("[tile] [{}][{}][{}][{}]", title, description, href, image),
+            MathBlock {
+                blocktype,
+                title,
+            } => format!("[mathblock] [{}][{}]", blocktype, title),
+            EndMath => "[endmath]".to_string(),
+            Qed => "[qed]".to_string(),
             Notice (message) => format!("[notice] [{}]", message),
             Newline => "[newline]".to_string(),
             Menu => "[menu]".to_string(),
@@ -241,6 +262,12 @@ impl Expression {
                 href,
                 image,
             } => format!("<div class=\"tile\" onclick=\"window.location='{}';\" style=\"background-image: url('{}'); cursor: pointer; background-position: center;\"><div>{}</div><br><div class=\"desc\">{}</div></div>", href, image, title, description),
+            MathBlock {
+                blocktype,
+                title,
+            } => format!("<div class=\"mathblock\"><span>{}. {}</span>", blocktype, title),
+            EndMath => "</div>".to_string(),
+            Qed => "<p>&#x25A0;</p>".to_string(),
             Notice (message) => format!("<div class=\"notice\">{}</div>", message),
             Newline => "\n\n".to_string(),
             Menu => unreachable!(),

@@ -69,6 +69,9 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
         "float" => 2,
         "notice" => 1,
         "tile" => 4,
+        "mathblock" => 2,
+        "endmath" => 0,
+        "qed" => 0,
         _ => return Expression::Error (ParseError::UnrecognizedControl (ctrl.to_owned())),
     };
 
@@ -101,6 +104,12 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
             href: values[2].to_owned(),
             image: values[3].to_owned(),
         },
+        "mathblock" => Expression::MathBlock {
+            blocktype: values[0].to_owned(),
+            title: values[1].to_owned(),
+        },
+        "endmath" => Expression::EndMath,
+        "qed" => Expression::Qed,
 
         // We already checked above that this is a valid control sequence
         _ => unreachable!(),

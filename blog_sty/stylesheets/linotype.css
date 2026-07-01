@@ -1,5 +1,5 @@
 :root {
-    --spaceblue: #212999;
+    --flamered: #7b230b;
     --steelgray: #404040;
 }
 
@@ -10,6 +10,7 @@
         font-family: "Inter Tight", sans-serif;
         margin: 0px;
         background-color: #ffffff;
+        color: #222222;
     }
 
     h1 {
@@ -24,7 +25,7 @@
     h2 {
         font-family: "Inter Tight", sans-serif;
         font-size: 28px;
-        color: var(--spaceblue);
+        color: var(--flamered);
         margin: 24px 25% 24px 25%;
         border-top: 1px solid rgba(17, 17, 17, 0.15);
         padding-top: 24px;
@@ -72,12 +73,12 @@
 
     p a {
         text-decoration: none;
-        color: var(--spaceblue);
+        color: var(--flamered);
     }
 
     div.menu {
         font-family: "Inter Tight", sans-serif;
-        font-size: 24px;
+        font-size: 20px;
         position: fixed;
         float: left;
         top: 0px;
@@ -89,7 +90,7 @@
     div.menu a {
         margin: 24px 36px;
         text-decoration: none;
-        color: var(--spaceblue);
+        color: var(--flamered);
         display: block;
         border-bottom: 2px solid #ffffff;
     }
@@ -97,6 +98,31 @@
     div.menu a:hover {
         color: var(--steelgray);
         border-bottom: 2px solid var(--steelgray);
+    }
+
+    div.mathblock {
+        margin-left: 25%;
+        margin-right: 25%;
+        font-size: 18px;
+        text-indent: 30px;
+        line-height: 30px;
+        text-align: justify;
+        padding: 12px;
+        background-color: #eeeeee;
+        border-radius: 12px;
+        margin-bottom: 24px;
+    }
+    
+    div.mathblock span {
+        color: var(--flamered);
+        font-weight: bold;
+        font-size: 18px;
+        text-indent: 30px;
+        line-height: 30px;
+    }
+
+    div.mathblock p {
+        margin: 0px;
     }
 
     div.byline {
@@ -107,7 +133,7 @@
         width: 50%;
         border-radius: 20px;
         text-decoration: none;
-        color: var(--spaceblue);
+        color: var(--flamered);
         font-size: 18px;
         font-family: "Inter Sans", sans-serif;
         font-weight: 600;
@@ -229,22 +255,49 @@
     body {
         font-family: "Inter Tight", sans-serif;
         margin: 48px;
+        color: #222222;
     }
 
     h1 {
         font-family: "Playfair", serif;
-        font-size: 32px;
+        font-size: 40px;
         text-align: center;
+        color: #222222;
     }
 
     h2 {
-        font-family: "Playfair", serif;
+        font-family: "Inter Tight", sans-serif;
         font-size: 24px;
+        color: var(--flamered);
+        border-top: 1px solid rgba(17, 17, 17, 0.3);
+        padding-top: 18px;
     }
 
     h3 {
-        font-family: "Playfair", serif;
+        font-family: "Inter Tight", sans-serif;
+        font-size: 20px;
+        color: #222222;
+    }
+
+    h4 {
+        font-family: "Inter Tight", sans-serif;
         font-size: 18px;
+        color: var(--steelgray);
+        text-transform: uppercase;
+    }
+
+    h5 {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 18px;
+        color: #222222;
+        text-transform: uppercase;
+    }
+
+    h6 {
+        font-family: "Inter Tight", sans-serif;
+        font-size: 16px;
+        color: var(--steelgray);
+        text-transform: uppercase;
     }
 
     p {
@@ -261,5 +314,24 @@
 
     div.menu {
         display: none;
+    }
+
+    div.mathblock {
+        font-size: 18px;
+        text-indent: 36px;
+        line-height: 36px;
+        text-align: justify;
+        padding: 12px;
+        background-color: #eeeeee;
+        border-radius: 12px;
+        margin-bottom: 24px;
+    }
+    
+    div.mathblock span {
+        color: var(--flamered);
+        font-weight: bold;
+        font-size: 18px;
+        text-indent: 30px;
+        line-height: 30px;
     }
 }
