@@ -89,6 +89,11 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
             alt: values[0].to_owned(),
             href: values[1].to_owned(),
         },
+        "titled" => Expression::TitledImage {
+            alt: values[0].to_owned(),
+            title: values[2].to_owned(),
+            href: values[1].to_owned(),
+        },
         "byline" => Expression::Byline {
             author: values[0].to_owned(),
             date: values[1].to_owned(),

@@ -79,6 +79,18 @@ pub enum Expression {
         href: String,
     },
 
+    /// Titled image (img.full).
+    TitledImage {
+        /// Alternate text.
+        alt: String,
+
+        /// Title text.
+        title: String,
+
+        /// URI of image.
+        href: String,
+    },
+
     /// Tile hyperlink (div.tile).
     Tile {
         /// Title text.
@@ -155,6 +167,11 @@ impl Display for Expression {
                 alt,
                 href,
             } => format!("[full-image] [{}][{}]", alt, href),
+            TitledImage {
+                alt,
+                title,
+                href,
+            } => format!("[titled-image] [{}][{}][{}]", alt, title, href),
             FloatImage {
                 alt,
                 href,
@@ -252,6 +269,11 @@ impl Expression {
                 alt,
                 href,
             } => format!("<img class=\"full\" src=\"{}\" alt=\"{}\">", href, alt),
+            TitledImage {
+                alt,
+                title,
+                href,
+            } => format!("<img class=\"full\" src=\"{}\" title=\"{}\" alt=\"{}\">", href, title, alt),
             FloatImage {
                 alt,
                 href,
