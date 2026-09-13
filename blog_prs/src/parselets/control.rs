@@ -65,6 +65,7 @@ fn build_expr(ctrl: &str, values: Vec<String>) -> Expression {
     // How long should the list be?
     let len: usize = match ctrl {
         "image" => 2,
+        "titled" => 3,
         "byline" => 2,
         "float" => 2,
         "notice" => 1,
