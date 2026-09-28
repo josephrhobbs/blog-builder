@@ -97,4 +97,19 @@
         text-decoration: none;
         color: var(--brightred);
     }
+
+    div.menu {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: center;
+        font-size: 36px;
+    }
+
+    div.menu a {
+        margin: 8px 20px;
+        padding: 8px;
+        text-decoration: none;
+        color: var(--brightred);
+    }
 }
