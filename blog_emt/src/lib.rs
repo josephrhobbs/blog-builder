@@ -111,6 +111,7 @@ impl Emitter {
                 Tech => links::TECH,
                 Book => links::BOOK,
                 Linotype => links::LINOTYPE,
+                Dark => links::DARK,
             };
             output.push_str(&format!("{}\n\n", links));
         }

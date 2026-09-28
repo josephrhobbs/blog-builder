@@ -1,0 +1,70 @@
+:root {
+    --flamered: #7b230b;
+    --steelgray: #404040;
+}
+
+@media screen and (min-device-width: 768px) {
+    /* For desktop */
+
+    body {
+        font-family: "Fira Code", monospace;
+        margin: 0px;
+        background-color: #303030;
+        color: #e0e0e0;
+    }
+
+    h1 {
+        font-size: 48px;
+        text-align: center;
+        color: #c7405e;
+        margin: 0px;
+        padding: 48px 0px 0px 0px;
+    }
+
+    p {
+        margin-left: 25%;
+        margin-right: 25%;
+        font-size: 18px;
+        text-indent: 30px;
+        line-height: 30px;
+        text-align: justify;
+    }
+
+    p a {
+        text-decoration: none;
+        color: #c7405e;
+    }
+}
+
+@media screen and (max-device-width: 768px) {
+    /* For mobile */
+    
+    body {
+        font-family: "Fira Code", monospace;
+        margin: 0px;
+        background-color: #303030;
+        color: #e0e0e0;
+    }
+
+    h1 {
+        font-size: 72px;
+        text-align: center;
+        color: #c7405e;
+        margin: 0px;
+        padding: 48px 0px 0px 0px;
+    }
+
+    p {
+        margin-left: 48px;
+        margin-right: 48px;
+        font-size: 48px;
+        text-indent: 48px;
+        line-height: 72px;
+        text-align: justify;
+    }
+
+    p a {
+        text-decoration: none;
+        color: #c7405e;
+    }
+}

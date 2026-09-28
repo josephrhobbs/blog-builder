@@ -16,6 +16,9 @@ pub mod style {
 
     /// Linotype stylesheet.
     pub const LINOTYPE: &str = include_str!("../stylesheets/linotype.css");
+
+    /// Dark stylesheet.
+    pub const DARK: &str = include_str!("../stylesheets/dark.css");
 }
 
 /// Links to fonts, etc.
@@ -28,4 +31,7 @@ pub mod links {
 
     /// Linotype links.
     pub const LINOTYPE: &str = include_str!("../links/linotype.html");
+
+    /// Dark links.
+    pub const DARK: &str = include_str!("../links/dark.html");
 }

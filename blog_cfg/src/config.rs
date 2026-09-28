@@ -60,6 +60,9 @@ pub enum SiteStyle {
 
     /// Linotype style.
     Linotype,
+
+    /// Dark style.
+    Dark,
 }
 
 // Used for debugging.
@@ -70,6 +73,7 @@ impl fmt::Display for SiteStyle {
             Tech => "tech",
             Book => "book",
             Linotype => "linotype",
+            Dark => "dark",
         };
 
         write!(f, "{}", output)

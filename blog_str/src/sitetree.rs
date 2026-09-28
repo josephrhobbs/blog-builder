@@ -239,6 +239,7 @@ impl SiteTree {
                 Tech => style::TECH,
                 Book => style::BOOK,
                 Linotype => style::LINOTYPE,
+                Dark => style::DARK,
             };
 
             // Write the stylesheet
